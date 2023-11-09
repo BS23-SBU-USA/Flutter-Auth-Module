@@ -17,7 +17,7 @@ class _SignUpNavigationBuilderState extends State<_SignUpNavigationBuilder> {
         Text(
           '${TextConstants.doNotHaveAccount}  ',
           style: AppTypography.semiBold14(
-            color: UIColors.secondary,
+            color: UIColors.pineGreen,
           ),
         ),
         GestureDetector(
@@ -25,7 +25,7 @@ class _SignUpNavigationBuilderState extends State<_SignUpNavigationBuilder> {
           child: Text(
             TextConstants.signUp,
             style: AppTypography.semiBold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
           ),
         ),

@@ -23,8 +23,8 @@ class SingleSignOn extends StatelessWidget {
         Stack(
           alignment: Alignment.center,
           children: [
-            Divider(
-              color: UIColors.grey20,
+            const Divider(
+              color: UIColors.timberWolf,
               thickness: 1,
             ),
             Container(
@@ -33,7 +33,7 @@ class SingleSignOn extends StatelessWidget {
               child: Text(
                 'OR',
                 style: AppTypography.regular14(
-                  color: UIColors.grey,
+                  color: UIColors.gray,
                 ),
               ),
             ),

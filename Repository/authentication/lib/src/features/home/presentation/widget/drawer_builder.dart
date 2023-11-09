@@ -50,7 +50,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
             child: DrawerHeaderWidget(),
           ),
@@ -59,7 +59,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                 updateState.status == UpdateProfileStatus.loading)
               const Center(
                 child: CircularProgressIndicator(
-                  color: UIColors.secondary,
+                  color: UIColors.pineGreen,
                 ),
               )
             else
@@ -81,7 +81,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                     child: Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2.sp,
-                        color: UIColors.grey,
+                        color: UIColors.gray,
                       ),
                     ),
                   )

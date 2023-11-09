@@ -24,6 +24,7 @@ class _UpdateProfileFormBuilderState
               onChanged: (value) {
                 _capitalizeFirstLetter(notifier.firstNameController);
               },
+              borderColor: UIColors.timberWolf,
               textEditingController: notifier.firstNameController,
               labelText: TextConstants.firstName,
               autocorrect: false,
@@ -32,6 +33,7 @@ class _UpdateProfileFormBuilderState
               onChanged: (value) {
                 _capitalizeFirstLetter(notifier.lastNameController);
               },
+              borderColor: UIColors.timberWolf,
               textEditingController: notifier.lastNameController,
               labelText: TextConstants.lastName,
               autocorrect: false,
@@ -42,9 +44,10 @@ class _UpdateProfileFormBuilderState
               label: Text(
                 TextConstants.phoneNumber,
                 style: AppTypography.bold14(
-                  color: UIColors.secondary,
+                  color: UIColors.pineGreen,
                 ),
               ),
+              borderColor: UIColors.timberWolf,
               maxLength: 10,
               prefix: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -58,7 +61,7 @@ class _UpdateProfileFormBuilderState
                   ),
                   Container(
                     width: 1,
-                    color: UIColors.secondary,
+                    color: UIColors.pineGreen,
                     margin: const EdgeInsets.only(right: 16),
                   ),
                 ],

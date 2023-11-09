@@ -377,13 +377,13 @@ class _InputFormFieldState extends State<InputFormField> {
           ? password.hidePasswordIcon ??
               Icon(
                 Icons.visibility_off,
-                color: UIColors.secondary,
+                color: UIColors.pineGreen,
                 size: 16.sp,
               )
           : password.showPasswordIcon ??
               Icon(
                 Icons.visibility,
-                color: UIColors.secondary,
+                color: UIColors.pineGreen,
                 size: 16.sp,
               ),
       splashColor: Colors.transparent,

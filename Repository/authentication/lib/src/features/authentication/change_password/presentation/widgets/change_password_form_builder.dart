@@ -33,7 +33,7 @@ class _ChangePasswordFormBuilderState
                 borderType: BorderType.bottom,
                 style: AppTypography.regular16(),
                 labelTextStyle: AppTypography.bold14(
-                  color: UIColors.secondary,
+                  color: UIColors.pineGreen,
                 ),
                 bottomMargin: 30.h,
                 password: EnabledPassword(),
@@ -50,7 +50,7 @@ class _ChangePasswordFormBuilderState
                 borderType: BorderType.bottom,
                 style: AppTypography.regular16(),
                 labelTextStyle: AppTypography.bold14(
-                  color: UIColors.secondary,
+                  color: UIColors.pineGreen,
                 ),
                 password: EnabledPassword(),
                 autocorrect: false,
@@ -74,7 +74,7 @@ class _ChangePasswordFormBuilderState
                 borderType: BorderType.bottom,
                 style: AppTypography.regular16(),
                 labelTextStyle: AppTypography.bold14(
-                  color: UIColors.secondary,
+                  color: UIColors.pineGreen,
                 ),
                 bottomMargin: 30.h,
                 autocorrect: false,

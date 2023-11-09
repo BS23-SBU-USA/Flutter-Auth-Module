@@ -32,7 +32,7 @@ class BuildTitleAndSubtitle extends StatelessWidget {
                   right: 0,
                   child: Container(
                     height: 8.h,
-                    color: UIColors.lightTeal,
+                    color: UIColors.verdigris,
                   ),
                 ),
                 Text(
@@ -55,7 +55,7 @@ class BuildTitleAndSubtitle extends StatelessWidget {
         Text(
           '$subtitleFirstPart\n$subtitleLastPart',
           style: AppTypography.regular14(
-            color: UIColors.black,
+            color: UIColors.gray,
           ),
           textAlign: TextAlign.center,
         ),

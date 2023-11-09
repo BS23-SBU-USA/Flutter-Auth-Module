@@ -24,7 +24,7 @@ class ScrollableWrapper extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: UIColors.primary,
+        backgroundColor: UIColors.white,
         appBar: appBar,
         body: SafeArea(
           child: LayoutBuilder(

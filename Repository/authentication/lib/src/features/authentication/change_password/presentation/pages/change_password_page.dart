@@ -40,7 +40,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: UIColors.primary,
+        backgroundColor: UIColors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: GestureDetector(

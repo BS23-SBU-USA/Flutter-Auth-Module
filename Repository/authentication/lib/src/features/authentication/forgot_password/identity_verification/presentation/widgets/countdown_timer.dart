@@ -69,7 +69,7 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
             ? TextConstants.resendEmail
             : '${TextConstants.resendEmail} in ${seconds}s',
         style: AppTypography.bold14(
-          color: UIColors.secondary,
+          color: UIColors.pineGreen,
         ),
       ),
     );

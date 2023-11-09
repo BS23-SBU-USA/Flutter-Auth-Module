@@ -23,6 +23,7 @@ class _BirthdayFormFieldBuilderState
             readOnly: true,
             textEditingController: notifier.dateOfBirthController,
             labelText: TextConstants.dateOfBirth,
+            borderColor: UIColors.timberWolf,
             autocorrect: false,
             suffix: GestureDetector(
               onTap: () {
@@ -52,7 +53,7 @@ class _BirthdayFormFieldBuilderState
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
-              primary: UIColors.secondary,
+              primary: UIColors.pineGreen,
             ),
           ),
           child: child!,

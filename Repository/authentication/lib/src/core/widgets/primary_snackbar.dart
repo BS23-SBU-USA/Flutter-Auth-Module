@@ -15,10 +15,10 @@ class ShowSnackBarMessage {
         content: Center(
           child: Text(
             message,
-            style: const TextStyle(color: UIColors.primary, fontSize: 16),
+            style: const TextStyle(color: UIColors.white, fontSize: 16),
           ),
         ),
-        backgroundColor: UIColors.secondary,
+        backgroundColor: UIColors.pineGreen,
       ),
     );
   }
@@ -33,7 +33,7 @@ class ShowSnackBarMessage {
         content: Center(
           child: Text(
             message,
-            style: const TextStyle(color: UIColors.primary, fontSize: 16),
+            style: const TextStyle(color: UIColors.white, fontSize: 16),
           ),
         ),
         backgroundColor: UIColors.red,
@@ -53,12 +53,12 @@ class ShowSnackBarMessage {
             Center(
               child: Text(
                 message,
-                style: const TextStyle(color: UIColors.primary, fontSize: 16),
+                style: const TextStyle(color: UIColors.white, fontSize: 16),
               ),
             ),
           ],
         ),
-        backgroundColor: UIColors.secondary,
+        backgroundColor: UIColors.pineGreen,
       ),
     );
   }
