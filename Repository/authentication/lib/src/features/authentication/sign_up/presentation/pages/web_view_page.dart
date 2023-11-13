@@ -52,7 +52,7 @@ class _WebViewPageState extends State<WebViewPage> {
         elevation: 0,
         title: Text(
           'Feed Module',
-          style: AppTypography.bold20(),
+          style: AppTypography.semiBold18Caros(),
         ),
         centerTitle: true,
         leading: GestureDetector(

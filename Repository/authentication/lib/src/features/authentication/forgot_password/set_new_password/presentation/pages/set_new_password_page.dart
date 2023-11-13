@@ -56,11 +56,10 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const BuildTitleAndSubtitle(
-              titleFirstPart: 'Reset',
-              titleLastPart: ' Password',
-              subtitleFirstPart: 'Get chatting with friends and '
-                  'family today by',
-              subtitleLastPart: 'signing up for our chat app!',
+              titleFirstPart: TextConstants.setPasswordTitleFirstPart,
+              titleLastPart: TextConstants.setPasswordTitleLastPart,
+              subtitleFirstPart: TextConstants.setPasswordSubtitleFirstPart,
+              subtitleLastPart: TextConstants.setPasswordSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
             const _ResetPasswordFormBuilder(),
@@ -69,7 +68,9 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
               onPressed: onButtonPressed,
               isLoading: state.status == SetNewPasswordStatus.loading,
               label: TextConstants.resetPassword,
-              textStyle: AppTypography.bold16(color: UIColors.white),
+              textStyle: !ref.watch(passwordValidityProvider).isValid
+                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
+                  : AppTypography.semiBold16Caros(color: UIColors.white),
               disable: !ref.watch(passwordValidityProvider).isValid,
             ),
           ],

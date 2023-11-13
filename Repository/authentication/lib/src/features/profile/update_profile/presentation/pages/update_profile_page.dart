@@ -72,6 +72,9 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
               isLoading: state.status.isLoading,
               label: TextConstants.updateProfile,
               onPressed: notifier.onUpdateProfileSubmit,
+              textStyle: !ref.watch(updateProfileValidationProvider).isValid
+                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
+                  : AppTypography.semiBold16Caros(color: UIColors.white),
               disable: !ref.watch(updateProfileValidationProvider).isValid,
             ),
             SizedBox(height: 40.sp),

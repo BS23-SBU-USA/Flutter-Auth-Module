@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
               elevation: 0,
               titleSpacing: 0,
               centerTitle: true,
-              titleTextStyle: AppTypography.bold20(
+              titleTextStyle: AppTypography.semiBold18Caros(
                 color: UIColors.black,
               ),
               iconTheme: const IconThemeData(

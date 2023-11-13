@@ -92,11 +92,12 @@ class _IdentityVerificationPageState
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const BuildTitleAndSubtitle(
-              titleFirstPart: 'Email',
-              titleLastPart: ' Confirmation',
-              subtitleFirstPart: 'We’ve sent a code to your'
-                  ' email address.',
-              subtitleLastPart: 'Please check your inbox.',
+              titleFirstPart: TextConstants.identityVerificationTitleFirstPart,
+              titleLastPart: TextConstants.identityVerificationTitleLastPart,
+              subtitleFirstPart:
+                  TextConstants.identityVerificationSubtitleFirstPart,
+              subtitleLastPart:
+                  TextConstants.identityVerificationSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
             const _OtpField(),
@@ -107,7 +108,9 @@ class _IdentityVerificationPageState
               },
               isLoading: state.status == IdentityVerificationStatus.loading,
               label: TextConstants.submit,
-              textStyle: AppTypography.bold16(color: UIColors.white),
+              textStyle: !ref.watch(otpButtonStateProvider)
+                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
+                  : AppTypography.semiBold16Caros(color: UIColors.white),
               disable: !ref.watch(otpButtonStateProvider),
             ),
             SizedBox(height: 16.h),
@@ -137,7 +140,7 @@ class _IdentityVerificationPageState
             TextButton(
               child: Text(
                 'No',
-                style: AppTypography.bold16(color: UIColors.pineGreen),
+                style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -146,7 +149,7 @@ class _IdentityVerificationPageState
             TextButton(
               child: Text(
                 'Yes',
-                style: AppTypography.bold16(color: UIColors.pineGreen),
+                style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
               ),
               onPressed: () {
                 Navigator.of(context).pop();

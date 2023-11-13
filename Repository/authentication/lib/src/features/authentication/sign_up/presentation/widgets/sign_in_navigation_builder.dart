@@ -16,7 +16,7 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
       children: [
         Text(
           TextConstants.alreadyHaveAnAccount,
-          style: AppTypography.semiBold14(
+          style: AppTypography.semiBold14Circular(
             color: UIColors.pineGreen,
           ),
         ),
@@ -24,7 +24,7 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
           onTap: _navigateToSignInPage,
           child: Text(
             TextConstants.login,
-            style: AppTypography.semiBold14(
+            style: AppTypography.semiBold14Circular(
               color: UIColors.pineGreen,
             ),
           ),

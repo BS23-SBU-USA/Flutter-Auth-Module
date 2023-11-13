@@ -27,8 +27,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             validator: InputValidators.name,
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16(),
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
             bottomMargin: 30.h,
@@ -44,8 +44,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             validator: InputValidators.name,
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16(),
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
             bottomMargin: 30.h,
@@ -58,8 +58,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             validator: InputValidators.email,
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16(),
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
             bottomMargin: 30.h,
@@ -76,8 +76,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             password: EnabledPassword(),
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16(),
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
             bottomMargin: 0,
@@ -99,8 +99,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             },
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16(),
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
             bottomMargin: 0,

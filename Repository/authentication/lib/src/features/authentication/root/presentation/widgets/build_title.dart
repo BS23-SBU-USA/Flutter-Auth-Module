@@ -37,7 +37,7 @@ class BuildTitleAndSubtitle extends StatelessWidget {
                 ),
                 Text(
                   titleFirstPart,
-                  style: AppTypography.bold18(
+                  style: AppTypography.semiBold18Caros(
                     color: UIColors.black,
                   ),
                 ),
@@ -45,7 +45,7 @@ class BuildTitleAndSubtitle extends StatelessWidget {
             ),
             Text(
               titleLastPart,
-              style: AppTypography.bold18(
+              style: AppTypography.semiBold18Caros(
                 color: UIColors.black,
               ),
             ),
@@ -54,7 +54,7 @@ class BuildTitleAndSubtitle extends StatelessWidget {
         SizedBox(height: 16.h),
         Text(
           '$subtitleFirstPart\n$subtitleLastPart',
-          style: AppTypography.regular14(
+          style: AppTypography.medium14Circular(
             color: UIColors.gray,
           ),
           textAlign: TextAlign.center,

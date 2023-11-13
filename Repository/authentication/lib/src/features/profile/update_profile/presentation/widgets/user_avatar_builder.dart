@@ -64,7 +64,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                               ),
                               Text(
                                 'Profile Photo',
-                                style: AppTypography.bold16(
+                                style: AppTypography.semiBold16Caros(
                                   color: UIColors.black,
                                 ),
                               ),
@@ -155,7 +155,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Choose from Gallery',
-            style: AppTypography.bold14(
+            style: AppTypography.bold14Caros(
               color: UIColors.black,
             ),
           ),
@@ -209,7 +209,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Take a Photo',
-            style: AppTypography.bold14(
+            style: AppTypography.bold14Caros(
               color: UIColors.black,
             ),
           ),

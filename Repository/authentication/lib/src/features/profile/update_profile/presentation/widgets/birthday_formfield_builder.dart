@@ -23,6 +23,10 @@ class _BirthdayFormFieldBuilderState
             readOnly: true,
             textEditingController: notifier.dateOfBirthController,
             labelText: TextConstants.dateOfBirth,
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
+              color: UIColors.pineGreen,
+            ),
             borderColor: UIColors.timberWolf,
             autocorrect: false,
             suffix: GestureDetector(

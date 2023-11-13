@@ -52,7 +52,7 @@ class _PasswordValidationBuilderState
             const TextSpan(text: TextConstants.dot),
           ],
         ),
-        style: AppTypography.regular12(),
+        style: AppTypography.regular12Caros(),
         textAlign: TextAlign.start,
       ),
     );
@@ -61,7 +61,7 @@ class _PasswordValidationBuilderState
   TextSpan _buildValidationTextSpan(bool isValid, String text) {
     return TextSpan(
       text: text,
-      style: AppTypography.bold12(
+      style: AppTypography.bold12Caros(
         color: isValid ? UIColors.pineGreen : null,
       ),
     );

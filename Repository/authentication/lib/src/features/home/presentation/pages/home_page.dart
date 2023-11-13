@@ -101,14 +101,14 @@ class _HomePageState extends ConsumerState<HomePage> {
         title: offlineState
             ? Text(
                 '${mockUser.firstName} ${mockUser.lastName}',
-                style: AppTypography.bold18(color: UIColors.white),
+                style: AppTypography.semiBold18Caros(color: UIColors.white),
               )
             : Text(
                 (profileState.status.isLoading || updateState.status.isLoading)
                     ? TextConstants.connecting
                     : '${profileState.data?.firstname} '
                         '${profileState.data?.lastname}',
-                style: AppTypography.bold18(color: UIColors.white),
+                style: AppTypography.semiBold18Caros(color: UIColors.white),
               ),
         centerTitle: false,
       ),
@@ -120,7 +120,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ? ''
                   : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!'
               : 'Hello\n${mockUser.firstName} ${mockUser.lastName}!',
-          style: AppTypography.bold24(color: UIColors.pineGreen),
+          style: AppTypography.bold24Caros(color: UIColors.pineGreen),
           textAlign: TextAlign.center,
         ),
       ),

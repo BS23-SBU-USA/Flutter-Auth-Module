@@ -24,7 +24,8 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
             autocorrect: false,
             bottomMargin: 0,
             borderType: BorderType.bottom,
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
           ),
@@ -46,7 +47,8 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
               );
             },
             borderType: BorderType.bottom,
-            labelTextStyle: AppTypography.bold14(
+            style: AppTypography.regular16Caros(),
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
           ),

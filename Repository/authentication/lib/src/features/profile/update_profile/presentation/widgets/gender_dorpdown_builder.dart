@@ -39,29 +39,30 @@ class _CustomDropdownInputFormFieldState
             readOnly: true,
             label: Text(
               TextConstants.gender,
-              style: AppTypography.bold14(
+              style: AppTypography.medium14Circular(
                 color: UIColors.pineGreen,
               ),
             ),
+            style: AppTypography.regular16Caros(),
             borderColor: UIColors.timberWolf,
             suffix: ModalBottomSheet(
-              title: 'Select Gender',
+              title: TextConstants.selectGender,
               children: [
                 ModalCard(
                   onTap: () {
-                    notifier.genderController.text = 'Male';
+                    notifier.genderController.text = TextConstants.male;
                     Navigator.of(context).pop();
                   },
                   icon: Assets.male,
-                  label: 'Male',
+                  label: TextConstants.male,
                 ),
                 ModalCard(
                   onTap: () {
-                    notifier.genderController.text = 'Female';
+                    notifier.genderController.text = TextConstants.female;
                     Navigator.of(context).pop();
                   },
                   icon: Assets.female,
-                  label: 'Female',
+                  label: TextConstants.female,
                 ),
               ],
             ),

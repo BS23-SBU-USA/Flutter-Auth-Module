@@ -31,8 +31,8 @@ class _ChangePasswordFormBuilderState
                 keyboardType: TextInputType.visiblePassword,
                 validator: InputValidators.password,
                 borderType: BorderType.bottom,
-                style: AppTypography.regular16(),
-                labelTextStyle: AppTypography.bold14(
+                style: AppTypography.regular16Caros(),
+                labelTextStyle: AppTypography.medium14Circular(
                   color: UIColors.pineGreen,
                 ),
                 bottomMargin: 30.h,
@@ -48,8 +48,8 @@ class _ChangePasswordFormBuilderState
                 labelText: TextConstants.newPassword,
                 keyboardType: TextInputType.visiblePassword,
                 borderType: BorderType.bottom,
-                style: AppTypography.regular16(),
-                labelTextStyle: AppTypography.bold14(
+                style: AppTypography.regular16Caros(),
+                labelTextStyle: AppTypography.medium14Circular(
                   color: UIColors.pineGreen,
                 ),
                 password: EnabledPassword(),
@@ -72,8 +72,8 @@ class _ChangePasswordFormBuilderState
                   );
                 },
                 borderType: BorderType.bottom,
-                style: AppTypography.regular16(),
-                labelTextStyle: AppTypography.bold14(
+                style: AppTypography.regular16Caros(),
+                labelTextStyle: AppTypography.medium14Circular(
                   color: UIColors.pineGreen,
                 ),
                 bottomMargin: 30.h,
@@ -92,6 +92,9 @@ class _ChangePasswordFormBuilderState
                       },
                       isLoading: state.status == ChangePasswordStatus.loading,
                       label: TextConstants.changePassword,
+                      textStyle: AppTypography.semiBold16Caros(
+                        color: UIColors.white,
+                      ),
                     ),
                   ),
                 ],
