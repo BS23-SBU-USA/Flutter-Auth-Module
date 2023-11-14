@@ -47,9 +47,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.secondary,
+        backgroundColor: UIColors.pineGreen,
         elevation: 0,
-        iconTheme: const IconThemeData(color: UIColors.primary),
+        iconTheme: const IconThemeData(color: UIColors.white),
         leading: Builder(
           builder: (context) {
             return GestureDetector(
@@ -62,8 +62,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ? Avatar.circleWithFullName(
                         height: 30.r,
                         width: 30.r,
-                        borderColor: UIColors.secondary,
-                        backgroundColor: UIColors.lightTealShade,
+                        borderColor: UIColors.pineGreen,
+                        backgroundColor: UIColors.celeste,
                         nameWithLetter: name,
                       )
                     : (profileState.status.isLoading ||
@@ -73,7 +73,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               height: 20.sp,
                               width: 20.sp,
                               child: CircularProgressIndicator(
-                                color: UIColors.primary,
+                                color: UIColors.white,
                                 strokeWidth: 2.sp,
                               ),
                             ),
@@ -85,13 +85,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     url: profileState.data!.avatar!,
                                     height: 30.r,
                                     width: 30.r,
-                                    borderColor: UIColors.secondary,
+                                    borderColor: UIColors.pineGreen,
                                   )
                                 : Avatar.circleWithFullName(
                                     height: 30.r,
                                     width: 30.r,
-                                    borderColor: UIColors.secondary,
-                                    backgroundColor: UIColors.lightTealShade,
+                                    borderColor: UIColors.pineGreen,
+                                    backgroundColor: UIColors.celeste,
                                     nameWithLetter: name,
                                   ),
               ),
@@ -101,14 +101,14 @@ class _HomePageState extends ConsumerState<HomePage> {
         title: offlineState
             ? Text(
                 '${mockUser.firstName} ${mockUser.lastName}',
-                style: AppTypography.bold18(color: UIColors.primary),
+                style: AppTypography.bold18(color: UIColors.white),
               )
             : Text(
                 (profileState.status.isLoading || updateState.status.isLoading)
                     ? TextConstants.connecting
                     : '${profileState.data?.firstname} '
                         '${profileState.data?.lastname}',
-                style: AppTypography.bold18(color: UIColors.primary),
+                style: AppTypography.bold18(color: UIColors.white),
               ),
         centerTitle: false,
       ),
@@ -120,7 +120,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ? ''
                   : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!'
               : 'Hello\n${mockUser.firstName} ${mockUser.lastName}!',
-          style: AppTypography.bold24(color: UIColors.secondary),
+          style: AppTypography.bold24(color: UIColors.pineGreen),
           textAlign: TextAlign.center,
         ),
       ),

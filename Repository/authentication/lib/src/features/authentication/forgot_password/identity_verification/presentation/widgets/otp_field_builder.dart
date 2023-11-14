@@ -15,13 +15,14 @@ class _OtpField extends ConsumerWidget {
         },
         textEditingController: notifier.otpController,
         labelText: TextConstants.yourCode,
+        borderColor: UIColors.timberWolf,
         keyboardType: TextInputType.number,
         validator: InputValidators.otp,
         autocorrect: false,
         maxLength: 6,
         borderType: BorderType.bottom,
         labelTextStyle: AppTypography.bold14(
-          color: UIColors.secondary,
+          color: UIColors.pineGreen,
         ),
       ),
     );

@@ -48,7 +48,7 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.primary,
+        backgroundColor: UIColors.white,
         elevation: 0,
         title: Text(
           'Feed Module',
@@ -79,7 +79,7 @@ class _WebViewPageState extends State<WebViewPage> {
             ),
             if (loading)
               const CircularProgressIndicator(
-                color: UIColors.secondary,
+                color: UIColors.pineGreen,
               ),
           ],
         ),

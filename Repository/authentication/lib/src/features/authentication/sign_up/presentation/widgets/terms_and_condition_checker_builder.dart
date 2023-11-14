@@ -18,9 +18,9 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                 fillColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.selected)) {
-                      return UIColors.secondary;
+                      return UIColors.pineGreen;
                     }
-                    return UIColors.grey20;
+                    return UIColors.platinum;
                   },
                 ),
                 shape: RoundedRectangleBorder(
@@ -28,17 +28,17 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                 ),
                 value: ref.watch(termsAndConditionCheckerProvider),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                activeColor: UIColors.secondary,
-                checkColor: UIColors.primary,
+                activeColor: UIColors.pineGreen,
+                checkColor: UIColors.white,
                 side: MaterialStateBorderSide.resolveWith(
                   (states) {
                     if (states.contains(MaterialState.selected)) {
                       return const BorderSide(
-                        color: UIColors.lightTeal,
+                        color: UIColors.tiffanyBlue,
                       );
                     }
                     return const BorderSide(
-                      color: UIColors.secondary,
+                      color: UIColors.pineGreen,
                     );
                   },
                 ),
@@ -58,7 +58,7 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
               TextSpan(
                 text: TextConstants.termsAndConditions,
                 style: AppTypography.semiBold14(
-                  color: UIColors.secondary,
+                  color: UIColors.pineGreen,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

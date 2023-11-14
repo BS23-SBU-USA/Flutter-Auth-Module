@@ -76,8 +76,8 @@ class _SignUpState extends ConsumerState<SignUpPage> {
             isLoading: signUpState.status == BaseStatus.loading,
             label: TextConstants.createAnAccount,
             textStyle: !ref.watch(signUpFormValidationProvider)
-                ? AppTypography.bold16(color: UIColors.grey)
-                : AppTypography.bold16(color: UIColors.primary),
+                ? AppTypography.bold16(color: UIColors.gray)
+                : AppTypography.bold16(color: UIColors.white),
             disable: !ref.watch(signUpFormValidationProvider),
           ),
           SizedBox(height: 16.h),

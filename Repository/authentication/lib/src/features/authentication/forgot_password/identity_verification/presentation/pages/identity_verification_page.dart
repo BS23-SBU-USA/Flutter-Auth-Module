@@ -107,7 +107,7 @@ class _IdentityVerificationPageState
               },
               isLoading: state.status == IdentityVerificationStatus.loading,
               label: TextConstants.submit,
-              textStyle: AppTypography.bold16(color: UIColors.primary),
+              textStyle: AppTypography.bold16(color: UIColors.white),
               disable: !ref.watch(otpButtonStateProvider),
             ),
             SizedBox(height: 16.h),
@@ -137,7 +137,7 @@ class _IdentityVerificationPageState
             TextButton(
               child: Text(
                 'No',
-                style: AppTypography.bold16(color: UIColors.secondary),
+                style: AppTypography.bold16(color: UIColors.pineGreen),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -146,7 +146,7 @@ class _IdentityVerificationPageState
             TextButton(
               child: Text(
                 'Yes',
-                style: AppTypography.bold16(color: UIColors.secondary),
+                style: AppTypography.bold16(color: UIColors.pineGreen),
               ),
               onPressed: () {
                 Navigator.of(context).pop();

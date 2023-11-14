@@ -22,14 +22,14 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                 )
               : null,
           backgroundColor: notifier.avatarController.text.isEmpty
-              ? UIColors.grey400
-              : UIColors.secondary,
+              ? UIColors.platinum
+              : UIColors.pineGreen,
           radius: 41,
           child: notifier.avatarController.text.isEmpty
               ? const Icon(
                   Icons.photo,
                   size: 30,
-                  color: UIColors.primary,
+                  color: UIColors.white,
                 )
               : null,
         ),
@@ -71,7 +71,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                               const IconButton(
                                 icon: Icon(
                                   Icons.close,
-                                  color: UIColors.primary,
+                                  color: UIColors.white,
                                 ),
                                 onPressed: null,
                               ),
@@ -89,12 +89,12 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
               );
             },
             child: const CircleAvatar(
-              backgroundColor: UIColors.secondary,
+              backgroundColor: UIColors.pineGreen,
               radius: 12,
               child: Icon(
                 Icons.add_a_photo,
                 size: 12,
-                color: UIColors.primary,
+                color: UIColors.white,
               ),
             ),
           ),
@@ -139,7 +139,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
             height: 44.h,
             width: 44.h,
             decoration: const BoxDecoration(
-              color: UIColors.secondaryWhite,
+              color: UIColors.antiFlashWhite,
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -197,7 +197,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
             height: 44.h,
             width: 44.h,
             decoration: const BoxDecoration(
-              color: UIColors.secondaryWhite,
+              color: UIColors.antiFlashWhite,
               shape: BoxShape.circle,
             ),
             child: Center(

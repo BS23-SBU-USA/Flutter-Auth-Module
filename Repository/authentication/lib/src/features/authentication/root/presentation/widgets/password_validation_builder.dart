@@ -62,7 +62,7 @@ class _PasswordValidationBuilderState
     return TextSpan(
       text: text,
       style: AppTypography.bold12(
-        color: isValid ? UIColors.secondary : null,
+        color: isValid ? UIColors.pineGreen : null,
       ),
     );
   }

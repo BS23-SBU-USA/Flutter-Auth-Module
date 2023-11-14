@@ -19,7 +19,7 @@ class UnderlinedText extends StatelessWidget {
         Container(
           height: 8.h,
           width: 50.w,
-          color: UIColors.lightTeal,
+          color: UIColors.verdigris,
         ),
         Text(
           title,

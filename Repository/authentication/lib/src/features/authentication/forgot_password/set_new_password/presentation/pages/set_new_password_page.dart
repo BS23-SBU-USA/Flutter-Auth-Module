@@ -69,7 +69,7 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
               onPressed: onButtonPressed,
               isLoading: state.status == SetNewPasswordStatus.loading,
               label: TextConstants.resetPassword,
-              textStyle: AppTypography.bold16(color: UIColors.primary),
+              textStyle: AppTypography.bold16(color: UIColors.white),
               disable: !ref.watch(passwordValidityProvider).isValid,
             ),
           ],

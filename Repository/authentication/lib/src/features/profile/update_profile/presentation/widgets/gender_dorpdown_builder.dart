@@ -40,9 +40,10 @@ class _CustomDropdownInputFormFieldState
             label: Text(
               TextConstants.gender,
               style: AppTypography.bold14(
-                color: UIColors.secondary,
+                color: UIColors.pineGreen,
               ),
             ),
+            borderColor: UIColors.timberWolf,
             suffix: ModalBottomSheet(
               title: 'Select Gender',
               children: [

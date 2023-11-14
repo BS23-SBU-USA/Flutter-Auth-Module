@@ -17,7 +17,7 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
         Text(
           TextConstants.alreadyHaveAnAccount,
           style: AppTypography.semiBold14(
-            color: UIColors.secondary,
+            color: UIColors.pineGreen,
           ),
         ),
         GestureDetector(
@@ -25,7 +25,7 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
           child: Text(
             TextConstants.login,
             style: AppTypography.semiBold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
           ),
         ),

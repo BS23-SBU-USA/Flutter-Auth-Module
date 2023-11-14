@@ -68,7 +68,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
             onPressed: () => notifier.forgotPasswordSubmit(offlineState),
             isLoading: state.status == ForgotPasswordStatus.loading,
             label: TextConstants.submit,
-            textStyle: AppTypography.bold16(color: UIColors.primary),
+            textStyle: AppTypography.bold16(color: UIColors.white),
             disable: !ref.watch(forgotPassButtonStateProvider),
           ),
           SizedBox(height: 16.h),

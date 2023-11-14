@@ -77,7 +77,7 @@ class ModalCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                backgroundColor: UIColors.iconBackground,
+                backgroundColor: UIColors.antiFlashWhite,
                 child: Image.asset(icon),
               ),
               SizedBox(width: 12.w),

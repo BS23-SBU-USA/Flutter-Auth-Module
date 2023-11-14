@@ -19,7 +19,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
     } else if (profileState.status.isLoading || updateState.status.isLoading) {
       return const Center(
         child: CircularProgressIndicator(
-          color: UIColors.primary,
+          color: UIColors.white,
         ),
       );
     } else {
@@ -30,15 +30,15 @@ class DrawerHeaderWidget extends ConsumerWidget {
             CircleAvatar(
               backgroundImage:
                   MemoryImage(base64Decode(profileState.data!.avatar!)),
-              backgroundColor: UIColors.secondary,
+              backgroundColor: UIColors.pineGreen,
               radius: 30,
             ),
           if (profileState.data!.avatar == null)
             Avatar.circleWithFullName(
               height: 60.r,
               width: 60.r,
-              borderColor: UIColors.primary,
-              backgroundColor: UIColors.lightTealShade,
+              borderColor: UIColors.white,
+              backgroundColor: UIColors.celeste,
               nameWithLetter: name,
             ),
           const SizedBox(height: 10),
@@ -76,8 +76,8 @@ class DrawerHeaderWidget extends ConsumerWidget {
         Avatar.circleWithFullName(
           height: 60.r,
           width: 60.r,
-          borderColor: UIColors.primary,
-          backgroundColor: UIColors.lightTealShade,
+          borderColor: UIColors.white,
+          backgroundColor: UIColors.celeste,
           nameWithLetter: name,
         ),
         const SizedBox(height: 10),

@@ -16,12 +16,13 @@ class _EmailField extends ConsumerWidget {
         },
         textEditingController: notifier.emailController,
         labelText: TextConstants.yourEmail,
+        borderColor: UIColors.timberWolf,
         keyboardType: TextInputType.emailAddress,
         validator: InputValidators.email,
         autocorrect: false,
         borderType: BorderType.bottom,
         labelTextStyle: AppTypography.bold14(
-          color: UIColors.secondary,
+          color: UIColors.pineGreen,
         ),
       ),
     );

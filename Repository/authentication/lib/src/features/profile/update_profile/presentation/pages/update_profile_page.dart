@@ -54,7 +54,7 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
     });
 
     return Scaffold(
-      backgroundColor: UIColors.primary,
+      backgroundColor: UIColors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Button.back(),

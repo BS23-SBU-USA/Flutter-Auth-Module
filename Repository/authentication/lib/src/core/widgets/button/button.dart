@@ -125,7 +125,8 @@ class Button extends StatelessWidget {
                 ? ElevatedButton.styleFrom(
                     elevation: 0,
                     fixedSize: Size(width, height),
-                    backgroundColor: background ?? UIColors.secondary,
+                    backgroundColor: background ?? UIColors.pineGreen,
+                    disabledBackgroundColor: UIColors.antiFlashWhite,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
                     ),
@@ -134,11 +135,11 @@ class Button extends StatelessWidget {
                     elevation: 0,
                     fixedSize: Size(width, height),
                     backgroundColor: disable
-                        ? UIColors.disabled
+                        ? UIColors.antiFlashWhite
                         : background ?? UIColors.transparent,
                     side: BorderSide(
                       color:
-                          isLoading ? UIColors.transparent : UIColors.secondary,
+                          isLoading ? UIColors.transparent : UIColors.pineGreen,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
@@ -154,7 +155,7 @@ class Button extends StatelessWidget {
                       height: 30,
                       width: 30,
                       child: CircularProgressIndicator(
-                        color: UIColors.secondary,
+                        color: UIColors.pineGreen,
                       ),
                     ),
                   )
@@ -181,7 +182,7 @@ class Button extends StatelessWidget {
 
   TextStyle _labelTextStyle() {
     return AppTypography.regular16(
-      color: UIColors.primary,
+      color: UIColors.white,
     );
   }
 }

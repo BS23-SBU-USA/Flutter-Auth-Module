@@ -15,13 +15,14 @@ class _SignInFormBuilder extends ConsumerWidget {
             textEditingController: notifier.emailController,
             labelText: TextConstants.yourEmail,
             labelTextStyle: AppTypography.bold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
             style: AppTypography.regular16(),
             keyboardType: TextInputType.emailAddress,
             validator: InputValidators.email,
             autocorrect: false,
             borderType: BorderType.bottom,
+            borderColor: UIColors.timberWolf,
             bottomMargin: 30.h,
             onChanged: (value) {
               final emailNotEmpty = value.isNotEmpty;
@@ -40,7 +41,7 @@ class _SignInFormBuilder extends ConsumerWidget {
             bottomMargin: 0,
             labelText: TextConstants.password,
             labelTextStyle: AppTypography.bold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
             style: AppTypography.regular16(),
             keyboardType: TextInputType.visiblePassword,
@@ -48,6 +49,7 @@ class _SignInFormBuilder extends ConsumerWidget {
             validator: InputValidators.password,
             autocorrect: false,
             borderType: BorderType.bottom,
+            borderColor: UIColors.timberWolf,
             onChanged: (value) {
               final emailNotEmpty = value.isNotEmpty;
               final passwordNotEmpty = ref

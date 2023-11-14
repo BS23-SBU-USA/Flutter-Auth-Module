@@ -32,7 +32,7 @@ class _SuccessPageState extends State<SuccessPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      backgroundColor: UIColors.primary,
+      backgroundColor: UIColors.white,
       body: Center(
         child: SizedBox(
           width: 400.w,
@@ -45,7 +45,7 @@ class _SuccessPageState extends State<SuccessPage> {
                 Text(
                   TextConstants.congratulations,
                   style: AppTypography.bold24(
-                    color: UIColors.green,
+                    color: UIColors.pineGreen,
                   ),
                 ),
                 SizedBox(height: 20.h),
@@ -57,7 +57,7 @@ class _SuccessPageState extends State<SuccessPage> {
                 Button(
                   onPressed: _navigateToSignInPage,
                   label: TextConstants.login,
-                  textStyle: AppTypography.bold16(color: UIColors.primary),
+                  textStyle: AppTypography.bold16(color: UIColors.white),
                 ),
               ],
             ),

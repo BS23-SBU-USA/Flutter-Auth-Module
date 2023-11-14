@@ -69,7 +69,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
     return ScrollableWrapper(
       appBar: AppBar(
-        backgroundColor: UIColors.primary,
+        backgroundColor: UIColors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
@@ -96,8 +96,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             isLoading: state.status == BaseStatus.loading,
             label: TextConstants.login,
             textStyle: !ref.watch(buttonStateProvider)
-                ? AppTypography.bold16(color: UIColors.grey)
-                : AppTypography.bold16(color: UIColors.primary),
+                ? AppTypography.bold16(color: UIColors.gray)
+                : AppTypography.bold16(color: UIColors.white),
             disable: !ref.watch(buttonStateProvider),
           ),
           SizedBox(height: 16.h),
@@ -118,16 +118,16 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           Text(
             TextConstants.offline,
             style: AppTypography.bold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
           ),
           Transform.scale(
             scale: 0.7,
             child: CupertinoSwitch(
               value: state,
-              activeColor: UIColors.secondary,
-              trackColor: UIColors.grey,
-              thumbColor: UIColors.primary,
+              activeColor: UIColors.pineGreen,
+              trackColor: UIColors.gray,
+              thumbColor: UIColors.white,
               onChanged: (value) {
                 notifier.state = value;
               },

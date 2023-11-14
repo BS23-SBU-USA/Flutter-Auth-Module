@@ -18,13 +18,14 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
             },
             textEditingController: notifier.newPasswordController,
             labelText: TextConstants.password,
+            borderColor: UIColors.timberWolf,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             autocorrect: false,
             bottomMargin: 0,
             borderType: BorderType.bottom,
             labelTextStyle: AppTypography.bold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
           ),
           if (ref.watch(passwordValidityProvider).isValid)
@@ -34,6 +35,7 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
           InputFormField(
             textEditingController: notifier.confirmPasswordController,
             labelText: TextConstants.confirmPassword,
+            borderColor: UIColors.timberWolf,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             autocorrect: false,
@@ -45,7 +47,7 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
             },
             borderType: BorderType.bottom,
             labelTextStyle: AppTypography.bold14(
-              color: UIColors.secondary,
+              color: UIColors.pineGreen,
             ),
           ),
         ],
