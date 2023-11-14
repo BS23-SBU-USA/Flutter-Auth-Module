@@ -99,7 +99,7 @@ class ModalCard extends StatelessWidget {
                       children: [
                         Text(
                           label,
-                          style: AppTypography.bold14(
+                          style: AppTypography.bold14Caros(
                             color: UIColors.black,
                           ),
                         ),
@@ -147,7 +147,7 @@ class _ModalHeader extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTypography.bold14(
+                  style: AppTypography.bold14Caros(
                     color: UIColors.black,
                   ),
                 ),

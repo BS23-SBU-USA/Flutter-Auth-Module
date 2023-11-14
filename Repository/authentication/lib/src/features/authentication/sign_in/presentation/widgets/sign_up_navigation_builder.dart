@@ -16,7 +16,7 @@ class _SignUpNavigationBuilderState extends State<_SignUpNavigationBuilder> {
       children: [
         Text(
           '${TextConstants.doNotHaveAccount}  ',
-          style: AppTypography.semiBold14(
+          style: AppTypography.semiBold14Circular(
             color: UIColors.pineGreen,
           ),
         ),
@@ -24,7 +24,7 @@ class _SignUpNavigationBuilderState extends State<_SignUpNavigationBuilder> {
           onTap: _navigateToSignUpPage,
           child: Text(
             TextConstants.signUp,
-            style: AppTypography.semiBold14(
+            style: AppTypography.semiBold14Circular(
               color: UIColors.pineGreen,
             ),
           ),

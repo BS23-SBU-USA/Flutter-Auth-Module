@@ -60,13 +60,14 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: Lato
+    - family: Caros
       fonts:
-        - asset: assets/fonts/Lato-Bold.ttf
+        - asset: assets/fonts/Caros-Bold.otf
           weight: 700
-        - asset: assets/fonts/Lato-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Lato-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Lato-Light.ttf
-          weight: 300
+        - asset: assets/fonts/Caros-Medium.otf
+          weight: 500
+
+    - family: Circular
+      fonts:
+        - asset: assets/fonts/Circular-Medium.ttf
+          weight: 500

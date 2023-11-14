@@ -23,7 +23,7 @@ class UnderlinedText extends StatelessWidget {
         ),
         Text(
           title,
-          style: AppTypography.bold18(
+          style: AppTypography.semiBold18Caros(
             color: UIColors.black,
           ),
         ),

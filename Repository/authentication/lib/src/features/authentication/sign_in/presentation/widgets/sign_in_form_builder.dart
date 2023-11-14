@@ -14,10 +14,10 @@ class _SignInFormBuilder extends ConsumerWidget {
           InputFormField(
             textEditingController: notifier.emailController,
             labelText: TextConstants.yourEmail,
-            labelTextStyle: AppTypography.bold14(
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
-            style: AppTypography.regular16(),
+            style: AppTypography.regular16Caros(),
             keyboardType: TextInputType.emailAddress,
             validator: InputValidators.email,
             autocorrect: false,
@@ -40,10 +40,10 @@ class _SignInFormBuilder extends ConsumerWidget {
             textEditingController: notifier.passwordController,
             bottomMargin: 0,
             labelText: TextConstants.password,
-            labelTextStyle: AppTypography.bold14(
+            labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
             ),
-            style: AppTypography.regular16(),
+            style: AppTypography.regular16Caros(),
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             validator: InputValidators.password,

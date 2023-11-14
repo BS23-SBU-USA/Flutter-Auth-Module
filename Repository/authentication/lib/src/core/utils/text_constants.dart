@@ -21,7 +21,6 @@ class TextConstants {
   static const String yourEmail = 'Your email';
   static const String updateProfile = 'Update Profile';
   static const String dateOfBirth = 'Date of Birth';
-  static const String gender = 'Gender';
   static const String offline = 'Offline';
   static const String phoneNumber = 'Phone Number *';
   static const String connecting = 'Connecting...';
@@ -29,7 +28,7 @@ class TextConstants {
   /// Login Screen
   static const String password = 'Password';
   static const String rememberMe = 'Remember Me';
-  static const String forgotPassword = 'Forgot password';
+  static const String forgotPassword = 'Forgot password?';
   static const String doNotHaveAccount = 'Don’t have an account?';
   static const String rememberYourPassword = 'Remember your password?';
   static const String resendEmail = 'Resend Email';
@@ -84,4 +83,40 @@ class TextConstants {
   /// Identity verification page
   static const String confirmation = 'Confirmation';
   static const String wantToGoBack = 'Are you sure you want to go back?';
+
+  /// Gender
+  static const String selectGender = 'Select Gender';
+  static const String gender = 'Gender';
+  static const String male = 'Male';
+  static const String female = 'Female';
+
+  /// Titles and Subtitles
+  static const String signInTitleFirstPart = 'Log in';
+  static const String signInTitleLastPart = ' to Authy';
+  static const String signInSubtitleFirstPart =
+      'Welcome back! Sign in using your social';
+  static const String signInSubtitleLastPart =
+      'account or email to continue us';
+  static const String signUpTitleFirstPart = 'Sign up';
+  static const String signUpTitleLastPart = ' with Email';
+  static const String signUpSubtitleFirstPart =
+      'Get chatting with friends and family today by';
+  static const String signUpSubtitleLastPart = 'signing up for our chat app!';
+  static const String dashboardTitleFirstPart = 'Forgot';
+  static const String dashboardTitleLastPart = ' Password';
+  static const String dashboardSubtitleFirstPart =
+      'Enter your email address. We will send a code';
+  static const String dashboardSubtitleLastPart = 'to verify your identity';
+  static const String identityVerificationTitleFirstPart = 'Email';
+  static const String identityVerificationTitleLastPart = ' Confirmation';
+  static const String identityVerificationSubtitleFirstPart =
+      'We’ve sent a code to your email address.';
+  static const String identityVerificationSubtitleLastPart =
+      'Please check your inbox.';
+  static const String setPasswordTitleFirstPart = 'Reset';
+  static const String setPasswordTitleLastPart = ' Password';
+  static const String setPasswordSubtitleFirstPart =
+      'Get chatting with friends and family today by';
+  static const String setPasswordSubtitleLastPart =
+      'signing up for our chat app!';
 }

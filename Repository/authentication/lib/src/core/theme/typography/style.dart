@@ -18,254 +18,101 @@ class AppTypography {
     );
   }
 
-  static TextStyle regular8({Color? color}) {
+  static TextStyle regular12Caros({Color? color}) {
     return _getTextStyle(
-      FontSize.s8,
-      FontConstants.fontFamily,
+      FontSize.s12.sp,
+      FontConstants.fontFamilyCaros,
       FontWeightManager.regular,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle regular10({Color? color}) {
+  static TextStyle bold12Caros({Color? color}) {
     return _getTextStyle(
-      FontSize.s10,
-      FontConstants.fontFamily,
+      FontSize.s12.sp,
+      FontConstants.fontFamilyCaros,
+      FontWeightManager.bold,
+      color ?? UIColors.black,
+    );
+  }
+
+  static TextStyle regular14Caros({Color? color}) {
+    return _getTextStyle(
+      FontSize.s14.sp,
+      FontConstants.fontFamilyCaros,
       FontWeightManager.regular,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle light12({Color? color}) {
+  static TextStyle semiBold14Circular({Color? color}) {
     return _getTextStyle(
-      FontSize.s12.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.light,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle regular12({Color? color}) {
-    return _getTextStyle(
-      FontSize.s12.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.regular,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle semiBold12({Color? color}) {
-    return _getTextStyle(
-      FontSize.s12.sp,
-      FontConstants.fontFamily,
+      FontSize.s14.sp,
+      FontConstants.fontFamilyCircular,
       FontWeightManager.semiBold,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle bold12({Color? color}) {
+  static TextStyle bold14Caros({Color? color}) {
     return _getTextStyle(
-      FontSize.s12.sp,
-      FontConstants.fontFamily,
+      FontSize.s14.sp,
+      FontConstants.fontFamilyCaros,
       FontWeightManager.bold,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle light14({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.light,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle regular14({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.regular,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle semiBold14({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.semiBold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold14({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold15({Color? color}) {
-    return _getTextStyle(
-      FontSize.s15.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle regular16({Color? color}) {
+  static TextStyle regular16Caros({Color? color}) {
     return _getTextStyle(
       FontSize.s16.sp,
-      FontConstants.fontFamily,
+      FontConstants.fontFamilyCaros,
       FontWeightManager.regular,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle semiBold16({Color? color}) {
+  static TextStyle semiBold16Caros({Color? color}) {
     return _getTextStyle(
       FontSize.s16.sp,
-      FontConstants.fontFamily,
+      FontConstants.fontFamilyCaros,
       FontWeightManager.semiBold,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle bold16({Color? color}) {
+  static TextStyle semiBold18Caros({Color? color}) {
     return _getTextStyle(
-      FontSize.s16.sp,
-      FontConstants.fontFamily,
+      FontSize.s18.sp,
+      FontConstants.fontFamilyCaros,
+      FontWeightManager.semiBold,
+      color ?? UIColors.black,
+    );
+  }
+
+  static TextStyle bold24Caros({Color? color}) {
+    return _getTextStyle(
+      FontSize.s24.sp,
+      FontConstants.fontFamilyCaros,
       FontWeightManager.bold,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle regular18({Color? color}) {
+  static TextStyle regular14Circular({Color? color}) {
     return _getTextStyle(
-      FontSize.s18.sp,
-      FontConstants.fontFamily,
+      FontSize.s14.sp,
+      FontConstants.fontFamilyCircular,
       FontWeightManager.regular,
       color ?? UIColors.black,
     );
   }
 
-  static TextStyle semiBold18({Color? color}) {
+  static TextStyle medium14Circular({Color? color}) {
     return _getTextStyle(
-      FontSize.s18.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.semiBold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle regular20({Color? color}) {
-    return _getTextStyle(
-      FontSize.s20.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.regular,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle semiBold20({Color? color}) {
-    return _getTextStyle(
-      FontSize.s20.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.semiBold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle semiBold22({Color? color}) {
-    return _getTextStyle(
-      FontSize.s22.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.semiBold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold18({Color? color}) {
-    return _getTextStyle(
-      FontSize.s18.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold20({Color? color}) {
-    return _getTextStyle(
-      FontSize.s20.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold22({Color? color}) {
-    return _getTextStyle(
-      FontSize.s22.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle regular24({Color? color}) {
-    return _getTextStyle(
-      FontSize.s24.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.regular,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle semiBold24({Color? color}) {
-    return _getTextStyle(
-      FontSize.s24.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.semiBold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold24({Color? color}) {
-    return _getTextStyle(
-      FontSize.s24.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold50({Color? color}) {
-    return _getTextStyle(
-      FontSize.s50.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold36({Color? color}) {
-    return _getTextStyle(
-      FontSize.s36.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
-      color ?? UIColors.black,
-    );
-  }
-
-  static TextStyle bold32({Color? color}) {
-    return _getTextStyle(
-      FontSize.s32.sp,
-      FontConstants.fontFamily,
-      FontWeightManager.bold,
+      FontSize.s14.sp,
+      FontConstants.fontFamilyCircular,
+      FontWeightManager.medium,
       color ?? UIColors.black,
     );
   }

@@ -44,20 +44,21 @@ class _SuccessPageState extends State<SuccessPage> {
               children: [
                 Text(
                   TextConstants.congratulations,
-                  style: AppTypography.bold24(
+                  style: AppTypography.bold24Caros(
                     color: UIColors.pineGreen,
                   ),
                 ),
                 SizedBox(height: 20.h),
                 Text(
                   TextConstants.accountCreatedSuccess,
-                  style: AppTypography.regular14(),
+                  style: AppTypography.regular14Caros(),
                 ),
                 SizedBox(height: 30.h),
                 Button(
                   onPressed: _navigateToSignInPage,
                   label: TextConstants.login,
-                  textStyle: AppTypography.bold16(color: UIColors.white),
+                  textStyle:
+                      AppTypography.semiBold16Caros(color: UIColors.white),
                 ),
               ],
             ),

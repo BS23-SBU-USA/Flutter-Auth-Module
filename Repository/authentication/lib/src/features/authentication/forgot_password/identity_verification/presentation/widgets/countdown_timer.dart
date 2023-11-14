@@ -68,7 +68,7 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
         showResendButton
             ? TextConstants.resendEmail
             : '${TextConstants.resendEmail} in ${seconds}s',
-        style: AppTypography.bold14(
+        style: AppTypography.semiBold14Circular(
           color: UIColors.pineGreen,
         ),
       ),

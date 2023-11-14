@@ -16,13 +16,13 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
       children: [
         Text(
           TextConstants.rememberYourPassword,
-          style: AppTypography.semiBold14(color: UIColors.pineGreen),
+          style: AppTypography.semiBold14Circular(color: UIColors.pineGreen),
         ),
         GestureDetector(
           onTap: _navigateToSignInPage,
           child: Text(
             ' ${TextConstants.login}',
-            style: AppTypography.semiBold14(
+            style: AppTypography.semiBold14Circular(
               color: UIColors.pineGreen,
             ),
           ),

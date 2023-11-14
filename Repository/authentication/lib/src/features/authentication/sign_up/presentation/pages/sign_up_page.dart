@@ -60,11 +60,10 @@ class _SignUpState extends ConsumerState<SignUpPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const BuildTitleAndSubtitle(
-            titleFirstPart: 'Sign up',
-            titleLastPart: ' with Email',
-            subtitleFirstPart: 'Get chatting with friends and family '
-                'today by',
-            subtitleLastPart: 'signing up for our chat app!',
+            titleFirstPart: TextConstants.signUpTitleFirstPart,
+            titleLastPart: TextConstants.signUpTitleLastPart,
+            subtitleFirstPart: TextConstants.signUpSubtitleFirstPart,
+            subtitleLastPart: TextConstants.signUpSubtitleLastPart,
           ),
           SizedBox(height: 60.h),
           const SignUpFormBuilder(),
@@ -76,8 +75,8 @@ class _SignUpState extends ConsumerState<SignUpPage> {
             isLoading: signUpState.status == BaseStatus.loading,
             label: TextConstants.createAnAccount,
             textStyle: !ref.watch(signUpFormValidationProvider)
-                ? AppTypography.bold16(color: UIColors.gray)
-                : AppTypography.bold16(color: UIColors.white),
+                ? AppTypography.semiBold16Caros(color: UIColors.gray)
+                : AppTypography.semiBold16Caros(color: UIColors.white),
             disable: !ref.watch(signUpFormValidationProvider),
           ),
           SizedBox(height: 16.h),

@@ -21,7 +21,8 @@ class _EmailField extends ConsumerWidget {
         validator: InputValidators.email,
         autocorrect: false,
         borderType: BorderType.bottom,
-        labelTextStyle: AppTypography.bold14(
+        style: AppTypography.regular16Caros(),
+        labelTextStyle: AppTypography.medium14Circular(
           color: UIColors.pineGreen,
         ),
       ),

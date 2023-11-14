@@ -4,8 +4,6 @@ class InputValidators {
   static final _emailRegX = RegExp(
       r'(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))');
 
-  static final _phoneRegX = RegExp(r'^\d{10}$');
-
   static String? userName(String? value) {
     if (value!.isEmpty) return 'Field can\'t be empty';
 

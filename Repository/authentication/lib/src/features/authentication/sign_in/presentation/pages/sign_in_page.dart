@@ -80,10 +80,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const BuildTitleAndSubtitle(
-            titleFirstPart: 'Log in',
-            titleLastPart: ' to Authy',
-            subtitleFirstPart: 'Welcome back! Sign in using your social',
-            subtitleLastPart: 'account or email to continue us',
+            titleFirstPart: TextConstants.signInTitleFirstPart,
+            titleLastPart: TextConstants.signInTitleLastPart,
+            subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
+            subtitleLastPart: TextConstants.signInSubtitleLastPart,
           ),
           SizedBox(height: 30.h),
           const SingleSignOn(),
@@ -96,8 +96,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             isLoading: state.status == BaseStatus.loading,
             label: TextConstants.login,
             textStyle: !ref.watch(buttonStateProvider)
-                ? AppTypography.bold16(color: UIColors.gray)
-                : AppTypography.bold16(color: UIColors.white),
+                ? AppTypography.semiBold16Caros(color: UIColors.gray)
+                : AppTypography.semiBold16Caros(color: UIColors.white),
             disable: !ref.watch(buttonStateProvider),
           ),
           SizedBox(height: 16.h),
@@ -117,7 +117,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         children: [
           Text(
             TextConstants.offline,
-            style: AppTypography.bold14(
+            style: AppTypography.bold14Caros(
               color: UIColors.pineGreen,
             ),
           ),

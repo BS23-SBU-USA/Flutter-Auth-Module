@@ -181,7 +181,7 @@ class Button extends StatelessWidget {
   }
 
   TextStyle _labelTextStyle() {
-    return AppTypography.regular16(
+    return AppTypography.regular16Caros(
       color: UIColors.white,
     );
   }

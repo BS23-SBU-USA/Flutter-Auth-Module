@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
+import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/widgets/avatar.dart';
@@ -65,12 +66,18 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
             else
               ListTile(
                 leading: const Icon(Icons.person),
-                title: const Text(TextConstants.updateProfile),
+                title: Text(
+                  TextConstants.updateProfile,
+                  style: AppTypography.regular14Circular(color: UIColors.black),
+                ),
                 onTap: _navigateToUpdateProfile,
               ),
           ListTile(
             leading: const Icon(Icons.lock),
-            title: const Text(TextConstants.changePassword),
+            title: Text(
+              TextConstants.changePassword,
+              style: AppTypography.regular14Circular(color: UIColors.black),
+            ),
             onTap: _navigateToChangePassword,
           ),
           ListTile(
@@ -86,7 +93,10 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                     ),
                   )
                 : const Icon(Icons.logout),
-            title: const Text(TextConstants.logOut),
+            title: Text(
+              TextConstants.logOut,
+              style: AppTypography.regular14Circular(color: UIColors.black),
+            ),
             onTap: () {
               if (logOutState.status != LogOutStatus.loading) {
                 if (!offlineState) {

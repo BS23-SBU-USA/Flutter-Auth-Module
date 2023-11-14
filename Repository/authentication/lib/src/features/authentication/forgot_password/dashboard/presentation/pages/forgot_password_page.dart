@@ -18,6 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 part '../widgets/forgot_password_email_field_builder.dart';
+
 part '../widgets/sign_in_navigation_builder.dart';
 
 class ForgotPasswordPage extends ConsumerStatefulWidget {
@@ -55,11 +56,10 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const BuildTitleAndSubtitle(
-            titleFirstPart: 'Forgot',
-            titleLastPart: ' Password',
-            subtitleFirstPart: 'Enter your email address. We will '
-                'send a code',
-            subtitleLastPart: 'to verify your identity',
+            titleFirstPart: TextConstants.dashboardTitleFirstPart,
+            titleLastPart: TextConstants.dashboardTitleLastPart,
+            subtitleFirstPart: TextConstants.dashboardSubtitleFirstPart,
+            subtitleLastPart: TextConstants.dashboardSubtitleLastPart,
           ),
           SizedBox(height: 70.h),
           const _EmailField(),
@@ -68,7 +68,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
             onPressed: () => notifier.forgotPasswordSubmit(offlineState),
             isLoading: state.status == ForgotPasswordStatus.loading,
             label: TextConstants.submit,
-            textStyle: AppTypography.bold16(color: UIColors.white),
+            textStyle: !ref.watch(forgotPassButtonStateProvider)
+                ? AppTypography.semiBold16Caros(color: UIColors.gray)
+                : AppTypography.semiBold16Caros(color: UIColors.white),
             disable: !ref.watch(forgotPassButtonStateProvider),
           ),
           SizedBox(height: 16.h),
