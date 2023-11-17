@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/image_service/image_capture.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
@@ -54,7 +53,7 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
     });
 
     return Scaffold(
-      backgroundColor: UIColors.white,
+      backgroundColor: context.theme.color.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Button.back(),

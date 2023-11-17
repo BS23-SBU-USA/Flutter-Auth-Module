@@ -16,7 +16,7 @@ class _EmailField extends ConsumerWidget {
         },
         textEditingController: notifier.emailController,
         labelText: TextConstants.yourEmail,
-        borderColor: UIColors.timberWolf,
+        borderColor: context.theme.color.timberWolf,
         keyboardType: TextInputType.emailAddress,
         validator: InputValidators.email,
         autocorrect: false,

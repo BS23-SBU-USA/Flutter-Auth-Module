@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:auth_module/src/core/theme/app_theme/colors.dart';
-import 'package:auth_module/src/core/theme/app_theme/fonts.dart';
+import 'package:auth_module/src/core/theme/colors.dart';
+import 'package:auth_module/src/core/theme/fonts.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:flutter/material.dart';
 

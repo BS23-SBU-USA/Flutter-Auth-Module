@@ -27,7 +27,7 @@ class _BirthdayFormFieldBuilderState
             style: context.theme.text.regular16Caros,
             labelTextStyle: context.theme.text.medium14Circular
                 .copyWith(color: context.theme.color.pineGreen),
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             autocorrect: false,
             suffix: GestureDetector(
               onTap: () {
@@ -56,8 +56,8 @@ class _BirthdayFormFieldBuilderState
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: UIColors.pineGreen,
+            colorScheme: ColorScheme.light(
+              primary: context.theme.color.pineGreen,
             ),
           ),
           child: child!,

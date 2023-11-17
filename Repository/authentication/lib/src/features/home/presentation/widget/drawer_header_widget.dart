@@ -17,9 +17,9 @@ class DrawerHeaderWidget extends ConsumerWidget {
     if (offlineState) {
       return _buildOfflineHeader(ref, context);
     } else if (profileState.status.isLoading || updateState.status.isLoading) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
-          color: UIColors.white,
+          color: context.theme.color.white,
         ),
       );
     } else {
@@ -30,15 +30,15 @@ class DrawerHeaderWidget extends ConsumerWidget {
             CircleAvatar(
               backgroundImage:
                   MemoryImage(base64Decode(profileState.data!.avatar!)),
-              backgroundColor: UIColors.pineGreen,
+              backgroundColor: context.theme.color.pineGreen,
               radius: 30,
             ),
           if (profileState.data!.avatar == null)
             Avatar.circleWithFullName(
               height: 60.r,
               width: 60.r,
-              borderColor: UIColors.white,
-              backgroundColor: UIColors.celeste,
+              borderColor: context.theme.color.white,
+              backgroundColor: context.theme.color.celeste,
               nameWithLetter: name,
             ),
           const SizedBox(height: 10),
@@ -70,8 +70,8 @@ class DrawerHeaderWidget extends ConsumerWidget {
         Avatar.circleWithFullName(
           height: 60.r,
           width: 60.r,
-          borderColor: UIColors.white,
-          backgroundColor: UIColors.celeste,
+          borderColor: context.theme.color.white,
+          backgroundColor: context.theme.color.celeste,
           nameWithLetter: name,
         ),
         const SizedBox(height: 10),

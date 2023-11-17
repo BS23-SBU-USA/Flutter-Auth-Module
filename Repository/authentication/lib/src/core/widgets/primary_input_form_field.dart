@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:auth_module/src/core/theme/colors.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -377,13 +377,13 @@ class _InputFormFieldState extends State<InputFormField> {
           ? password.hidePasswordIcon ??
               Icon(
                 Icons.visibility_off,
-                color: UIColors.pineGreen,
+                color: context.theme.color.pineGreen,
                 size: 16.sp,
               )
           : password.showPasswordIcon ??
               Icon(
                 Icons.visibility,
-                color: UIColors.pineGreen,
+                color: context.theme.color.pineGreen,
                 size: 16.sp,
               ),
       splashColor: Colors.transparent,

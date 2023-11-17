@@ -15,7 +15,7 @@ class _OtpField extends ConsumerWidget {
         },
         textEditingController: notifier.otpController,
         labelText: TextConstants.yourCode,
-        borderColor: UIColors.timberWolf,
+        borderColor: context.theme.color.timberWolf,
         keyboardType: TextInputType.number,
         validator: InputValidators.otp,
         autocorrect: false,

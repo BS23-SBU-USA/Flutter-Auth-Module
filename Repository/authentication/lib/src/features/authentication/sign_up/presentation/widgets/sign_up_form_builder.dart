@@ -26,7 +26,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             keyboardType: TextInputType.name,
             validator: InputValidators.name,
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             style: context.theme.text.regular16Caros,
             labelTextStyle: context.theme.text.medium14Circular
                 .copyWith(color: context.theme.color.pineGreen),
@@ -42,7 +42,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             keyboardType: TextInputType.name,
             validator: InputValidators.name,
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             style: context.theme.text.regular16Caros,
             labelTextStyle: context.theme.text.medium14Circular
                 .copyWith(color: context.theme.color.pineGreen),
@@ -55,7 +55,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             keyboardType: TextInputType.emailAddress,
             validator: InputValidators.email,
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             style: context.theme.text.regular16Caros,
             labelTextStyle: context.theme.text.medium14Circular
                 .copyWith(color: context.theme.color.pineGreen),
@@ -72,7 +72,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             style: context.theme.text.regular16Caros,
             labelTextStyle: context.theme.text.medium14Circular
                 .copyWith(color: context.theme.color.pineGreen),
@@ -94,7 +94,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
               );
             },
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             style: context.theme.text.regular16Caros,
             labelTextStyle: context.theme.text.medium14Circular
                 .copyWith(color: context.theme.color.pineGreen),

@@ -1,4 +1,4 @@
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
 import 'package:flutter/material.dart';

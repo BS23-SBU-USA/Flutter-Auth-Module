@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:auth_module/src/core/theme/colors.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class ShowSnackBarMessage {
@@ -15,10 +15,10 @@ class ShowSnackBarMessage {
         content: Center(
           child: Text(
             message,
-            style: const TextStyle(color: UIColors.white, fontSize: 16),
+            style: TextStyle(color: context.theme.color.white, fontSize: 16),
           ),
         ),
-        backgroundColor: UIColors.pineGreen,
+        backgroundColor: context.theme.color.pineGreen,
       ),
     );
   }
@@ -33,10 +33,10 @@ class ShowSnackBarMessage {
         content: Center(
           child: Text(
             message,
-            style: const TextStyle(color: UIColors.white, fontSize: 16),
+            style: TextStyle(color: context.theme.color.white, fontSize: 16),
           ),
         ),
-        backgroundColor: UIColors.red,
+        backgroundColor: context.theme.color.red,
       ),
     );
   }
@@ -53,12 +53,13 @@ class ShowSnackBarMessage {
             Center(
               child: Text(
                 message,
-                style: const TextStyle(color: UIColors.white, fontSize: 16),
+                style:
+                    TextStyle(color: context.theme.color.white, fontSize: 16),
               ),
             ),
           ],
         ),
-        backgroundColor: UIColors.pineGreen,
+        backgroundColor: context.theme.color.pineGreen,
       ),
     );
   }

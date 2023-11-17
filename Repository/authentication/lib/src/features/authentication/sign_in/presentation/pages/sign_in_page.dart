@@ -1,9 +1,8 @@
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
@@ -69,7 +68,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
     return ScrollableWrapper(
       appBar: AppBar(
-        backgroundColor: UIColors.white,
+        backgroundColor: context.theme.color.white,
         elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
@@ -127,9 +126,9 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             scale: 0.7,
             child: CupertinoSwitch(
               value: state,
-              activeColor: UIColors.pineGreen,
-              trackColor: UIColors.gray,
-              thumbColor: UIColors.white,
+              activeColor: context.theme.color.pineGreen,
+              trackColor: context.theme.color.gray,
+              thumbColor: context.theme.color.white,
               onChanged: (value) {
                 notifier.state = value;
               },

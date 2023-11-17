@@ -1,5 +1,4 @@
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +18,7 @@ class UnderlinedText extends StatelessWidget {
         Container(
           height: 8.h,
           width: 50.w,
-          color: UIColors.verdigris,
+          color: context.theme.color.verdigris,
         ),
         Text(
           title,

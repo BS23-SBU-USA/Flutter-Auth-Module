@@ -23,9 +23,9 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                   fillColor: MaterialStateProperty.resolveWith<Color?>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.selected)) {
-                        return UIColors.pineGreen;
+                        return context.theme.color.pineGreen;
                       }
-                      return UIColors.platinum;
+                      return context.theme.color.platinum;
                     },
                   ),
                   shape: RoundedRectangleBorder(
@@ -33,17 +33,17 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                   ),
                   value: ref.watch(termsAndConditionCheckerProvider),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  activeColor: UIColors.pineGreen,
-                  checkColor: UIColors.white,
+                  activeColor: context.theme.color.pineGreen,
+                  checkColor: context.theme.color.white,
                   side: MaterialStateBorderSide.resolveWith(
                     (states) {
                       if (states.contains(MaterialState.selected)) {
-                        return const BorderSide(
-                          color: UIColors.tiffanyBlue,
+                        return BorderSide(
+                          color: context.theme.color.tiffanyBlue,
                         );
                       }
-                      return const BorderSide(
-                        color: UIColors.pineGreen,
+                      return BorderSide(
+                        color: context.theme.color.pineGreen,
                       );
                     },
                   ),

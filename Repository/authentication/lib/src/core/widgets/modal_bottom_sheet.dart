@@ -1,7 +1,6 @@
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
-import 'package:auth_module/src/core/theme/app_theme/style.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/style.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -78,7 +77,7 @@ class ModalCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                backgroundColor: UIColors.antiFlashWhite,
+                backgroundColor: context.theme.color.antiFlashWhite,
                 child: Image.asset(icon),
               ),
               SizedBox(width: 12.w),

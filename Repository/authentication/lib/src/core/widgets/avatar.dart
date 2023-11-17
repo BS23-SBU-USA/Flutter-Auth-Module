@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:auth_module/src/core/theme/theme.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,8 +9,8 @@ class Avatar extends StatelessWidget {
   const Avatar.circle({
     required this.url,
     super.key,
-    this.backgroundColor = UIColors.pineGreen,
-    this.borderColor = UIColors.white,
+    this.backgroundColor,
+    this.borderColor,
     this.activityStatus,
     this.onTap,
     this.height = 128,
@@ -81,9 +81,9 @@ class Avatar extends StatelessWidget {
         height: height.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
+          color: backgroundColor ?? context.theme.color.pineGreen,
           border: Border.all(
-            color: borderColor!,
+            color: borderColor ?? context.theme.color.white,
             width: border.h,
           ),
           image: url.isNotEmpty
@@ -106,7 +106,7 @@ class Avatar extends StatelessWidget {
                 child: Text(
                   nameWithLetter,
                   style: TextStyle(
-                    color: UIColors.pineGreen,
+                    color: context.theme.color.pineGreen,
                     fontSize: fontSize,
                   ),
                 ),

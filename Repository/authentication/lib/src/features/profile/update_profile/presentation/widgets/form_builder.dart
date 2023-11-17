@@ -24,7 +24,7 @@ class _UpdateProfileFormBuilderState
               onChanged: (value) {
                 _capitalizeFirstLetter(notifier.firstNameController);
               },
-              borderColor: UIColors.timberWolf,
+              borderColor: context.theme.color.timberWolf,
               textEditingController: notifier.firstNameController,
               labelText: TextConstants.firstName,
               style: context.theme.text.regular16Caros,
@@ -36,7 +36,7 @@ class _UpdateProfileFormBuilderState
               onChanged: (value) {
                 _capitalizeFirstLetter(notifier.lastNameController);
               },
-              borderColor: UIColors.timberWolf,
+              borderColor: context.theme.color.timberWolf,
               textEditingController: notifier.lastNameController,
               labelText: TextConstants.lastName,
               style: context.theme.text.regular16Caros,
@@ -53,7 +53,7 @@ class _UpdateProfileFormBuilderState
                 style: context.theme.text.medium14Circular
                     .copyWith(color: context.theme.color.pineGreen),
               ),
-              borderColor: UIColors.timberWolf,
+              borderColor: context.theme.color.timberWolf,
               maxLength: 10,
               prefix: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -67,7 +67,7 @@ class _UpdateProfileFormBuilderState
                   ),
                   Container(
                     width: 1,
-                    color: UIColors.pineGreen,
+                    color: context.theme.color.pineGreen,
                     margin: const EdgeInsets.only(right: 16),
                   ),
                 ],

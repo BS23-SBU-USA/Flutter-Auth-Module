@@ -21,7 +21,7 @@ class _SignInFormBuilder extends ConsumerWidget {
             validator: InputValidators.email,
             autocorrect: false,
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             bottomMargin: 30.h,
             onChanged: (value) {
               final emailNotEmpty = value.isNotEmpty;
@@ -47,7 +47,7 @@ class _SignInFormBuilder extends ConsumerWidget {
             validator: InputValidators.password,
             autocorrect: false,
             borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
+            borderColor: context.theme.color.timberWolf,
             onChanged: (value) {
               final emailNotEmpty = value.isNotEmpty;
               final passwordNotEmpty = ref

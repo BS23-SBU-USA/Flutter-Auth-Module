@@ -1,5 +1,4 @@
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +31,7 @@ class BuildTitleAndSubtitle extends StatelessWidget {
                   right: 0,
                   child: Container(
                     height: 8.h,
-                    color: UIColors.verdigris,
+                    color: context.theme.color.verdigris,
                   ),
                 ),
                 Text(

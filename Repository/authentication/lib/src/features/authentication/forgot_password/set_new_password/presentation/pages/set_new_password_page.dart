@@ -1,7 +1,6 @@
 import 'package:auth_module/src/core/services/routes/routes.dart';
-import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
