@@ -27,10 +27,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             validator: InputValidators.name,
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
             bottomMargin: 30.h,
           ),
           InputFormField(
@@ -44,10 +43,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             validator: InputValidators.name,
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
             bottomMargin: 30.h,
           ),
           InputFormField(
@@ -58,10 +56,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             validator: InputValidators.email,
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
             bottomMargin: 30.h,
           ),
           InputFormField(
@@ -76,10 +73,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             password: EnabledPassword(),
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
             bottomMargin: 0,
           ),
           if (ref.watch(passwordValidityProvider).isValid)
@@ -99,10 +95,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             },
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
             bottomMargin: 0,
           ),
         ],

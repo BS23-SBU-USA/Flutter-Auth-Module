@@ -31,10 +31,9 @@ class _ChangePasswordFormBuilderState
                 keyboardType: TextInputType.visiblePassword,
                 validator: InputValidators.password,
                 borderType: BorderType.bottom,
-                style: AppTypography.regular16Caros(),
-                labelTextStyle: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
+                style: context.theme.text.regular16Caros,
+                labelTextStyle: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.pineGreen),
                 bottomMargin: 30.h,
                 password: EnabledPassword(),
               ),
@@ -48,10 +47,9 @@ class _ChangePasswordFormBuilderState
                 labelText: TextConstants.newPassword,
                 keyboardType: TextInputType.visiblePassword,
                 borderType: BorderType.bottom,
-                style: AppTypography.regular16Caros(),
-                labelTextStyle: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
+                style: context.theme.text.regular16Caros,
+                labelTextStyle: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.pineGreen),
                 password: EnabledPassword(),
                 autocorrect: false,
                 bottomMargin: 0,
@@ -72,10 +70,9 @@ class _ChangePasswordFormBuilderState
                   );
                 },
                 borderType: BorderType.bottom,
-                style: AppTypography.regular16Caros(),
-                labelTextStyle: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
+                style: context.theme.text.regular16Caros,
+                labelTextStyle: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.pineGreen),
                 bottomMargin: 30.h,
                 autocorrect: false,
               ),
@@ -92,9 +89,8 @@ class _ChangePasswordFormBuilderState
                       },
                       isLoading: state.status == ChangePasswordStatus.loading,
                       label: TextConstants.changePassword,
-                      textStyle: AppTypography.semiBold16Caros(
-                        color: UIColors.white,
-                      ),
+                      textStyle: context.theme.text.semiBold16Caros
+                          .copyWith(color: context.theme.color.white),
                     ),
                   ),
                 ],

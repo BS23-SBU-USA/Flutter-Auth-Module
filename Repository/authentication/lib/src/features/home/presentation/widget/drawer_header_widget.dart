@@ -15,7 +15,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
         NameInitials.getInitialsFromFullName(profileState.data?.fullName ?? '');
 
     if (offlineState) {
-      return _buildOfflineHeader(ref);
+      return _buildOfflineHeader(ref, context);
     } else if (profileState.status.isLoading || updateState.status.isLoading) {
       return const Center(
         child: CircularProgressIndicator(
@@ -44,21 +44,23 @@ class DrawerHeaderWidget extends ConsumerWidget {
           const SizedBox(height: 10),
           Text(
             profileState.data!.fullName,
-            style: AppTypography.semiBold16Caros(color: UIColors.white),
+            style: context.theme.text.semiBold16Caros
+                .copyWith(color: context.theme.color.white),
           ),
           const SizedBox(height: 5),
           Text(
             profileState.data?.email != null
                 ? profileState.data!.email!
                 : 'userEmail',
-            style: AppTypography.regular14Caros(color: UIColors.white),
+            style: context.theme.text.regular14Caros
+                .copyWith(color: context.theme.color.white),
           ),
         ],
       );
     }
   }
 
-  Widget _buildOfflineHeader(WidgetRef ref) {
+  Widget _buildOfflineHeader(WidgetRef ref, BuildContext context) {
     final mockUser = ref.read(mockUserProvider);
     final name = NameInitials.getInitialsFromFullName(mockUser.fullName);
 
@@ -75,12 +77,14 @@ class DrawerHeaderWidget extends ConsumerWidget {
         const SizedBox(height: 10),
         Text(
           '${mockUser.firstName} ${mockUser.lastName}',
-          style: AppTypography.semiBold16Caros(color: UIColors.white),
+          style: context.theme.text.semiBold16Caros
+              .copyWith(color: context.theme.color.white),
         ),
         const SizedBox(height: 5),
         Text(
           mockUser.email,
-          style: AppTypography.regular14Caros(color: UIColors.white),
+          style: context.theme.text.regular14Caros
+              .copyWith(color: context.theme.color.white),
         ),
       ],
     );

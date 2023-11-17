@@ -21,10 +21,9 @@ class _OtpField extends ConsumerWidget {
         autocorrect: false,
         maxLength: 6,
         borderType: BorderType.bottom,
-        style: AppTypography.regular16Caros(),
-        labelTextStyle: AppTypography.medium14Circular(
-          color: UIColors.pineGreen,
-        ),
+        style: context.theme.text.regular16Caros,
+        labelTextStyle: context.theme.text.medium14Circular
+            .copyWith(color: context.theme.color.pineGreen),
       ),
     );
   }

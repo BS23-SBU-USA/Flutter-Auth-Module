@@ -16,17 +16,15 @@ class _SignUpNavigationBuilderState extends State<_SignUpNavigationBuilder> {
       children: [
         Text(
           '${TextConstants.doNotHaveAccount}  ',
-          style: AppTypography.semiBold14Circular(
-            color: UIColors.pineGreen,
-          ),
+          style: context.theme.text.semiBold14Circular
+              .copyWith(color: context.theme.color.pineGreen),
         ),
         GestureDetector(
           onTap: _navigateToSignUpPage,
           child: Text(
             TextConstants.signUp,
-            style: AppTypography.semiBold14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.semiBold14Circular
+                .copyWith(color: context.theme.color.pineGreen),
           ),
         ),
       ],

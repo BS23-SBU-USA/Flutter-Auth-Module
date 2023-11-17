@@ -61,9 +61,8 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
               ),
               Text(
                 TextConstants.rememberMe,
-                style: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
+                style: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.pineGreen),
               ),
             ],
           ),
@@ -77,9 +76,8 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
           ),
           child: Text(
             TextConstants.forgotPassword,
-            style: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
           ),
         ),
       ],

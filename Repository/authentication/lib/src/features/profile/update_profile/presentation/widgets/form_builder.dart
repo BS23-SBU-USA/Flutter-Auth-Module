@@ -27,10 +27,9 @@ class _UpdateProfileFormBuilderState
               borderColor: UIColors.timberWolf,
               textEditingController: notifier.firstNameController,
               labelText: TextConstants.firstName,
-              style: AppTypography.regular16Caros(),
-              labelTextStyle: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
+              style: context.theme.text.regular16Caros,
+              labelTextStyle: context.theme.text.medium14Circular
+                  .copyWith(color: context.theme.color.pineGreen),
               autocorrect: false,
             ),
             InputFormField(
@@ -40,21 +39,19 @@ class _UpdateProfileFormBuilderState
               borderColor: UIColors.timberWolf,
               textEditingController: notifier.lastNameController,
               labelText: TextConstants.lastName,
-              style: AppTypography.regular16Caros(),
-              labelTextStyle: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
+              style: context.theme.text.regular16Caros,
+              labelTextStyle: context.theme.text.medium14Circular
+                  .copyWith(color: context.theme.color.pineGreen),
               autocorrect: false,
               keyboardType: TextInputType.name,
             ),
             InputFormField(
               textEditingController: notifier.onlyPhoneController,
-              style: AppTypography.regular16Caros(),
+              style: context.theme.text.regular16Caros,
               label: Text(
                 TextConstants.phoneNumber,
-                style: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
+                style: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.pineGreen),
               ),
               borderColor: UIColors.timberWolf,
               maxLength: 10,

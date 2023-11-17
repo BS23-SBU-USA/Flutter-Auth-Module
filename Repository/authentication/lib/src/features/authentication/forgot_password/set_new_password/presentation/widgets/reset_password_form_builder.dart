@@ -6,6 +6,7 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(setNewPasswordProvider.notifier);
+
     return Form(
       key: notifier.formKey,
       child: Column(
@@ -24,10 +25,9 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
             autocorrect: false,
             bottomMargin: 0,
             borderType: BorderType.bottom,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
           ),
           if (ref.watch(passwordValidityProvider).isValid)
             Container(height: 20.h)
@@ -47,10 +47,9 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
               );
             },
             borderType: BorderType.bottom,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
           ),
         ],
       ),

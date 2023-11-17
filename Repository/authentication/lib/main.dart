@@ -2,7 +2,9 @@ import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
 import 'package:auth_module/src/core/services/routes/route_generator.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/theme/colors.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
+import 'package:auth_module/src/core/theme/app_theme/theme.dart';
+import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/app_theme/style.dart';
 import 'package:auth_module/src/core/utils/loggers/riverpod_logger.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/pages/sign_in_page.dart';
@@ -47,33 +49,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          title: TextConstants.appName,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            appBarTheme: AppBarTheme(
-              backgroundColor: UIColors.white,
-              elevation: 0,
-              titleSpacing: 0,
-              centerTitle: true,
-              titleTextStyle: AppTypography.semiBold18Caros(
-                color: UIColors.black,
-              ),
-              iconTheme: const IconThemeData(
-                color: UIColors.black,
+    return AppTheme(
+      appStyle: AppStyle(
+        screenSize: MediaQueryData.fromView(
+          WidgetsBinding.instance.platformDispatcher.views.single,
+        ).size,
+      ),
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
+            title: TextConstants.appName,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              appBarTheme: AppBarTheme(
+                backgroundColor: UIColors.white,
+                elevation: 0,
+                titleSpacing: 0,
+                centerTitle: true,
+                titleTextStyle: context.theme.text.semiBold18Caros,
+                iconTheme: const IconThemeData(
+                  color: UIColors.black,
+                ),
               ),
             ),
-          ),
-          onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: Routes.signIn,
-          navigatorKey: navigatorKey,
-        );
-      },
+            onGenerateRoute: RouteGenerator.generateRoute,
+            initialRoute: Routes.signIn,
+            navigatorKey: navigatorKey,
+          );
+        },
+      ),
     );
   }
 }

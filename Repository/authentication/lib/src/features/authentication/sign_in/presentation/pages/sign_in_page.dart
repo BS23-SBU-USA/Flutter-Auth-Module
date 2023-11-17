@@ -1,9 +1,9 @@
+import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
@@ -96,8 +96,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             isLoading: state.status == BaseStatus.loading,
             label: TextConstants.login,
             textStyle: !ref.watch(buttonStateProvider)
-                ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                : AppTypography.semiBold16Caros(color: UIColors.white),
+                ? context.theme.text.semiBold16Caros
+                    .copyWith(color: context.theme.color.gray)
+                : context.theme.text.semiBold16Caros
+                    .copyWith(color: context.theme.color.white),
             disable: !ref.watch(buttonStateProvider),
           ),
           SizedBox(height: 16.h),
@@ -114,12 +116,12 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     return Padding(
       padding: EdgeInsets.only(right: 16.w),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             TextConstants.offline,
-            style: AppTypography.bold14Caros(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.bold14Caros
+                .copyWith(color: context.theme.color.pineGreen),
           ),
           Transform.scale(
             scale: 0.7,

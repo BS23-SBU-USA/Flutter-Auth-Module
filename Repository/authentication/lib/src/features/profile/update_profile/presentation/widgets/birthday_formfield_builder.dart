@@ -13,6 +13,7 @@ class _BirthdayFormFieldBuilderState
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
+
     return Row(
       children: [
         Expanded(
@@ -23,10 +24,9 @@ class _BirthdayFormFieldBuilderState
             readOnly: true,
             textEditingController: notifier.dateOfBirthController,
             labelText: TextConstants.dateOfBirth,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.regular16Caros,
+            labelTextStyle: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
             borderColor: UIColors.timberWolf,
             autocorrect: false,
             suffix: GestureDetector(

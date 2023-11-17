@@ -11,6 +11,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
+
     return Stack(
       children: [
         CircleAvatar(
@@ -64,9 +65,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                               ),
                               Text(
                                 'Profile Photo',
-                                style: AppTypography.semiBold16Caros(
-                                  color: UIColors.black,
-                                ),
+                                style: context.theme.text.medium16Caros,
                               ),
                               const IconButton(
                                 icon: Icon(
@@ -155,9 +154,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Choose from Gallery',
-            style: AppTypography.bold14Caros(
-              color: UIColors.black,
-            ),
+            style: context.theme.text.semiBold14Caros,
           ),
         ],
       ),
@@ -209,9 +206,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Take a Photo',
-            style: AppTypography.bold14Caros(
-              color: UIColors.black,
-            ),
+            style: context.theme.text.semiBold14Caros,
           ),
         ],
       ),

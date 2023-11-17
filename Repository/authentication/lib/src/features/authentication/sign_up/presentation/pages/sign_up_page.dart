@@ -1,8 +1,8 @@
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
+import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
@@ -75,8 +75,10 @@ class _SignUpState extends ConsumerState<SignUpPage> {
             isLoading: signUpState.status == BaseStatus.loading,
             label: TextConstants.createAnAccount,
             textStyle: !ref.watch(signUpFormValidationProvider)
-                ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                : AppTypography.semiBold16Caros(color: UIColors.white),
+                ? context.theme.text.semiBold16Caros
+                    .copyWith(color: context.theme.color.gray)
+                : context.theme.text.semiBold16Caros
+                    .copyWith(color: context.theme.color.white),
             disable: !ref.watch(signUpFormValidationProvider),
           ),
           SizedBox(height: 16.h),

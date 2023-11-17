@@ -1,6 +1,6 @@
+import 'package:auth_module/src/core/theme/app_theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/theme/colors.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -163,7 +163,7 @@ class Button extends StatelessWidget {
                   prefix == null
                       ? Text(
                           label,
-                          style: textStyle ?? _labelTextStyle(),
+                          style: textStyle ?? _labelTextStyle(context),
                         )
                       : Row(
                           children: [
@@ -171,7 +171,7 @@ class Button extends StatelessWidget {
                             SizedBox(width: 10.w),
                             Text(
                               label,
-                              style: textStyle ?? _labelTextStyle(),
+                              style: textStyle ?? _labelTextStyle(context),
                             ),
                           ],
                         ),
@@ -180,9 +180,8 @@ class Button extends StatelessWidget {
           );
   }
 
-  TextStyle _labelTextStyle() {
-    return AppTypography.regular16Caros(
-      color: UIColors.white,
-    );
+  TextStyle _labelTextStyle(BuildContext context) {
+    return context.theme.text.regular16Caros
+        .copyWith(color: context.theme.color.black);
   }
 }

@@ -58,13 +58,12 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
           RichText(
             text: TextSpan(
               text: TextConstants.iAgreeWith,
-              style: AppTypography.medium14Circular(),
+              style: context.theme.text.medium14Circular,
               children: <TextSpan>[
                 TextSpan(
                   text: TextConstants.termsAndConditions,
-                  style: AppTypography.medium14Circular(
-                    color: UIColors.pineGreen,
-                  ),
+                  style: context.theme.text.medium14Circular
+                      .copyWith(color: context.theme.color.pineGreen),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Navigator.pushNamed(

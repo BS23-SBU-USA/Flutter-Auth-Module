@@ -32,9 +32,8 @@ class SingleSignOn extends StatelessWidget {
               color: Colors.white,
               child: Text(
                 'OR',
-                style: AppTypography.medium14Circular(
-                  color: UIColors.gray,
-                ),
+                style: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.gray),
               ),
             ),
           ],
