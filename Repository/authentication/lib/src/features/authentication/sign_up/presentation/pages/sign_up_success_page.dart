@@ -1,8 +1,7 @@
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +31,7 @@ class _SuccessPageState extends State<SuccessPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      backgroundColor: UIColors.white,
+      backgroundColor: context.theme.color.white,
       body: Center(
         child: SizedBox(
           width: 400.w,
@@ -44,21 +43,18 @@ class _SuccessPageState extends State<SuccessPage> {
               children: [
                 Text(
                   TextConstants.congratulations,
-                  style: AppTypography.bold24Caros(
-                    color: UIColors.pineGreen,
-                  ),
+                  style: context.theme.text.bold24Caros
+                      .copyWith(color: context.theme.color.pineGreen),
                 ),
                 SizedBox(height: 20.h),
-                Text(
-                  TextConstants.accountCreatedSuccess,
-                  style: AppTypography.regular14Caros(),
-                ),
+                Text(TextConstants.accountCreatedSuccess,
+                    style: context.theme.text.regular14Caros),
                 SizedBox(height: 30.h),
                 Button(
                   onPressed: _navigateToSignInPage,
                   label: TextConstants.login,
-                  textStyle:
-                      AppTypography.semiBold16Caros(color: UIColors.white),
+                  textStyle: context.theme.text.semiBold16Caros
+                      .copyWith(color: context.theme.color.white),
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
+import 'package:auth_module/src/core/theme/context_extension.dart';
+import 'package:auth_module/src/core/theme/style.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,7 +77,7 @@ class ModalCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                backgroundColor: UIColors.antiFlashWhite,
+                backgroundColor: context.theme.color.antiFlashWhite,
                 child: Image.asset(icon),
               ),
               SizedBox(width: 12.w),
@@ -99,9 +99,7 @@ class ModalCard extends StatelessWidget {
                       children: [
                         Text(
                           label,
-                          style: AppTypography.bold14Caros(
-                            color: UIColors.black,
-                          ),
+                          style: context.theme.text.semiBold14Caros,
                         ),
                       ],
                     ),
@@ -125,6 +123,10 @@ class _ModalHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppStyle style = AppStyle(
+      screenSize: MediaQuery.of(context).size,
+    );
+
     return Padding(
       padding: EdgeInsets.only(bottom: 20.h),
       child: Stack(
@@ -147,9 +149,7 @@ class _ModalHeader extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTypography.bold14Caros(
-                    color: UIColors.black,
-                  ),
+                  style: style.text.medium16Caros,
                 ),
               ],
             ),

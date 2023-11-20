@@ -1,6 +1,5 @@
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -48,11 +47,11 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.white,
+        backgroundColor: context.theme.color.white,
         elevation: 0,
         title: Text(
           'Feed Module',
-          style: AppTypography.semiBold18Caros(),
+          style: context.theme.text.semiBold18Caros,
         ),
         centerTitle: true,
         leading: GestureDetector(
@@ -78,8 +77,8 @@ class _WebViewPageState extends State<WebViewPage> {
               controller: controller,
             ),
             if (loading)
-              const CircularProgressIndicator(
-                color: UIColors.pineGreen,
+              CircularProgressIndicator(
+                color: context.theme.color.pineGreen,
               ),
           ],
         ),

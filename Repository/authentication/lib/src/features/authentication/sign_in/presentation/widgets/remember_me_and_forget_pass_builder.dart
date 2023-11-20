@@ -28,9 +28,9 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
                       fillColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.selected)) {
-                            return UIColors.pineGreen;
+                            return context.theme.color.pineGreen;
                           }
-                          return UIColors.platinum;
+                          return context.theme.color.platinum;
                         },
                       ),
                       shape: RoundedRectangleBorder(
@@ -39,19 +39,19 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
                       side: MaterialStateBorderSide.resolveWith(
                         (states) {
                           if (states.contains(MaterialState.selected)) {
-                            return const BorderSide(
-                              color: UIColors.tiffanyBlue,
+                            return BorderSide(
+                              color: context.theme.color.tiffanyBlue,
                             );
                           }
-                          return const BorderSide(
-                            color: UIColors.pineGreen,
+                          return BorderSide(
+                            color: context.theme.color.pineGreen,
                           );
                         },
                       ),
                       value: state,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      activeColor: UIColors.pineGreen,
-                      checkColor: UIColors.white,
+                      activeColor: context.theme.color.pineGreen,
+                      checkColor: context.theme.color.white,
                       onChanged: (value) {
                         notifier.state = value!;
                       },
@@ -61,9 +61,8 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
               ),
               Text(
                 TextConstants.rememberMe,
-                style: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
+                style: context.theme.text.medium14Circular
+                    .copyWith(color: context.theme.color.pineGreen),
               ),
             ],
           ),
@@ -77,9 +76,8 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
           ),
           child: Text(
             TextConstants.forgotPassword,
-            style: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
+            style: context.theme.text.medium14Circular
+                .copyWith(color: context.theme.color.pineGreen),
           ),
         ),
       ],

@@ -15,11 +15,11 @@ class DrawerHeaderWidget extends ConsumerWidget {
         NameInitials.getInitialsFromFullName(profileState.data?.fullName ?? '');
 
     if (offlineState) {
-      return _buildOfflineHeader(ref);
+      return _buildOfflineHeader(ref, context);
     } else if (profileState.status.isLoading || updateState.status.isLoading) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
-          color: UIColors.white,
+          color: context.theme.color.white,
         ),
       );
     } else {
@@ -30,35 +30,37 @@ class DrawerHeaderWidget extends ConsumerWidget {
             CircleAvatar(
               backgroundImage:
                   MemoryImage(base64Decode(profileState.data!.avatar!)),
-              backgroundColor: UIColors.pineGreen,
+              backgroundColor: context.theme.color.pineGreen,
               radius: 30,
             ),
           if (profileState.data!.avatar == null)
             Avatar.circleWithFullName(
               height: 60.r,
               width: 60.r,
-              borderColor: UIColors.white,
-              backgroundColor: UIColors.celeste,
+              borderColor: context.theme.color.white,
+              backgroundColor: context.theme.color.celeste,
               nameWithLetter: name,
             ),
           const SizedBox(height: 10),
           Text(
             profileState.data!.fullName,
-            style: AppTypography.semiBold16Caros(color: UIColors.white),
+            style: context.theme.text.semiBold16Caros
+                .copyWith(color: context.theme.color.white),
           ),
           const SizedBox(height: 5),
           Text(
             profileState.data?.email != null
                 ? profileState.data!.email!
                 : 'userEmail',
-            style: AppTypography.regular14Caros(color: UIColors.white),
+            style: context.theme.text.regular14Caros
+                .copyWith(color: context.theme.color.white),
           ),
         ],
       );
     }
   }
 
-  Widget _buildOfflineHeader(WidgetRef ref) {
+  Widget _buildOfflineHeader(WidgetRef ref, BuildContext context) {
     final mockUser = ref.read(mockUserProvider);
     final name = NameInitials.getInitialsFromFullName(mockUser.fullName);
 
@@ -68,19 +70,21 @@ class DrawerHeaderWidget extends ConsumerWidget {
         Avatar.circleWithFullName(
           height: 60.r,
           width: 60.r,
-          borderColor: UIColors.white,
-          backgroundColor: UIColors.celeste,
+          borderColor: context.theme.color.white,
+          backgroundColor: context.theme.color.celeste,
           nameWithLetter: name,
         ),
         const SizedBox(height: 10),
         Text(
           '${mockUser.firstName} ${mockUser.lastName}',
-          style: AppTypography.semiBold16Caros(color: UIColors.white),
+          style: context.theme.text.semiBold16Caros
+              .copyWith(color: context.theme.color.white),
         ),
         const SizedBox(height: 5),
         Text(
           mockUser.email,
-          style: AppTypography.regular14Caros(color: UIColors.white),
+          style: context.theme.text.regular14Caros
+              .copyWith(color: context.theme.color.white),
         ),
       ],
     );

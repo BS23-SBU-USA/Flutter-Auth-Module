@@ -1,6 +1,5 @@
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,7 +51,7 @@ class _PasswordValidationBuilderState
             const TextSpan(text: TextConstants.dot),
           ],
         ),
-        style: AppTypography.regular12Caros(),
+        style: context.theme.text.regular12Caros,
         textAlign: TextAlign.start,
       ),
     );
@@ -61,9 +60,8 @@ class _PasswordValidationBuilderState
   TextSpan _buildValidationTextSpan(bool isValid, String text) {
     return TextSpan(
       text: text,
-      style: AppTypography.bold12Caros(
-        color: isValid ? UIColors.pineGreen : null,
-      ),
+      style: context.theme.text.bold12Caros
+          .copyWith(color: isValid ? context.theme.color.pineGreen : null),
     );
   }
 }

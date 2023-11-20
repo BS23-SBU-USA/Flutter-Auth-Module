@@ -1,6 +1,5 @@
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
-import 'package:auth_module/src/core/theme/colors.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -125,8 +124,9 @@ class Button extends StatelessWidget {
                 ? ElevatedButton.styleFrom(
                     elevation: 0,
                     fixedSize: Size(width, height),
-                    backgroundColor: background ?? UIColors.pineGreen,
-                    disabledBackgroundColor: UIColors.antiFlashWhite,
+                    backgroundColor:
+                        background ?? context.theme.color.pineGreen,
+                    disabledBackgroundColor: context.theme.color.antiFlashWhite,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
                     ),
@@ -135,11 +135,12 @@ class Button extends StatelessWidget {
                     elevation: 0,
                     fixedSize: Size(width, height),
                     backgroundColor: disable
-                        ? UIColors.antiFlashWhite
-                        : background ?? UIColors.transparent,
+                        ? context.theme.color.antiFlashWhite
+                        : background ?? context.theme.color.transparent,
                     side: BorderSide(
-                      color:
-                          isLoading ? UIColors.transparent : UIColors.pineGreen,
+                      color: isLoading
+                          ? context.theme.color.transparent
+                          : context.theme.color.pineGreen,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
@@ -151,11 +152,11 @@ class Button extends StatelessWidget {
                 if (isLoading)
                   Transform.scale(
                     scale: scale,
-                    child: const SizedBox(
+                    child: SizedBox(
                       height: 30,
                       width: 30,
                       child: CircularProgressIndicator(
-                        color: UIColors.pineGreen,
+                        color: context.theme.color.pineGreen,
                       ),
                     ),
                   )
@@ -163,7 +164,7 @@ class Button extends StatelessWidget {
                   prefix == null
                       ? Text(
                           label,
-                          style: textStyle ?? _labelTextStyle(),
+                          style: textStyle ?? _labelTextStyle(context),
                         )
                       : Row(
                           children: [
@@ -171,7 +172,7 @@ class Button extends StatelessWidget {
                             SizedBox(width: 10.w),
                             Text(
                               label,
-                              style: textStyle ?? _labelTextStyle(),
+                              style: textStyle ?? _labelTextStyle(context),
                             ),
                           ],
                         ),
@@ -180,9 +181,8 @@ class Button extends StatelessWidget {
           );
   }
 
-  TextStyle _labelTextStyle() {
-    return AppTypography.regular16Caros(
-      color: UIColors.white,
-    );
+  TextStyle _labelTextStyle(BuildContext context) {
+    return context.theme.text.regular16Caros
+        .copyWith(color: context.theme.color.black);
   }
 }

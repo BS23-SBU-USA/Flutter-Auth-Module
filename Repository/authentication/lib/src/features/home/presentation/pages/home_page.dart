@@ -2,9 +2,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/widgets/avatar.dart';
 import 'package:auth_module/src/core/widgets/name_with_letter.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/mock_user/mock_user_provider.dart';
@@ -47,9 +46,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.pineGreen,
+        backgroundColor: context.theme.color.pineGreen,
         elevation: 0,
-        iconTheme: const IconThemeData(color: UIColors.white),
+        iconTheme: IconThemeData(color: context.theme.color.white),
         leading: Builder(
           builder: (context) {
             return GestureDetector(
@@ -62,8 +61,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ? Avatar.circleWithFullName(
                         height: 30.r,
                         width: 30.r,
-                        borderColor: UIColors.pineGreen,
-                        backgroundColor: UIColors.celeste,
+                        borderColor: context.theme.color.pineGreen,
+                        backgroundColor: context.theme.color.celeste,
                         nameWithLetter: name,
                       )
                     : (profileState.status.isLoading ||
@@ -73,7 +72,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               height: 20.sp,
                               width: 20.sp,
                               child: CircularProgressIndicator(
-                                color: UIColors.white,
+                                color: context.theme.color.white,
                                 strokeWidth: 2.sp,
                               ),
                             ),
@@ -85,13 +84,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     url: profileState.data!.avatar!,
                                     height: 30.r,
                                     width: 30.r,
-                                    borderColor: UIColors.pineGreen,
+                                    borderColor: context.theme.color.pineGreen,
                                   )
                                 : Avatar.circleWithFullName(
                                     height: 30.r,
                                     width: 30.r,
-                                    borderColor: UIColors.pineGreen,
-                                    backgroundColor: UIColors.celeste,
+                                    borderColor: context.theme.color.pineGreen,
+                                    backgroundColor:
+                                        context.theme.color.celeste,
                                     nameWithLetter: name,
                                   ),
               ),
@@ -101,14 +101,16 @@ class _HomePageState extends ConsumerState<HomePage> {
         title: offlineState
             ? Text(
                 '${mockUser.firstName} ${mockUser.lastName}',
-                style: AppTypography.semiBold18Caros(color: UIColors.white),
+                style: context.theme.text.semiBold18Caros
+                    .copyWith(color: context.theme.color.white),
               )
             : Text(
                 (profileState.status.isLoading || updateState.status.isLoading)
                     ? TextConstants.connecting
                     : '${profileState.data?.firstname} '
                         '${profileState.data?.lastname}',
-                style: AppTypography.semiBold18Caros(color: UIColors.white),
+                style: context.theme.text.semiBold18Caros
+                    .copyWith(color: context.theme.color.white),
               ),
         centerTitle: false,
       ),
@@ -120,7 +122,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ? ''
                   : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!'
               : 'Hello\n${mockUser.firstName} ${mockUser.lastName}!',
-          style: AppTypography.bold24Caros(color: UIColors.pineGreen),
+          style: context.theme.text.bold24Caros
+              .copyWith(color: context.theme.color.pineGreen),
           textAlign: TextAlign.center,
         ),
       ),

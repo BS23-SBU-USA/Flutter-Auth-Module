@@ -11,6 +11,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
+
     return Stack(
       children: [
         CircleAvatar(
@@ -22,14 +23,14 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                 )
               : null,
           backgroundColor: notifier.avatarController.text.isEmpty
-              ? UIColors.platinum
-              : UIColors.pineGreen,
+              ? context.theme.color.platinum
+              : context.theme.color.pineGreen,
           radius: 41,
           child: notifier.avatarController.text.isEmpty
-              ? const Icon(
+              ? Icon(
                   Icons.photo,
                   size: 30,
-                  color: UIColors.white,
+                  color: context.theme.color.white,
                 )
               : null,
         ),
@@ -64,14 +65,12 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                               ),
                               Text(
                                 'Profile Photo',
-                                style: AppTypography.semiBold16Caros(
-                                  color: UIColors.black,
-                                ),
+                                style: context.theme.text.medium16Caros,
                               ),
-                              const IconButton(
+                              IconButton(
                                 icon: Icon(
                                   Icons.close,
-                                  color: UIColors.white,
+                                  color: context.theme.color.white,
                                 ),
                                 onPressed: null,
                               ),
@@ -88,13 +87,13 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                 },
               );
             },
-            child: const CircleAvatar(
-              backgroundColor: UIColors.pineGreen,
+            child: CircleAvatar(
+              backgroundColor: context.theme.color.pineGreen,
               radius: 12,
               child: Icon(
                 Icons.add_a_photo,
                 size: 12,
-                color: UIColors.white,
+                color: context.theme.color.white,
               ),
             ),
           ),
@@ -138,15 +137,15 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           Container(
             height: 44.h,
             width: 44.h,
-            decoration: const BoxDecoration(
-              color: UIColors.antiFlashWhite,
+            decoration: BoxDecoration(
+              color: context.theme.color.antiFlashWhite,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: SvgPicture.asset(
                 Assets.mediaIcon,
-                colorFilter: const ColorFilter.mode(
-                  UIColors.black,
+                colorFilter: ColorFilter.mode(
+                  context.theme.color.black,
                   BlendMode.srcIn,
                 ),
               ),
@@ -155,9 +154,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Choose from Gallery',
-            style: AppTypography.bold14Caros(
-              color: UIColors.black,
-            ),
+            style: context.theme.text.semiBold14Caros,
           ),
         ],
       ),
@@ -196,8 +193,8 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           Container(
             height: 44.h,
             width: 44.h,
-            decoration: const BoxDecoration(
-              color: UIColors.antiFlashWhite,
+            decoration: BoxDecoration(
+              color: context.theme.color.antiFlashWhite,
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -209,9 +206,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Take a Photo',
-            style: AppTypography.bold14Caros(
-              color: UIColors.black,
-            ),
+            style: context.theme.text.semiBold14Caros,
           ),
         ],
       ),

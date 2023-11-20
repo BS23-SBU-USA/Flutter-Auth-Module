@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
+import 'package:auth_module/src/core/theme/context_extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/widgets/avatar.dart';
 import 'package:auth_module/src/core/widgets/name_with_letter.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
@@ -49,18 +48,18 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: UIColors.pineGreen,
+              color: context.theme.color.pineGreen,
             ),
-            child: DrawerHeaderWidget(),
+            child: const DrawerHeaderWidget(),
           ),
           if (!offlineState)
             if (profileState.status == UserProfileStatus.loading ||
                 updateState.status == UpdateProfileStatus.loading)
-              const Center(
+              Center(
                 child: CircularProgressIndicator(
-                  color: UIColors.pineGreen,
+                  color: context.theme.color.pineGreen,
                 ),
               )
             else
@@ -68,7 +67,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                 leading: const Icon(Icons.person),
                 title: Text(
                   TextConstants.updateProfile,
-                  style: AppTypography.regular14Circular(color: UIColors.black),
+                  style: context.theme.text.regular14Circular,
                 ),
                 onTap: _navigateToUpdateProfile,
               ),
@@ -76,7 +75,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
             leading: const Icon(Icons.lock),
             title: Text(
               TextConstants.changePassword,
-              style: AppTypography.regular14Circular(color: UIColors.black),
+              style: context.theme.text.regular14Circular,
             ),
             onTap: _navigateToChangePassword,
           ),
@@ -88,14 +87,14 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                     child: Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2.sp,
-                        color: UIColors.gray,
+                        color: context.theme.color.gray,
                       ),
                     ),
                   )
                 : const Icon(Icons.logout),
             title: Text(
               TextConstants.logOut,
-              style: AppTypography.regular14Circular(color: UIColors.black),
+              style: context.theme.text.regular14Circular,
             ),
             onTap: () {
               if (logOutState.status != LogOutStatus.loading) {
