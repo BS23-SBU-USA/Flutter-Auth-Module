@@ -22,7 +22,7 @@ class SignInNotifier extends Notifier<BaseState> {
       //   return;
       // }
 
-      // offlineState = ref.read(offlineStateProvider);
+      offlineState = ref.read(offlineStateProvider);
       if (offlineState) {
         offlineLogin();
         return;
@@ -44,6 +44,7 @@ class SignInNotifier extends Notifier<BaseState> {
           status: BaseStatus.success,
           data: result.$2,
         );
+        await signInUseCase.repository.storeNecessaryInfo(entity: result.$2!);
       } else {
         state = state.copyWith(
           status: BaseStatus.failure,
@@ -88,10 +89,10 @@ class SignInNotifier extends Notifier<BaseState> {
       rememberMeState: ref.read(rememberMeStateProvider),
     );
 
-    // final user = MockUserModel();
+    final user = MockUserModel();
 
-    // Log.debug(
-    //     '${user.firstName},  \n${user.lastName},  \n${user.email},  \n${user.password}');
+    Log.debug(
+        '${user.firstName},  \n${user.lastName},  \n${user.email},  \n${user.password}');
 
     if (result) {
       state = state.copyWith(

@@ -30,6 +30,10 @@ class SignInUseCase {
     return repository.getStoredCredentials();
   }
 
+  Future<void> storeNecessaryInfo({required SignInEntity entity}) async {
+    return repository.storeNecessaryInfo(entity: entity);
+  }
+
   bool offlineLogin({
     required String email,
     required String password,

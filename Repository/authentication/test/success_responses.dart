@@ -1,7 +1,7 @@
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/model/user_model.dart';
 
-final successSignInData = {
+final successSignInAPIData = {
   "token":
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGU4OGI5NDRkZjgyZmQ4Y2Y0MmMwNjUiLCJzZXNzaW9uSWQiOiI1MTc2YTBlYy1mYzk3LTQ2YjEtODNiZC0xZjZjMTM3NWYxZTMiLCJyb2xlIjoidXNlciIsImVtYWlsIjoiYUB5b3BtYWlsLmNvbSIsInVzZXJEYXRhIjp7ImZpcnN0bmFtZSI6IlNha2liIiwibGFzdG5hbWUiOiJBbCBIYXNhbiIsImVtYWlsIjoiYUB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0ZTg4Yjk0NGRmODJmZDhjZjQyYzA2NSIsImlzVmVyaWZpZWQiOnRydWV9LCJGQ01Ub2tlbiI6IlRva2VuMSIsIk9TIjoiQW5kcm9pZCIsIm1vZGVsIjoiTW9kZWwxIiwiaWF0IjoxNjk5ODczNzAyLCJleHAiOjE3MDAxMzI5MDJ9.xPNh8cO41_XEFk94rBEHsMeZWiJ34GJY7riFjyoHxR0",
   "user": {
@@ -25,7 +25,7 @@ final successfulSignIn = SignInEntity(
   ),
 );
 
-final successFetchUserData = {
+final successFetchUserAPIData = {
   "data": {
     "_id": "64e88b944df82fd8cf42c065",
     "firstname": "Sakib",
