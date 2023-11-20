@@ -45,6 +45,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
           Text(
             profileState.data!.fullName,
             style: AppTypography.semiBold16Caros(color: UIColors.white),
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 5),
           Text(
@@ -52,6 +53,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
                 ? profileState.data!.email!
                 : 'userEmail',
             style: AppTypography.regular14Caros(color: UIColors.white),
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       );
@@ -74,13 +76,15 @@ class DrawerHeaderWidget extends ConsumerWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          '${mockUser.firstName} ${mockUser.lastName}',
+          mockUser.fullName,
           style: AppTypography.semiBold16Caros(color: UIColors.white),
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 5),
         Text(
           mockUser.email,
           style: AppTypography.regular14Caros(color: UIColors.white),
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
