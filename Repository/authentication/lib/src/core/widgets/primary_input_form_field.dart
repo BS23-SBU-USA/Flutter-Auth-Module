@@ -245,6 +245,7 @@ class _InputFormFieldState extends State<InputFormField> {
             border: _getBorder(isOutlinedBorder),
           ),
           child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: TextFormField(
               onTap: widget.datePicker
                   ? () async {
