@@ -15,7 +15,6 @@ class AppTypography {
       fontFamily: fontFamily,
       fontWeight: fontWeight,
       color: color,
-      overflow: TextOverflow.ellipsis,
     );
   }
 

@@ -74,6 +74,8 @@ class SignUpNotifier extends StateNotifier<BaseState> {
     final email = emailController.text;
     final password = passwordController.text;
 
+    final mockUserModel = MockUserModel();
+
     signUpUseCase.offlineSignUp(
       firstName: firstName,
       lastName: lastName,
@@ -84,5 +86,10 @@ class SignUpNotifier extends StateNotifier<BaseState> {
     state = state.copyWith(
       status: BaseStatus.success,
     );
+
+    mockUserModel.firstName = firstName;
+    mockUserModel.lastName = lastName;
+    mockUserModel.email = email;
+    mockUserModel.password = password;
   }
 }
