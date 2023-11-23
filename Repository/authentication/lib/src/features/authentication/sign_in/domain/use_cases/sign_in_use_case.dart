@@ -18,28 +18,18 @@ class SignInUseCase {
     required String email,
     required String password,
     required bool rememberMeState,
+    required bool offlineState,
   }) async {
     return repository.signIn(
       email: email,
       password: password,
       rememberMeState: rememberMeState,
+      offlineState: offlineState,
     );
   }
 
   Future<Map<String, dynamic>?> getStoredCredentials() async {
     return repository.getStoredCredentials();
-  }
-
-  bool offlineLogin({
-    required String email,
-    required String password,
-    required bool rememberMeState,
-  }) {
-    return repository.offlineSignIn(
-      email: email,
-      password: password,
-      rememberMeState: rememberMeState,
-    );
   }
 
   Future<String?> decideNextRoute() async {

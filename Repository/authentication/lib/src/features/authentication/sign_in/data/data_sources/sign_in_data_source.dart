@@ -2,20 +2,39 @@
 
 import 'package:auth_module/src/core/services/network/api_end_points.dart';
 import 'package:auth_module/src/core/services/network/network_provider.dart';
+import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
+import 'package:auth_module/src/features/authentication/root/presentation/riverpod/mock_user/mock_user_provider.dart';
+import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
+import 'package:auth_module/src/features/authentication/sign_in/presentation/model/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';
 
 part 'sign_in_data_source_impl.dart';
 
-final signInDataSourceProvider = Provider<SignInDataSource>(
+final signInRemoteDataSourceProvider = Provider<SignInRemoteDataSource>(
   (ref) {
-    return SignInDataSourceImp(
+    return SignInRemoteDataSourceImp(
       restClient: ref.read(networkProvider),
     );
   },
 );
 
-abstract class SignInDataSource {
+abstract class SignInRemoteDataSource {
+  Future<Response> signIn({
+    required Map<String, dynamic> requestBody,
+  });
+}
+
+final signInLocalDataSourceProvider = Provider<SignInLocalDataSource>(
+  (ref) {
+    final mockUser = ref.read(mockUserProvider);
+    return SignInLocalDataSourceImp(
+      mockUser: mockUser,
+    );
+  },
+);
+
+abstract class SignInLocalDataSource {
   Future<Response> signIn({
     required Map<String, dynamic> requestBody,
   });

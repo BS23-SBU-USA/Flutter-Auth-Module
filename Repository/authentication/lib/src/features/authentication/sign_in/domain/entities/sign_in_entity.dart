@@ -10,4 +10,12 @@ class SignInEntity {
   String message;
   String token;
   UserModel user;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'message': message,
+      'token': token,
+      'user': user.toJson(),
+    };
+  }
 }

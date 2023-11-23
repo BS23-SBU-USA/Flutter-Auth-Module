@@ -5,9 +5,7 @@ class SignInNotifier extends Notifier<BaseState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  late bool offlineState;
   late SignInUseCase signInUseCase;
-  bool isValid = false;
 
   @override
   BaseState build() {
@@ -22,12 +20,6 @@ class SignInNotifier extends Notifier<BaseState> {
         return;
       }
 
-      offlineState = ref.read(offlineStateProvider);
-      if (offlineState) {
-        offlineLogin();
-        return;
-      }
-
       final email = emailController.text;
       final password = passwordController.text;
 
@@ -37,6 +29,7 @@ class SignInNotifier extends Notifier<BaseState> {
         email: email,
         password: password,
         rememberMeState: ref.read(rememberMeStateProvider),
+        offlineState: ref.read(offlineStateProvider),
       );
 
       if (result.$1!.isEmpty) {
@@ -75,33 +68,6 @@ class SignInNotifier extends Notifier<BaseState> {
       passwordController.text = result['password'];
 
       ref.read(rememberMeStateProvider.notifier).state = true;
-    }
-  }
-
-  Future<void> offlineLogin() async {
-    final email = emailController.text;
-    final password = passwordController.text;
-
-    final result = signInUseCase.offlineLogin(
-      email: email,
-      password: password,
-      rememberMeState: ref.read(rememberMeStateProvider),
-    );
-
-    final user = MockUserModel();
-
-    Log.debug(
-        '${user.firstName},  \n${user.lastName},  \n${user.email},  \n${user.password}');
-
-    if (result) {
-      state = state.copyWith(
-        status: BaseStatus.success,
-      );
-    } else {
-      state = state.copyWith(
-        status: BaseStatus.failure,
-        error: 'Invalid credentials',
-      );
     }
   }
 
