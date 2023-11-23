@@ -8,6 +8,11 @@ class UpdateProfileInfoNotifier
   bool hasPhoneNumber = false;
   late ProfileEntity profileEntity;
 
+  XFile? imageFile;
+  String? uploadedImage;
+
+  Dio dio = Dio();
+
   @override
   UpdateProfileState build() {
     _updateProfileUseCase = ref.read(updateProfileUseCaseProvider);
@@ -26,6 +31,32 @@ class UpdateProfileInfoNotifier
       return;
     }
 
+    state = state.copyWith(status: UpdateProfileStatus.loading);
+
+    if (imageFile != null) {
+      File file = File(imageFile!.path);
+
+      Map<String, dynamic> requestBody = {
+        'file': await MultipartFile.fromFile(
+          imageFile!.path,
+          filename: file.path.split('/').last,
+        ),
+      };
+
+      final response =
+          await _updateProfileUseCase.uploadImage(requestBody: requestBody);
+
+      if (response.$1.isEmpty) {
+        uploadedImage = response.$2!.data.image?.url;
+      } else {
+        _resetProfile();
+        state = state.copyWith(
+          status: UpdateProfileStatus.failure,
+          error: response.$1,
+        );
+      }
+    }
+
     final profileRequestModel = ProfileRequestModel(
       firstname: (profileEntity.firstname != firstNameController.text)
           ? firstNameController.text
@@ -42,12 +73,11 @@ class UpdateProfileInfoNotifier
       phone: (profileEntity.phone != onlyPhoneController.text)
           ? countryCodeController.text + onlyPhoneController.text
           : '',
-      avatar: (profileEntity.avatar != avatarController.text)
-          ? avatarController.text
-          : '',
+      avatar: uploadedImage ??
+          ((profileEntity.avatar != avatarController.text)
+              ? avatarController.text
+              : ''),
     );
-
-    state = state.copyWith(status: UpdateProfileStatus.loading);
 
     try {
       final response = await _updateProfileUseCase.call(

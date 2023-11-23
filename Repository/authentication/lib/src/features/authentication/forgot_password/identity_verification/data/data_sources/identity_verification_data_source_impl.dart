@@ -11,9 +11,8 @@ class IdentityVerificationDataSourceImp
     required Map<String, dynamic> requestBody,
   }) async {
     final response = await restClient.post(
-      APIType.public,
       API.verifyOtp,
-      requestBody,
+      data: requestBody,
     );
 
     return response;

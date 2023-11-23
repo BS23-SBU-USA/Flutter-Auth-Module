@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/core/services/image_service/image_modification.dart';
+import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -10,6 +10,7 @@ class ImageCapture {
   String? errorMessage;
   String? errorTittle;
   bool largeImage = false;
+  XFile? imageFile;
 
   Future<String?> getImageFromGallery() async {
     if (Platform.isIOS) {
@@ -111,6 +112,8 @@ class ImageCapture {
     } else {
       convertedBase64String =
           await imageModification.convertingToBase64(pickedFile);
+
+      imageFile = pickedFile;
     }
 
     return convertedBase64String;

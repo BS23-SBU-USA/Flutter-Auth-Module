@@ -13,9 +13,9 @@ class LogOutDataSourceImp implements LogOutDataSource {
   @override
   Future<Response> logOut() async {
     final response = restClient.post(
-      APIType.protected,
       API.logOut,
-      {},
+      apiType: APIType.protected,
+      data: {},
     );
 
     return response;

@@ -10,9 +10,8 @@ class ResendOtpDataSourceImp implements ResendOtpDataSource {
     required Map<String, dynamic> requestBody,
   }) async {
     final response = await restClient.post(
-      APIType.public,
       API.resendOtp,
-      requestBody,
+      data: requestBody,
     );
 
     return response;

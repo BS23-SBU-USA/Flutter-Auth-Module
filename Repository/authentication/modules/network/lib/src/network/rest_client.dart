@@ -1,10 +1,7 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
-import 'package:network/src/utils/failures.dart';
-
-import '../utils/pretty_dio_logger.dart';
+import 'package:network/network.dart';
+import 'package:network/src/utils/dio_cache_service.dart';
 
 part 'api_options.dart';
 
@@ -16,15 +13,17 @@ class RestClient {
   factory RestClient({
     required String baseUrl,
     required Future<String?> Function() tokenCallBack,
-    required VoidCallback onUnAuthorizedError,
+    VoidCallback? onUnAuthorizedError,
+    Future<String?> Function()? initializeCacheDirectory,
     int connectionTimeout = 30000,
     int receiveTimeout = 30000,
   }) {
     _instance.baseUrl = baseUrl;
     _instance.tokenCallBack = tokenCallBack;
-    _instance.onUnAuthorizedError = onUnAuthorizedError;
+    _instance.onUnAuthorizedError = onUnAuthorizedError ?? () {};
     _instance.connectionTimeout = connectionTimeout;
     _instance.receiveTimeout = receiveTimeout;
+    _instance.initializeCacheDirectory = initializeCacheDirectory;
 
     BaseOptions options = BaseOptions(
       baseUrl: baseUrl,
@@ -40,17 +39,19 @@ class RestClient {
   late int connectionTimeout;
   late int receiveTimeout;
   late String baseUrl;
-  late String token;
   late Future<String?> Function() tokenCallBack;
   late VoidCallback onUnAuthorizedError;
+  late Future<String?> Function()? initializeCacheDirectory;
+  String? cacheDirectoryPath;
 
   Future<Response<dynamic>> get(
-    APIType apiType,
     String path, {
+    APIType apiType = APIType.public,
     Map<String, dynamic>? query,
     Map<String, dynamic>? headers,
+    bool isCacheEnabled = false,
   }) async {
-    _setDioInterceptorList();
+    _setDioInterceptorList(isCacheEnabled: isCacheEnabled);
 
     final standardHeaders = await _getOptions(apiType);
 
@@ -61,9 +62,10 @@ class RestClient {
   }
 
   Future<Response<dynamic>> post(
-    APIType apiType,
-    String path,
-    Map<String, dynamic> data, {
+    String path, {
+    required Map<String, dynamic> data,
+    APIType apiType = APIType.public,
+    bool isFormData = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
   }) async {
@@ -74,36 +76,20 @@ class RestClient {
       standardHeaders.headers?.addAll(headers);
     }
 
-    return _dio
-        .post(
-          path,
-          data: data,
-          options: standardHeaders,
-          queryParameters: query,
-        )
-        .then((value) => value)
-        .catchError(_handleException);
-  }
-
-  /// Supports media upload
-  Future<Response<dynamic>> postFormData(
-    APIType apiType,
-    String path,
-    Map<String, dynamic> data, {
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? query,
-  }) async {
-    _setDioInterceptorList();
-
-    final standardHeaders = await _getOptions(apiType);
-    standardHeaders.headers?.addAll({
-      'Content-Type': 'multipart/form-data',
-    });
+    if (isFormData) {
+      standardHeaders.headers?.addAll({
+        'Content-Type': 'multipart/form-data',
+      });
+    } else {
+      if (headers != null) {
+        standardHeaders.headers?.addAll(headers);
+      }
+    }
 
     return _dio
         .post(
           path,
-          data: FormData.fromMap(data),
+          data: isFormData ? FormData.fromMap(data) : data,
           options: standardHeaders,
           queryParameters: query,
         )
@@ -112,15 +98,15 @@ class RestClient {
   }
 
   Future<Response<dynamic>> patch(
-    APIType api,
-    String path,
-    Map<String, dynamic> data, {
+    String path, {
+    required Map<String, dynamic> data,
+    APIType apiType = APIType.public,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
   }) async {
     _setDioInterceptorList();
 
-    final standardHeaders = await _getOptions(api);
+    final standardHeaders = await _getOptions(apiType);
     if (headers != null) {
       standardHeaders.headers?.addAll(headers);
     }
@@ -137,23 +123,36 @@ class RestClient {
   }
 
   Future<Response<dynamic>> put(
-    APIType apiType,
-    String path,
-    Map<String, dynamic> data, {
+    String path, {
+    required Map<String, dynamic> data,
+    APIType apiType = APIType.public,
+    bool isFormData = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
   }) async {
     _setDioInterceptorList();
 
     final standardHeaders = await _getOptions(apiType);
-    if (headers != null) {
-      standardHeaders.headers?.addAll(headers);
+
+    if (isFormData) {
+      if (headers != null) {
+        standardHeaders.headers?.addAll({
+          'Content-Type': 'multipart/form-data',
+        });
+      }
+      data.addAll({
+        '_method': 'PUT',
+      });
+    } else {
+      if (headers != null) {
+        standardHeaders.headers?.addAll(headers);
+      }
     }
 
     return _dio
         .put(
           path,
-          data: data,
+          data: isFormData ? FormData.fromMap(data) : data,
           options: standardHeaders,
         )
         .then((value) => value)
@@ -161,9 +160,9 @@ class RestClient {
   }
 
   Future<Response<dynamic>> delete(
-    APIType apiType,
     String path, {
     Map<String, dynamic>? data,
+    APIType apiType = APIType.public,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
   }) async {
@@ -183,53 +182,6 @@ class RestClient {
         )
         .then((value) => value)
         .catchError(_handleException);
-  }
-
-  /// Supports media upload
-  Future<Response<dynamic>> putFormData(
-    APIType apiType,
-    String path,
-    Map<String, dynamic> data, {
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? query,
-  }) async {
-    _setDioInterceptorList();
-
-    final standardHeaders = await _getOptions(apiType);
-    if (headers != null) {
-      standardHeaders.headers?.addAll({
-        'Content-Type': 'multipart/form-data',
-      });
-    }
-    data.addAll({
-      '_method': 'PUT',
-    });
-
-    return _dio
-        .post(
-          path,
-          data: FormData.fromMap(data),
-          queryParameters: query,
-          options: standardHeaders,
-        )
-        .then((value) => value)
-        .catchError(_handleException);
-  }
-
-  /// Upload file in s3bucket
-  Future<Response> fileUploadInS3Bucket({
-    required String preAssignedUrl,
-    required File file,
-  }) async {
-    return _dio.put(
-      preAssignedUrl,
-      data: file.openRead(),
-      options: Options(
-        headers: {
-          Headers.contentLengthHeader: await file.length(),
-        },
-      ),
-    );
   }
 
   dynamic _handleException(error) {
@@ -288,24 +240,37 @@ class RestClient {
     }
   }
 
-  void _setDioInterceptorList() {
+  void _setDioInterceptorList({bool isCacheEnabled = false}) async {
     List<Interceptor> interceptorList = [];
     _dio.interceptors.clear();
 
     if (kDebugMode) {
       interceptorList.add(PrettyDioLogger());
     }
+
+    if (initializeCacheDirectory != null) {
+      cacheDirectoryPath ??= await initializeCacheDirectory!();
+    }
+
+    if (isCacheEnabled) {
+      interceptorList.add(
+        DioCacheInterceptor(
+          options: DioCacheService.getCacheOptions(path: cacheDirectoryPath),
+        ),
+      );
+    }
+
     _dio.interceptors.addAll(interceptorList);
   }
 
   Future<Options> _getOptions(APIType api) async {
-    String? token = await tokenCallBack();
-
     switch (api) {
       case APIType.public:
         return PublicApiOptions().options;
 
       case APIType.protected:
+        String? token = await tokenCallBack();
+
         return ProtectedApiOptions(token!).options;
 
       default:

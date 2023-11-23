@@ -19,4 +19,8 @@ abstract class ProfileDataSource {
   Future<Response> updateMyProfile({
     required Map<String, dynamic> requestBody,
   });
+
+  Future<Response> uploadImage({
+    required Map<String, dynamic> requestBody,
+  });
 }

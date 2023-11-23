@@ -12,6 +12,10 @@ final networkProvider = Provider(
         return CacheService.instance.retrieveBearerToken();
       },
       onUnAuthorizedError: logoutOnUnauthorizedError,
+      // initializeCacheDirectory: () async {
+      //   Directory dir = await getApplicationCacheDirectory();
+      //   return dir.path;
+      // },
     );
   },
 );

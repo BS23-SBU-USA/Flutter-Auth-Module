@@ -8,9 +8,8 @@ class SignInDataSourceImp implements SignInDataSource {
   @override
   Future<Response> signIn({required Map<String, dynamic> requestBody}) async {
     final response = await restClient.post(
-      APIType.public,
       API.signIn,
-      requestBody,
+      data: requestBody,
     );
 
     return response;

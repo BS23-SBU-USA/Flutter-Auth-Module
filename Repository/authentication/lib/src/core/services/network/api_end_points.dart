@@ -14,4 +14,5 @@ class API {
   static const String updateProfile = '/users/profile/update';
   static const String user = '/users/';
   static const String logOut = '/auth/logout';
+  static const String uploadImage = '/upload-Image';
 }

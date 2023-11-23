@@ -15,11 +15,13 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
       children: [
         CircleAvatar(
           backgroundImage: notifier.avatarController.text.isNotEmpty
-              ? MemoryImage(
-                  base64Decode(
-                    notifier.avatarController.text,
-                  ),
-                )
+              ? notifier.avatarController.text.contains('http')
+                  ? NetworkImage(notifier.avatarController.text)
+                  : MemoryImage(
+                      base64Decode(
+                        notifier.avatarController.text,
+                      ),
+                    ) as ImageProvider
               : null,
           backgroundColor: notifier.avatarController.text.isEmpty
               ? UIColors.platinum
@@ -115,21 +117,30 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
 
         final avatar = imageCapture.convertedBase64String;
 
+        final imageFile = imageCapture.imageFile;
+
         if (imageCapture.largeImage) {
-          showAlertDialogForLargeImage(
-            imageCapture.errorTittle!,
-            imageCapture.errorMessage!,
-            context,
-          );
+          if (mounted) {
+            showAlertDialogForLargeImage(
+              imageCapture.errorTittle!,
+              imageCapture.errorMessage!,
+              context,
+            );
+          }
         } else if (avatar.isEmpty) {
-          showAlertDialogForPermission(
-            imageCapture.errorTittle!,
-            imageCapture.errorMessage!,
-            context,
-          );
+          if (mounted) {
+            showAlertDialogForPermission(
+              imageCapture.errorTittle!,
+              imageCapture.errorMessage!,
+              context,
+            );
+          }
         } else {
           setState(() {
             notifier.avatarController.text = avatar;
+            if (imageFile != null) {
+              notifier.imageFile = imageFile;
+            }
           });
         }
       },
@@ -173,21 +184,30 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
         final imageCapture = ImageCapture();
         await imageCapture.getImageFromCamera();
         final avatar = imageCapture.convertedBase64String;
+        final imageFile = imageCapture.imageFile;
+
         if (avatar.isEmpty) {
-          showAlertDialogForPermission(
-            imageCapture.errorTittle!,
-            imageCapture.errorMessage!,
-            context,
-          );
+          if (mounted) {
+            showAlertDialogForPermission(
+              imageCapture.errorTittle!,
+              imageCapture.errorMessage!,
+              context,
+            );
+          }
         } else if (imageCapture.largeImage) {
-          showAlertDialogForLargeImage(
-            imageCapture.errorTittle!,
-            imageCapture.errorMessage!,
-            context,
-          );
+          if (mounted) {
+            showAlertDialogForLargeImage(
+              imageCapture.errorTittle!,
+              imageCapture.errorMessage!,
+              context,
+            );
+          }
         } else {
           setState(() {
             notifier.avatarController.text = avatar;
+            if (imageFile != null) {
+              notifier.imageFile = imageFile;
+            }
           });
         }
       },

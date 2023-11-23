@@ -8,9 +8,8 @@ class SignUpDataSourceImp implements SignUpDataSource {
   @override
   Future<Response> signUp({required Map<String, dynamic> requestBody}) async {
     final response = await restClient.post(
-      APIType.public,
       API.signUp,
-      requestBody,
+      data: requestBody,
     );
 
     return response;

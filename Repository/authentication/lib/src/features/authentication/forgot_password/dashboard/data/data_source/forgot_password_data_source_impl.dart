@@ -10,9 +10,8 @@ class ForgotPasswordDataSourceImp implements ForgotPasswordDataSource {
     required Map<String, dynamic> requestBody,
   }) async {
     final response = await restClient.post(
-      APIType.public,
       API.forgotPassword,
-      requestBody,
+      data: requestBody,
     );
 
     return response;

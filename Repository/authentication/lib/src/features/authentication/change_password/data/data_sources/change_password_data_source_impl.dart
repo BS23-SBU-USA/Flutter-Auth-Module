@@ -10,9 +10,9 @@ class ChangePasswordDataSourceImp implements ChangePasswordDataSource {
     required Map<String, dynamic> requestBody,
   }) async {
     final response = await restClient.post(
-      APIType.protected,
       API.changePassword,
-      requestBody,
+      apiType: APIType.protected,
+      data: requestBody,
     );
 
     return response;

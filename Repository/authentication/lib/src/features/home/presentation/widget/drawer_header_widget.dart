@@ -28,8 +28,10 @@ class DrawerHeaderWidget extends ConsumerWidget {
         children: [
           if (profileState.data!.avatar != null)
             CircleAvatar(
-              backgroundImage:
-                  MemoryImage(base64Decode(profileState.data!.avatar!)),
+              backgroundImage: profileState.data!.avatar!.contains('http')
+                  ? NetworkImage(profileState.data!.avatar!)
+                  : MemoryImage(base64Decode(profileState.data!.avatar!))
+                      as ImageProvider,
               backgroundColor: UIColors.pineGreen,
               radius: 30,
             ),

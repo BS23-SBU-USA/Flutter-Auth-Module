@@ -8,8 +8,8 @@ class ProfileDataSourceImp implements ProfileDataSource {
   @override
   Future<Response> fetchUserProfile(String userId) async {
     final response = await restClient.get(
-      APIType.protected,
       API.user + userId,
+      apiType: APIType.protected,
     );
     return response;
   }
@@ -19,9 +19,23 @@ class ProfileDataSourceImp implements ProfileDataSource {
     required Map<String, dynamic> requestBody,
   }) async {
     final response = await restClient.patch(
-      APIType.protected,
       API.updateProfile,
-      requestBody,
+      apiType: APIType.protected,
+      data: requestBody,
+    );
+
+    return response;
+  }
+
+  @override
+  Future<Response> uploadImage({
+    required Map<String, dynamic> requestBody,
+  }) async {
+    final response = await restClient.post(
+      API.uploadImage,
+      apiType: APIType.protected,
+      data: requestBody,
+      isFormData: true,
     );
 
     return response;

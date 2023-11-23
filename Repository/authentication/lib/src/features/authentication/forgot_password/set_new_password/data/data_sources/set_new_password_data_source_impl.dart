@@ -10,9 +10,8 @@ class SetNewPasswordDataSourceImp implements SetNewPasswordDataSource {
     required Map<String, dynamic> requestBody,
   }) async {
     final response = await restClient.post(
-      APIType.public,
       API.setNewPassword,
-      requestBody,
+      data: requestBody,
     );
 
     return response;

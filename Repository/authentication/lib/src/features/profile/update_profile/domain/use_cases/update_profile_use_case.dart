@@ -1,3 +1,4 @@
+import 'package:auth_module/src/features/profile/root/data/models/upload_image_response_model.dart';
 import 'package:auth_module/src/features/profile/root/domain/entities/profile_entity.dart';
 import 'package:auth_module/src/features/profile/update_profile/domain/repositories/update_profile_repositories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,14 @@ class UpdateProfileUseCase {
     required Map<String, dynamic> requestBody,
   }) async {
     return repository.updateMyProfile(
+      requestBody: requestBody,
+    );
+  }
+
+  Future<(String, UploadImageResponseModel?)> uploadImage({
+    required Map<String, dynamic> requestBody,
+  }) async {
+    return repository.uploadImage(
       requestBody: requestBody,
     );
   }
