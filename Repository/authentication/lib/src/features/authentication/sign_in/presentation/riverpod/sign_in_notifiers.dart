@@ -18,9 +18,9 @@ class SignInNotifier extends Notifier<BaseState> {
 
   Future<void> signIn() async {
     try {
-      if (!formKey.currentState!.validate()) {
-        return;
-      }
+      // if (!formKey.currentState!.validate()) {
+      //   return;
+      // }
 
       offlineState = ref.read(offlineStateProvider);
       if (offlineState) {
@@ -44,6 +44,7 @@ class SignInNotifier extends Notifier<BaseState> {
           status: BaseStatus.success,
           data: result.$2,
         );
+        await signInUseCase.repository.storeNecessaryInfo(entity: result.$2!);
       } else {
         state = state.copyWith(
           status: BaseStatus.failure,

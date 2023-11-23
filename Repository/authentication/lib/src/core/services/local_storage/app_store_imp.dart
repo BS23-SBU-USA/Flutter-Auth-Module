@@ -56,10 +56,10 @@ class AppStorageImp extends AppStorageI {
 
   @override
   Future<void> clearCredentials() async {
-    final prefs = await getPrefs();
-
-    await prefs.remove(_keyUserEmail);
-    await prefs.remove(_keyPassword);
+    // final prefs = await getPrefs();
+    //
+    // await prefs.remove(_keyUserEmail);
+    // await prefs.remove(_keyPassword);
   }
 
   @override

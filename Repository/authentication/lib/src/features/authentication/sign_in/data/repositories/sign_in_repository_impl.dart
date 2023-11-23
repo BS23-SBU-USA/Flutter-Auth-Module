@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:auth_module/src/core/services/device_info/device_info_service.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/core/services/network/request_handler.dart';
-import 'package:auth_module/src/core/services/device_info/device_info_service.dart';
 import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
 import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
 import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_data_source.dart';
@@ -44,12 +44,6 @@ class SignInRepositoryImp implements SignInRepository {
 
     return dataSource.signIn(requestBody: requestBody).guard((data) {
       final SignInEntity entity = SignInModel.fromJson(data);
-      CacheService.instance.storeBearerToken(entity.token);
-      CacheService.instance.storeProfileId(entity.user.id);
-      CacheService.instance.storeFullName(
-        entity.user.firstName!,
-        entity.user.lastName!,
-      );
       return entity;
     });
   }
@@ -70,6 +64,16 @@ class SignInRepositoryImp implements SignInRepository {
     }
 
     return null;
+  }
+
+  @override
+  Future<void> storeNecessaryInfo({required SignInEntity entity}) async {
+    await CacheService.instance.storeBearerToken(entity.token);
+    await CacheService.instance.storeProfileId(entity.user.id);
+    await CacheService.instance.storeFullName(
+      entity.user.firstName!,
+      entity.user.lastName!,
+    );
   }
 
   @override

@@ -26,6 +26,7 @@ abstract class SignInRepository {
   });
 
   Future<Map<String, dynamic>?> getStoredCredentials();
+  Future<void> storeNecessaryInfo({required SignInEntity entity});
 
   bool offlineSignIn({
     required String email,
