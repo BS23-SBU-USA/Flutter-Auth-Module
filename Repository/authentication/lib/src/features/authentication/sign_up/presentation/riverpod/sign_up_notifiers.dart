@@ -1,36 +1,39 @@
 part of '../riverpod/sign_up_providers.dart';
 
-class SignUpNotifier extends StateNotifier<BaseState> {
-  SignUpNotifier(this.signUpUseCase) : super(const BaseState());
-  final SignUpUseCase signUpUseCase;
+class SignUpNotifier extends AutoDisposeNotifier<BaseState> {
+  late SignUpUseCase signUpUseCase;
 
   final formKey = GlobalKey<FormState>();
-  final TextEditingController nameController1 = TextEditingController();
-  final TextEditingController nameController2 = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController secondNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  late bool offlineState;
 
-  Future<void> signUp(bool offlineState) async {
+  @override
+  BaseState build() {
+    signUpUseCase = ref.read(signUpUseCaseProvider);
+    return const BaseState();
+  }
+
+  Future<void> signUp() async {
     try {
       if (!formKey.currentState!.validate()) return;
 
-      if (offlineState) {
-        offlineSignUp();
-        return;
-      }
-
       state = state.copyWith(status: BaseStatus.loading);
+
       final requestBody = <String, dynamic>{
-        'firstname': nameController1.text,
-        'lastname': nameController2.text,
+        'firstname': firstNameController.text,
+        'lastname': secondNameController.text,
         'email': emailController.text,
         'password': passwordController.text,
       };
 
-      final result = await signUpUseCase.call(requestBody: requestBody);
+      final result = await signUpUseCase.call(
+        requestBody: requestBody,
+        offlineState: ref.read(offlineStateProvider),
+      );
 
       if (result.$1.isEmpty) {
         state = state.copyWith(
@@ -66,23 +69,5 @@ class SignUpNotifier extends StateNotifier<BaseState> {
         selection: TextSelection.collapsed(offset: newSelectionOffset),
       );
     }
-  }
-
-  void offlineSignUp() {
-    final firstName = nameController1.text;
-    final lastName = nameController2.text;
-    final email = emailController.text;
-    final password = passwordController.text;
-
-    signUpUseCase.offlineSignUp(
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-    );
-
-    state = state.copyWith(
-      status: BaseStatus.success,
-    );
   }
 }

@@ -18,9 +18,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
         children: [
           InputFormField(
             onChanged: (value) {
-              notifier.capitalizeFirstLetter(notifier.nameController1);
+              notifier.capitalizeFirstLetter(notifier.firstNameController);
             },
-            textEditingController: notifier.nameController1,
+            textEditingController: notifier.firstNameController,
             labelText: TextConstants.firstName,
             autocorrect: false,
             keyboardType: TextInputType.name,
@@ -34,9 +34,9 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
           ),
           InputFormField(
             onChanged: (value) {
-              notifier.capitalizeFirstLetter(notifier.nameController2);
+              notifier.capitalizeFirstLetter(notifier.secondNameController);
             },
-            textEditingController: notifier.nameController2,
+            textEditingController: notifier.secondNameController,
             labelText: TextConstants.lastName,
             autocorrect: false,
             keyboardType: TextInputType.name,
