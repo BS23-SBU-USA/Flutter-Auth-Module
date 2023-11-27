@@ -1,48 +1,40 @@
 import 'dart:async';
 
-import 'package:auth_module/src/core/utils/loggers/logger.dart';
-import 'package:auth_module/src/core/services/network/request_handler.dart';
-import 'package:auth_module/src/core/services/device_info/device_info_service.dart';
 import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
-import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
-import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_data_source.dart';
+import 'package:auth_module/src/core/services/network/request_handler.dart';
+import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_local_data_source.dart';
+import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/sign_in/data/models/sign_in_model.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/repositories/sign_in_repositories.dart';
 
 class SignInRepositoryImp implements SignInRepository {
   SignInRepositoryImp({
-    required this.dataSource,
-    required this.mockUser,
+    required this.remoteDataSource,
+    required this.localDataSource,
   });
 
-  final SignInDataSource dataSource;
-  final MockUserModel mockUser;
+  final SignInRemoteDataSource remoteDataSource;
+  final SignInLocalDataSource localDataSource;
 
   @override
-  Future<(String?, SignInEntity?)> signIn({
-    required String email,
-    required String password,
+  Future<(String, dynamic)> signIn({
+    required Map<String, dynamic> requestBody,
     required bool rememberMeState,
+    required bool offlineState,
   }) async {
     manageCredentials(
-      email: email,
-      password: password,
+      email: requestBody['email'],
+      password: requestBody['password'],
       rememberMeState: rememberMeState,
     );
 
-    final deviceOS = await DeviceInfoService().getDeviceOS();
-    final deviceModel = await DeviceInfoService().getDeviceModel();
+    if (offlineState) {
+      final response = await localDataSource.signIn(requestBody: requestBody);
+      return Future.value((response.statusMessage!, true));
+    }
 
-    final requestBody = <String, dynamic>{
-      'email': email,
-      'password': password,
-      'OS': deviceOS,
-      'model': deviceModel,
-      'FCMToken': 'Token',
-    };
-
-    return dataSource.signIn(requestBody: requestBody).guard((data) {
+    return remoteDataSource.signIn(requestBody: requestBody).guard((data) {
       final SignInEntity entity = SignInModel.fromJson(data);
       CacheService.instance.storeBearerToken(entity.token);
       CacheService.instance.storeProfileId(entity.user.id);
@@ -50,7 +42,7 @@ class SignInRepositoryImp implements SignInRepository {
         entity.user.firstName!,
         entity.user.lastName!,
       );
-      return entity;
+      return data;
     });
   }
 
@@ -70,26 +62,6 @@ class SignInRepositoryImp implements SignInRepository {
     }
 
     return null;
-  }
-
-  @override
-  bool offlineSignIn({
-    required String email,
-    required String password,
-    required bool rememberMeState,
-  }) {
-    manageCredentials(
-      email: email,
-      password: password,
-      rememberMeState: rememberMeState,
-    );
-
-    Log.debug('$email  $password');
-    if (email == mockUser.email && password == mockUser.password) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   Future<void> manageCredentials({

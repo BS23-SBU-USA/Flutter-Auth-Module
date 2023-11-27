@@ -1,7 +1,7 @@
-part of 'sign_in_data_source.dart';
+part of 'sign_in_remote_data_source.dart';
 
-class SignInDataSourceImp implements SignInDataSource {
-  const SignInDataSourceImp({required this.restClient});
+class SignInRemoteDataSourceImp implements SignInRemoteDataSource {
+  const SignInRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 

@@ -33,6 +33,8 @@ class SignInPage extends ConsumerStatefulWidget {
 }
 
 class _SignInPageState extends ConsumerState<SignInPage> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final buttonState = ref.watch(buttonStateProvider);
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
 
@@ -78,7 +81,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: [
           const BuildTitleAndSubtitle(
             titleFirstPart: TextConstants.signInTitleFirstPart,
             titleLastPart: TextConstants.signInTitleLastPart,
@@ -88,17 +91,27 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           SizedBox(height: 30.h),
           const SingleSignOn(),
           SizedBox(height: 30.h),
-          const _SignInFormBuilder(),
+          _SignInFormBuilder(
+            formKey: formKey,
+          ),
           const _RememberMeAndForgetPassBuilder(),
           SizedBox(height: 177.h),
           Button(
-            onPressed: notifier.signIn,
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                notifier.signIn(
+                  email: ref.read(signInEmailStateProvider.notifier).state.text,
+                  password:
+                      ref.read(signInPasswordStateProvider.notifier).state.text,
+                );
+              }
+            },
             isLoading: state.status == BaseStatus.loading,
             label: TextConstants.login,
-            textStyle: !ref.watch(buttonStateProvider)
+            textStyle: !buttonState
                 ? AppTypography.semiBold16Caros(color: UIColors.gray)
                 : AppTypography.semiBold16Caros(color: UIColors.white),
-            disable: !ref.watch(buttonStateProvider),
+            disable: !buttonState,
           ),
           SizedBox(height: 16.h),
           const _SignUpNavigationBuilder(),
