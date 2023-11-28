@@ -1,7 +1,7 @@
-part of 'resend_otp_data_source.dart';
+part of 'resend_otp_remote_data_source.dart';
 
-class ResendOtpDataSourceImp implements ResendOtpDataSource {
-  const ResendOtpDataSourceImp({required this.restClient});
+class ResendOtpRemoteDataSourceImp implements ResendOtpRemoteDataSource {
+  const ResendOtpRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 
