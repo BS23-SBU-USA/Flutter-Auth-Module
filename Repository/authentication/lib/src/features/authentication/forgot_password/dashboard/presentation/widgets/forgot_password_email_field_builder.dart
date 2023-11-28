@@ -1,20 +1,23 @@
 part of '../pages/forgot_password_page.dart';
 
 class _EmailField extends ConsumerWidget {
-  const _EmailField();
+  final GlobalKey<FormState> formKey;
+
+  const _EmailField({required this.formKey});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(forgotPasswordProvider.notifier);
+    ref.read(forgotPasswordProvider.notifier);
 
     return Form(
-      key: notifier.formKey,
+      key: formKey,
       child: InputFormField(
         onChanged: (value) {
           ref.read(forgotPassButtonStateProvider.notifier).state =
               value.isNotEmpty;
         },
-        textEditingController: notifier.emailController,
+        textEditingController:
+            ref.read(forgotPasswordEmailStateProvider.notifier).state,
         labelText: TextConstants.yourEmail,
         borderColor: UIColors.timberWolf,
         keyboardType: TextInputType.emailAddress,
