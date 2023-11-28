@@ -34,7 +34,6 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
     final seconds = (_secondsRemaining % 60).toString().padLeft(2, '0');
 
     final state = ref.watch(identityVerificationProvider);
-    final offlineState = ref.watch(offlineStateProvider);
 
     ref.listen(
       identityVerificationProvider,
@@ -58,9 +57,7 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
           setState(() {
             _resetTimer();
             showResendButton = false;
-            ref
-                .read(identityVerificationProvider.notifier)
-                .resendOTPToEmail(offlineState);
+            ref.read(identityVerificationProvider.notifier).resendOTPToEmail();
           });
         }
       },

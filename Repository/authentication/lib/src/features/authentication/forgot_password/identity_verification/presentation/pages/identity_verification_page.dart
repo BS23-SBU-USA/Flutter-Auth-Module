@@ -6,7 +6,7 @@ import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_notifier.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_notifier.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_providers.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/widgets/countdown_timer.dart';
@@ -14,7 +14,6 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/model/user_model.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:auth_module/src/features/authentication/sign_up/presentation/riverpod/sign_up_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,13 +43,13 @@ class _IdentityVerificationPageState
 
   @override
   void initState() {
-    var email = ref.read(forgotPasswordProvider.notifier).emailController.text;
+    var email = ref.read(forgotPasswordEmailStateProvider.notifier).state.text;
 
     if (email.isEmpty) {
-      email = ref.read(signUpProvider.notifier).emailController.text;
+      email = ref.read(signUpEmailStateProvider.notifier).state.text;
     }
 
-    ref.read(identityVerificationProvider.notifier).otpController.clear();
+    ref.read(otpStateProvider.notifier).state.clear();
 
     ref
         .read(identityVerificationProvider.notifier)
@@ -100,11 +99,13 @@ class _IdentityVerificationPageState
                   TextConstants.identityVerificationSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
-            const _OtpField(),
+            _OtpField(formKey: formKey),
             SizedBox(height: 347.h),
             Button(
               onPressed: () {
-                onButtonPressed(state, context);
+                if (formKey.currentState!.validate()) {
+                  onButtonPressed(state, context);
+                }
               },
               isLoading: state.status == IdentityVerificationStatus.loading,
               label: TextConstants.submit,
@@ -122,11 +123,10 @@ class _IdentityVerificationPageState
   }
 
   void onButtonPressed(IdentityVerificationState state, BuildContext context) {
-    final offlineState = ref.watch(offlineStateProvider);
     FocusScope.of(context).unfocus();
     ref
         .read(identityVerificationProvider.notifier)
-        .identityVerificationSubmit(offlineState);
+        .identityVerificationSubmit();
   }
 
   void _onPressed() {

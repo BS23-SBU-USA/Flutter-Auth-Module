@@ -1,3 +1,5 @@
+import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_providers.dart';
+import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/domain/use_case/identity_verification_use_cases.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/domain/use_case/resend_otp_use_cases.dart';
@@ -18,8 +20,6 @@ class IdentityVerificationNotifier extends Notifier<IdentityVerificationState> {
   late IdentityVerificationUseCase identityVerificationUseCase;
   late ResendOtpUseCase resendOtpUseCase;
 
-  final TextEditingController otpController = TextEditingController();
-
   @override
   IdentityVerificationState build() {
     identityVerificationUseCase = ref.read(identityVerificationUseCaseProvider);
@@ -35,25 +35,17 @@ class IdentityVerificationNotifier extends Notifier<IdentityVerificationState> {
     );
   }
 
-  Future<void> identityVerificationSubmit(bool offlineState) async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-
-    if (offlineState) {
-      offlineVerification();
-      return;
-    }
-
+  Future<void> identityVerificationSubmit() async {
     state = state.copyWith(status: IdentityVerificationStatus.loading);
     try {
       final requestBody = <String, dynamic>{
         'email': state.email,
-        'otp': otpController.text,
+        'otp': ref.read(otpStateProvider.notifier).state.text,
       };
 
       final response = await identityVerificationUseCase.call(
         requestBody: requestBody,
+        offlineState: ref.read(offlineStateProvider),
       );
 
       if (response.$1.isEmpty) {
@@ -74,12 +66,8 @@ class IdentityVerificationNotifier extends Notifier<IdentityVerificationState> {
     }
   }
 
-  Future<void> resendOTPToEmail(bool offlineState) async {
-    otpController.clear();
-
-    if (offlineState) {
-      return;
-    }
+  Future<void> resendOTPToEmail() async {
+    ref.read(otpStateProvider.notifier).state.clear();
 
     state = state.copyWith(
       status: IdentityVerificationStatus.initial,
@@ -88,7 +76,10 @@ class IdentityVerificationNotifier extends Notifier<IdentityVerificationState> {
     final requestBody = <String, dynamic>{
       'email': state.email,
     };
-    final response = await resendOtpUseCase.call(requestBody: requestBody);
+    final response = await resendOtpUseCase.call(
+      requestBody: requestBody,
+      offlineState: ref.read(offlineStateProvider),
+    );
 
     if (response.$1.isEmpty) {
       state = state.copyWith(
@@ -98,25 +89,6 @@ class IdentityVerificationNotifier extends Notifier<IdentityVerificationState> {
       state = state.copyWith(
         status: IdentityVerificationStatus.failure,
         errorMessage: response.$1,
-      );
-    }
-  }
-
-  void offlineVerification() {
-    final otp = otpController.text;
-
-    final result = identityVerificationUseCase.offlineVerification(
-      otp: otp,
-    );
-
-    if (result) {
-      state = state.copyWith(
-        status: IdentityVerificationStatus.success,
-      );
-    } else {
-      state = state.copyWith(
-        status: IdentityVerificationStatus.failure,
-        errorMessage: 'Wrong OTP',
       );
     }
   }
