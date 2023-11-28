@@ -12,7 +12,6 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/password_validation_builder.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:auth_module/src/features/authentication/sign_up/presentation/riverpod/sign_up_providers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +32,13 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpState extends ConsumerState<SignUpPage> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final signUpFormState = ref.watch(signUpFormValidationProvider);
     final signUpState = ref.watch(signUpProvider);
     final signUpNotifier = ref.read(signUpProvider.notifier);
-    final offlineState = ref.watch(offlineStateProvider);
 
     ref.listen(
       signUpProvider,
@@ -66,18 +67,24 @@ class _SignUpState extends ConsumerState<SignUpPage> {
             subtitleLastPart: TextConstants.signUpSubtitleLastPart,
           ),
           SizedBox(height: 60.h),
-          const SignUpFormBuilder(),
+          SignUpFormBuilder(
+            formKey: formKey,
+          ),
           SizedBox(height: 10.h),
           const TermsAndConditionCheckerBuilder(),
           SizedBox(height: 34.h),
           Button(
-            onPressed: () => signUpNotifier.signUp(offlineState),
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                signUpNotifier.signUp();
+              }
+            },
             isLoading: signUpState.status == BaseStatus.loading,
             label: TextConstants.createAnAccount,
-            textStyle: !ref.watch(signUpFormValidationProvider)
+            textStyle: !signUpFormState
                 ? AppTypography.semiBold16Caros(color: UIColors.gray)
                 : AppTypography.semiBold16Caros(color: UIColors.white),
-            disable: !ref.watch(signUpFormValidationProvider),
+            disable: !signUpFormState,
           ),
           SizedBox(height: 16.h),
           const _SignInNavigationBuilder(),
@@ -93,7 +100,7 @@ class _SignUpState extends ConsumerState<SignUpPage> {
       Routes.identityVerification,
       arguments: {
         'isFromSignUp': true,
-        'email': ref.read(signUpProvider.notifier).emailController.text,
+        'email': ref.read(signUpEmailStateProvider.notifier).state.text,
       },
     );
   }
