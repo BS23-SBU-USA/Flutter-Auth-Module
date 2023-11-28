@@ -1,13 +1,14 @@
 part of '../pages/set_new_password_page.dart';
 
 class _ResetPasswordFormBuilder extends ConsumerWidget {
-  const _ResetPasswordFormBuilder();
+  final GlobalKey<FormState> formKey;
+
+  const _ResetPasswordFormBuilder({required this.formKey});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(setNewPasswordProvider.notifier);
     return Form(
-      key: notifier.formKey,
+      key: formKey,
       child: Column(
         children: [
           InputFormField(
@@ -16,7 +17,8 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
                   .watch(passwordValidityProvider.notifier)
                   .updateValidationVariables(value);
             },
-            textEditingController: notifier.newPasswordController,
+            textEditingController:
+                ref.read(setNewPasswordStateProvider.notifier).state,
             labelText: TextConstants.password,
             borderColor: UIColors.timberWolf,
             keyboardType: TextInputType.visiblePassword,
@@ -34,7 +36,8 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
           else
             const PasswordValidationBuilder(),
           InputFormField(
-            textEditingController: notifier.confirmPasswordController,
+            textEditingController:
+                ref.read(setConfirmPasswordStateProvider.notifier).state,
             labelText: TextConstants.confirmPassword,
             borderColor: UIColors.timberWolf,
             keyboardType: TextInputType.visiblePassword,
@@ -43,7 +46,7 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
             validator: (value) {
               return InputValidators.confirmPassword(
                 value,
-                notifier.confirmPasswordController.text,
+                ref.read(setConfirmPasswordStateProvider.notifier).state.text,
               );
             },
             borderType: BorderType.bottom,

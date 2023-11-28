@@ -2,9 +2,11 @@
 
 import 'dart:async';
 
+import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_provider.dart';
+import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/domain/use_case/set_new_password_use_case.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'set_new_password_state.dart';
@@ -16,11 +18,6 @@ final setNewPasswordProvider =
 );
 
 class SetNewPasswordNotifier extends AutoDisposeNotifier<SetNewPasswordState> {
-  final formKey = GlobalKey<FormState>();
-  final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-
   late SetNewPasswordUseCase useCase;
 
   @override
@@ -29,25 +26,20 @@ class SetNewPasswordNotifier extends AutoDisposeNotifier<SetNewPasswordState> {
     return const SetNewPasswordState();
   }
 
-  Future<void> newPasswordSubmit(String email, bool offlineState) async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-
-    if (offlineState) {
-      offlineNewPasswordSubmit();
-      return;
-    }
-
+  Future<void> newPasswordSubmit() async {
     state = state.copyWith(status: SetNewPasswordStatus.loading);
 
     final requestBody = <String, dynamic>{
-      'email': email,
-      'password': newPasswordController.text,
-      'confirmPassword': confirmPasswordController.text,
+      'email': ref.read(forgotPasswordEmailStateProvider.notifier).state.text,
+      'password': ref.read(setNewPasswordStateProvider.notifier).state.text,
+      'confirmPassword':
+          ref.read(setConfirmPasswordStateProvider.notifier).state.text,
     };
 
-    final response = await useCase.call(requestBody: requestBody);
+    final response = await useCase.call(
+      requestBody: requestBody,
+      offlineState: ref.read(offlineStateProvider),
+    );
 
     if (response.$1.isEmpty) {
       state = state.copyWith(
@@ -63,17 +55,5 @@ class SetNewPasswordNotifier extends AutoDisposeNotifier<SetNewPasswordState> {
         errorMessage: response.$1,
       );
     }
-  }
-
-  void offlineNewPasswordSubmit() {
-    final password = newPasswordController.text;
-
-    useCase.offlineNewPassword(
-      password: password,
-    );
-
-    state = state.copyWith(
-      status: SetNewPasswordStatus.success,
-    );
   }
 }

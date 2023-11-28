@@ -6,14 +6,13 @@ import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_notifier.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_notifier.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_provider.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_back_button.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/password_validation_builder.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,6 +29,8 @@ class SetNewPasswordPage extends ConsumerStatefulWidget {
 }
 
 class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(setNewPasswordProvider);
@@ -62,7 +63,7 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
               subtitleLastPart: TextConstants.setPasswordSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
-            const _ResetPasswordFormBuilder(),
+            _ResetPasswordFormBuilder(formKey: formKey),
             SizedBox(height: 288.h),
             Button(
               onPressed: onButtonPressed,
@@ -81,14 +82,16 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
 
   void onButtonPressed() {
     final notifier = ref.read(setNewPasswordProvider.notifier);
-    final email =
-        ref.read(forgotPasswordProvider.notifier).emailController.text;
-    final offlineState = ref.watch(offlineStateProvider);
 
-    if (notifier.formKey.currentState!.validate()) {
-      if (notifier.newPasswordController.text ==
-          notifier.confirmPasswordController.text) {
-        notifier.newPasswordSubmit(email, offlineState);
+    final newPassword =
+        ref.read(setNewPasswordStateProvider.notifier).state.text;
+
+    final confirmPassword =
+        ref.read(setConfirmPasswordStateProvider.notifier).state.text;
+
+    if (formKey.currentState!.validate()) {
+      if (newPassword == confirmPassword) {
+        notifier.newPasswordSubmit();
       } else {
         ShowSnackBarMessage.showErrorSnackBar(
           message: TextConstants.passwordFieldsNotMatched,

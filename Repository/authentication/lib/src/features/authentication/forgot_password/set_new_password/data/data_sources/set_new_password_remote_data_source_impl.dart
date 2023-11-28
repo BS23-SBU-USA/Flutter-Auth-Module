@@ -1,7 +1,8 @@
-part of 'set_new_password_data_source.dart';
+part of 'set_new_password_remote_data_source.dart';
 
-class SetNewPasswordDataSourceImp implements SetNewPasswordDataSource {
-  const SetNewPasswordDataSourceImp({required this.restClient});
+class SetNewPasswordRemoteDataSourceImp
+    implements SetNewPasswordRemoteDataSource {
+  const SetNewPasswordRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 
