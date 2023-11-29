@@ -1,7 +1,8 @@
-part of 'change_password_data_source.dart';
+part of 'change_password_remote_data_source.dart';
 
-class ChangePasswordDataSourceImp implements ChangePasswordDataSource {
-  const ChangePasswordDataSourceImp({required this.restClient});
+class ChangePasswordRemoteDataSourceImp
+    implements ChangePasswordRemoteDataSource {
+  const ChangePasswordRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 

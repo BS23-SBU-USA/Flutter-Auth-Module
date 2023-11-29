@@ -1,4 +1,3 @@
-import 'package:auth_module/src/features/authentication/change_password/domain/entities/change_password_entity.dart';
 import 'package:auth_module/src/features/authentication/change_password/domain/repositories/change_password_repositories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,19 +14,13 @@ class ChangePasswordUseCase {
 
   final ChangePasswordRepository repository;
 
-  Future<(String, ChangePasswordEntity?)> call({
+  Future<(String, dynamic)> call({
     required Map<String, dynamic> requestBody,
+    required bool offlineState,
   }) async {
     return repository.changePassword(
       requestBody: requestBody,
-    );
-  }
-
-  void offlineNewPassword({
-    required String password,
-  }) {
-    return repository.offlineNewPassword(
-      password: password,
+      offlineState: offlineState,
     );
   }
 }

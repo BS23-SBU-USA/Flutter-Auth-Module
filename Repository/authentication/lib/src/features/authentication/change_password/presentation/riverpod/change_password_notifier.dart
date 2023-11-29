@@ -1,12 +1,6 @@
 part of 'change_password_provider.dart';
 
 class ChangePasswordNotifier extends AutoDisposeNotifier<ChangePasswordState> {
-  final formKey = GlobalKey<FormState>();
-  final TextEditingController oldPasswordController = TextEditingController();
-  final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-
   late final ChangePasswordUseCase useCase;
 
   @override
@@ -15,24 +9,23 @@ class ChangePasswordNotifier extends AutoDisposeNotifier<ChangePasswordState> {
     return const ChangePasswordState();
   }
 
-  Future<void> changePassword(bool offlineState) async {
+  Future<void> changePassword() async {
     try {
-      if (!formKey.currentState!.validate()) return;
-
-      if (offlineState) {
-        offlineChangePassword();
-        return;
-      }
-
       state = state.copyWith(status: ChangePasswordStatus.loading);
 
       final requestBody = <String, dynamic>{
-        'oldPassword': oldPasswordController.text,
-        'newPassword': newPasswordController.text,
-        'confirmNewPassword': confirmPasswordController.text,
+        'oldPassword':
+            ref.read(changedOldPasswordStateProvider.notifier).state.text,
+        'newPassword':
+            ref.read(changedNewPasswordStateProvider.notifier).state.text,
+        'confirmNewPassword':
+            ref.read(changedConfirmPasswordStateProvider.notifier).state.text,
       };
 
-      final response = await useCase.call(requestBody: requestBody);
+      final response = await useCase.call(
+        requestBody: requestBody,
+        offlineState: ref.read(offlineStateProvider),
+      );
 
       if (response.$1.isEmpty) {
         state = state.copyWith(
@@ -51,17 +44,5 @@ class ChangePasswordNotifier extends AutoDisposeNotifier<ChangePasswordState> {
         errorMessage: e.toString(),
       );
     }
-  }
-
-  void offlineChangePassword() {
-    final password = newPasswordController.text;
-
-    useCase.offlineNewPassword(
-      password: password,
-    );
-
-    state = state.copyWith(
-      status: ChangePasswordStatus.success,
-    );
   }
 }

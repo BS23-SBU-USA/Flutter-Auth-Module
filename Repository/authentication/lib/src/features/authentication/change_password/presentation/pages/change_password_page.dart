@@ -11,7 +11,6 @@ import 'package:auth_module/src/features/authentication/change_password/presenta
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/password_validation_builder.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
