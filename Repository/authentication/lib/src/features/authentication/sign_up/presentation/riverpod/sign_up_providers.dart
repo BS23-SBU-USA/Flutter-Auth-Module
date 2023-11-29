@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part '../riverpod/sign_up_notifiers.dart';
 
-final signUpProvider = AutoDisposeNotifierProvider<SignUpNotifier, BaseState>(
+final signUpProvider = NotifierProvider<SignUpNotifier, BaseState>(
   SignUpNotifier.new,
 );
 

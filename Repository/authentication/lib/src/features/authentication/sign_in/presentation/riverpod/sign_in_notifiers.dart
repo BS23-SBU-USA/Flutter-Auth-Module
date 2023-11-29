@@ -1,6 +1,6 @@
 part of '../riverpod/sign_in_providers.dart';
 
-class SignInNotifier extends AutoDisposeNotifier<BaseState> {
+class SignInNotifier extends Notifier<BaseState> {
   late SignInUseCase signInUseCase;
 
   @override
@@ -52,19 +52,21 @@ class SignInNotifier extends AutoDisposeNotifier<BaseState> {
     }
   }
 
-  void _clearFields() {
-    ref.read(signInEmailStateProvider.notifier).state = TextEditingController();
-    ref.read(signInPasswordStateProvider.notifier).state =
-        TextEditingController();
-  }
-
   Future<void> getStoredCredentials() async {
     final result = await signInUseCase.getStoredCredentials();
 
     if (result != null) {
-      ref.read(signInEmailStateProvider.notifier).state = result['userEmail'];
-      ref.read(signInPasswordStateProvider.notifier).state = result['password'];
+      ref.read(signInEmailStateProvider.notifier).state.text =
+          result['userEmail'];
+      ref.read(signInPasswordStateProvider.notifier).state.text =
+          result['password'];
       ref.read(rememberMeStateProvider.notifier).state = true;
     }
+  }
+
+  void _clearFields() {
+    ref.read(signInEmailStateProvider.notifier).state = TextEditingController();
+    ref.read(signInPasswordStateProvider.notifier).state =
+        TextEditingController();
   }
 }

@@ -1,9 +1,9 @@
 part of '../pages/change_password_page.dart';
 
 class ChangePasswordFormBuilder extends ConsumerStatefulWidget {
-  const ChangePasswordFormBuilder({
-    super.key,
-  });
+  final GlobalKey<FormState> formKey;
+
+  const ChangePasswordFormBuilder({super.key, required this.formKey});
 
   @override
   ConsumerState<ChangePasswordFormBuilder> createState() =>
@@ -14,19 +14,18 @@ class _ChangePasswordFormBuilderState
     extends ConsumerState<ChangePasswordFormBuilder> {
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-
     final state = ref.watch(changePasswordProvider);
     final notifier = ref.read(changePasswordProvider.notifier);
-    final oldPasswordSate =
+
+    final oldPasswordState =
         ref.read(changedOldPasswordStateProvider.notifier).state;
-    final newPasswordSate =
+    final newPasswordState =
         ref.read(changedNewPasswordStateProvider.notifier).state;
-    final confirmPasswordSate =
+    final confirmPasswordState =
         ref.read(changedConfirmPasswordStateProvider.notifier).state;
 
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Expanded(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
@@ -34,7 +33,7 @@ class _ChangePasswordFormBuilderState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InputFormField(
-                textEditingController: oldPasswordSate,
+                textEditingController: oldPasswordState,
                 labelText: TextConstants.oldPassword,
                 autocorrect: false,
                 keyboardType: TextInputType.visiblePassword,
@@ -53,7 +52,7 @@ class _ChangePasswordFormBuilderState
                       .read(passwordValidityProvider.notifier)
                       .updateValidationVariables(value);
                 },
-                textEditingController: newPasswordSate,
+                textEditingController: newPasswordState,
                 labelText: TextConstants.newPassword,
                 keyboardType: TextInputType.visiblePassword,
                 borderType: BorderType.bottom,
@@ -70,17 +69,14 @@ class _ChangePasswordFormBuilderState
               else
                 const PasswordValidationBuilder(),
               InputFormField(
-                textEditingController: confirmPasswordSate,
+                textEditingController: confirmPasswordState,
                 labelText: TextConstants.confirmPassword,
                 keyboardType: TextInputType.visiblePassword,
                 password: EnabledPassword(),
                 validator: (value) {
                   return InputValidators.confirmPassword(
                     value,
-                    ref
-                        .read(changedNewPasswordStateProvider.notifier)
-                        .state
-                        .text,
+                    newPasswordState.text,
                   );
                 },
                 borderType: BorderType.bottom,
@@ -100,8 +96,14 @@ class _ChangePasswordFormBuilderState
                       height: 48.sp,
                       onPressed: () {
                         FocusScope.of(context).unfocus();
-                        if (newPasswordSate.text == confirmPasswordSate.text) {
+                        if (newPasswordState.text ==
+                            confirmPasswordState.text) {
                           notifier.changePassword();
+                        } else {
+                          ShowSnackBarMessage.showErrorSnackBar(
+                            message: TextConstants.passwordFieldsNotMatched,
+                            context: context,
+                          );
                         }
                       },
                       isLoading: state.status == ChangePasswordStatus.loading,

@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 part '../riverpod/sign_in_notifiers.dart';
 
 final signInProvider =
-    AutoDisposeNotifierProvider<SignInNotifier, BaseState>(SignInNotifier.new);
+    NotifierProvider<SignInNotifier, BaseState>(SignInNotifier.new);
 
 final rememberMeStateProvider = StateProvider<bool>(
   (ref) => false,

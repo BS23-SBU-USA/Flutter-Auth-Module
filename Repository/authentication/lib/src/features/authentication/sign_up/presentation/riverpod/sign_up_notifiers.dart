@@ -1,6 +1,6 @@
 part of '../riverpod/sign_up_providers.dart';
 
-class SignUpNotifier extends AutoDisposeNotifier<BaseState> {
+class SignUpNotifier extends Notifier<BaseState> {
   late SignUpUseCase signUpUseCase;
 
   @override
