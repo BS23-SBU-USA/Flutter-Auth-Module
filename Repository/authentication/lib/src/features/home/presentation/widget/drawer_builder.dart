@@ -99,11 +99,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
             ),
             onTap: () {
               if (logOutState.status != LogOutStatus.loading) {
-                if (!offlineState) {
-                  logOutNotifier.logOut();
-                } else {
-                  logOutNotifier.logOutForOffline();
-                }
+                logOutNotifier.logOut();
               }
             },
           ),
