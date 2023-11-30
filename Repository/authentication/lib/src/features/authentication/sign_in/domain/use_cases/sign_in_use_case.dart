@@ -16,8 +16,7 @@ class SignInUseCase {
   final SignInRepository repository;
 
   Future<(String, dynamic)> call({
-    required String email,
-    required String password,
+    required Map<String, dynamic> requestBody,
     required bool offlineState,
     required bool rememberMeState,
   }) async {
@@ -28,8 +27,8 @@ class SignInUseCase {
         : await DeviceInfoService().getDeviceModel();
 
     final userCredential = UserCredential(
-      email: email,
-      password: password,
+      email: requestBody['email'],
+      password: requestBody['password'],
       deviceOS: deviceOS,
       deviceModel: deviceModel,
       fcmToken: 'Token',

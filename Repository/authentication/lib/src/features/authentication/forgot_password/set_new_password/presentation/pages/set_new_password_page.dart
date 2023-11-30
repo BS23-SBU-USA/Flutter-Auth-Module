@@ -29,8 +29,6 @@ class SetNewPasswordPage extends ConsumerStatefulWidget {
 }
 
 class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
-  final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(setNewPasswordProvider);
@@ -63,7 +61,7 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
               subtitleLastPart: TextConstants.setPasswordSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
-            _ResetPasswordFormBuilder(formKey: formKey),
+            const _ResetPasswordFormBuilder(),
             SizedBox(height: 288.h),
             Button(
               onPressed: onButtonPressed,
@@ -89,7 +87,11 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
     final confirmPassword =
         ref.read(setConfirmPasswordStateProvider.notifier).state.text;
 
-    if (formKey.currentState!.validate()) {
+    if (ref
+        .read(setNewPasswordFormKeyStateProvider.notifier)
+        .state
+        .currentState!
+        .validate()) {
       if (newPassword == confirmPassword) {
         notifier.newPasswordSubmit();
       } else {

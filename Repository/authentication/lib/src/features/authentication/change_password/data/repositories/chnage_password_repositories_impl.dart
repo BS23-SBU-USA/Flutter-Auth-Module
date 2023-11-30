@@ -21,10 +21,12 @@ class ChangePasswordRepositoryImp implements ChangePasswordRepository {
     required bool offlineState,
   }) async {
     if (offlineState) {
-      mockUser.password = requestBody['newPassword'];
       final response = await localDataSource.changePassword(
         requestBody: requestBody,
       );
+      if (response.statusMessage == '') {
+        mockUser.password = requestBody['newPassword'];
+      }
       return Future.value((response.statusMessage!, true));
     }
 

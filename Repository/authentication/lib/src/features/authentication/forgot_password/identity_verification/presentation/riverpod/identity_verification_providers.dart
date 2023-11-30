@@ -9,3 +9,8 @@ final otpStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'otpStateProvider',
 );
+
+final otpFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+  (ref) => GlobalKey<FormState>(),
+  name: 'otpFormKeyStateProvider',
+);

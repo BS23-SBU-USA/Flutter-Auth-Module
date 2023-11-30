@@ -32,8 +32,6 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpState extends ConsumerState<SignUpPage> {
-  final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final signUpFormState = ref.watch(signUpFormValidationProvider);
@@ -67,15 +65,17 @@ class _SignUpState extends ConsumerState<SignUpPage> {
             subtitleLastPart: TextConstants.signUpSubtitleLastPart,
           ),
           SizedBox(height: 60.h),
-          SignUpFormBuilder(
-            formKey: formKey,
-          ),
+          const SignUpFormBuilder(),
           SizedBox(height: 10.h),
           const TermsAndConditionCheckerBuilder(),
           SizedBox(height: 34.h),
           Button(
             onPressed: () {
-              if (formKey.currentState!.validate()) {
+              if (ref
+                  .read(signUpFormKeyStateProvider.notifier)
+                  .state
+                  .currentState!
+                  .validate()) {
                 signUpNotifier.signUp();
               }
             },

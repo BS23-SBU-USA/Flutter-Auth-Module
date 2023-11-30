@@ -1,9 +1,7 @@
 part of '../pages/change_password_page.dart';
 
 class ChangePasswordFormBuilder extends ConsumerStatefulWidget {
-  final GlobalKey<FormState> formKey;
-
-  const ChangePasswordFormBuilder({super.key, required this.formKey});
+  const ChangePasswordFormBuilder({super.key});
 
   @override
   ConsumerState<ChangePasswordFormBuilder> createState() =>
@@ -24,8 +22,10 @@ class _ChangePasswordFormBuilderState
     final confirmPasswordState =
         ref.read(changedConfirmPasswordStateProvider.notifier).state;
 
+    final formKey = ref.read(changePasswordFormKeyStateProvider.notifier).state;
+
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: Expanded(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
@@ -96,8 +96,10 @@ class _ChangePasswordFormBuilderState
                       height: 48.sp,
                       onPressed: () {
                         FocusScope.of(context).unfocus();
-                        if (newPasswordState.text ==
-                            confirmPasswordState.text) {
+
+                        if (formKey.currentState!.validate() &&
+                            newPasswordState.text ==
+                                confirmPasswordState.text) {
                           notifier.changePassword();
                         } else {
                           ShowSnackBarMessage.showErrorSnackBar(

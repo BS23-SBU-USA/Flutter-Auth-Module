@@ -46,3 +46,8 @@ final signUpConfirmPasswordStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'signUpConfirmPasswordStateProvider',
 );
+
+final signUpFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+  (ref) => GlobalKey<FormState>(),
+  name: 'signUpFormKeyStateProvider',
+);

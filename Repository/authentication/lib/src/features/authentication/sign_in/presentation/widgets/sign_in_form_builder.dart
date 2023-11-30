@@ -1,16 +1,12 @@
 part of '../pages/sign_in_page.dart';
 
 class _SignInFormBuilder extends ConsumerWidget {
-  final GlobalKey<FormState> formKey;
-
-  const _SignInFormBuilder({
-    required this.formKey,
-  });
+  const _SignInFormBuilder();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Form(
-      key: formKey,
+      key: ref.read(signInFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
           InputFormField(

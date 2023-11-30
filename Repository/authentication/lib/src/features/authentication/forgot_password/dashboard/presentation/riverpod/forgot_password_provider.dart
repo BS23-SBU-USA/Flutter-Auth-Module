@@ -9,3 +9,8 @@ final forgotPasswordEmailStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'forgotPasswordEmailStateProvider',
 );
+
+final forgotPasswordFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+  (ref) => GlobalKey<FormState>(),
+  name: 'forgotPasswordFormKeyStateProvider',
+);

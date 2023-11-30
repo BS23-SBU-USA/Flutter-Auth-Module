@@ -1,14 +1,12 @@
 part of '../pages/set_new_password_page.dart';
 
 class _ResetPasswordFormBuilder extends ConsumerWidget {
-  final GlobalKey<FormState> formKey;
-
-  const _ResetPasswordFormBuilder({required this.formKey});
+  const _ResetPasswordFormBuilder();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Form(
-      key: formKey,
+      key: ref.read(setNewPasswordFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
           InputFormField(

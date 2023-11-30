@@ -34,9 +34,6 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
   }
 
   void _navigateToSignInPage() {
-    Navigator.pushNamed(
-      context,
-      Routes.signIn,
-    );
+    Navigator.pop(context);
   }
 }

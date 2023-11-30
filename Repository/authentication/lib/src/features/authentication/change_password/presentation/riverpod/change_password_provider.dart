@@ -29,3 +29,8 @@ final changedConfirmPasswordStateProvider =
   (ref) => TextEditingController(),
   name: 'changedConfirmPasswordStateProvider',
 );
+
+final changePasswordFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+  (ref) => GlobalKey<FormState>(),
+  name: 'changePasswordFormKeyStateProvider',
+);

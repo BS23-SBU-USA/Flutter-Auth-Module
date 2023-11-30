@@ -10,16 +10,17 @@ class SignInNotifier extends Notifier<BaseState> {
     return const BaseState();
   }
 
-  Future<void> signIn({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> signIn() async {
     try {
       state = state.copyWith(status: BaseStatus.loading);
 
+      final signInCredential = SignInCredential(
+        email: ref.read(signInEmailStateProvider.notifier).state.text,
+        password: ref.read(signInPasswordStateProvider.notifier).state.text,
+      );
+
       final result = await signInUseCase.call(
-        email: email,
-        password: password,
+        requestBody: signInCredential.toMap(),
         rememberMeState: ref.read(rememberMeStateProvider),
         offlineState: ref.read(offlineStateProvider),
       );

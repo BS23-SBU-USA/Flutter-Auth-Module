@@ -28,8 +28,6 @@ class ForgotPasswordPage extends ConsumerStatefulWidget {
 }
 
 class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
-  final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(forgotPasswordProvider);
@@ -63,13 +61,15 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
             subtitleLastPart: TextConstants.dashboardSubtitleLastPart,
           ),
           SizedBox(height: 70.h),
-          _EmailField(
-            formKey: formKey,
-          ),
+          const _EmailField(),
           SizedBox(height: 347.h),
           Button(
             onPressed: () {
-              if (formKey.currentState!.validate()) {
+              if (ref
+                  .read(forgotPasswordFormKeyStateProvider.notifier)
+                  .state
+                  .currentState!
+                  .validate()) {
                 notifier.forgotPasswordSubmit();
               }
             },

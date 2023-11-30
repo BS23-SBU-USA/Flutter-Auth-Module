@@ -38,7 +38,6 @@ class IdentityVerificationPage extends ConsumerStatefulWidget {
 
 class _IdentityVerificationPageState
     extends ConsumerState<IdentityVerificationPage> {
-  final formKey = GlobalKey<FormState>();
   bool isButtonEnabled = false;
 
   @override
@@ -99,11 +98,15 @@ class _IdentityVerificationPageState
                   TextConstants.identityVerificationSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
-            _OtpField(formKey: formKey),
+            const _OtpField(),
             SizedBox(height: 347.h),
             Button(
               onPressed: () {
-                if (formKey.currentState!.validate()) {
+                if (ref
+                    .read(otpFormKeyStateProvider.notifier)
+                    .state
+                    .currentState!
+                    .validate()) {
                   onButtonPressed(state, context);
                 }
               },

@@ -10,3 +10,8 @@ final setConfirmPasswordStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'setConfirmPasswordStateProvider',
 );
+
+final setNewPasswordFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+  (ref) => GlobalKey<FormState>(),
+  name: 'setNewPasswordFormKeyStateProvider',
+);

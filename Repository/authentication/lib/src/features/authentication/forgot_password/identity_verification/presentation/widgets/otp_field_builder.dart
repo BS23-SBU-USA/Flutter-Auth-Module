@@ -1,14 +1,12 @@
 part of '../pages/identity_verification_page.dart';
 
 class _OtpField extends ConsumerWidget {
-  final GlobalKey<FormState> formKey;
-
-  const _OtpField({required this.formKey});
+  const _OtpField();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Form(
-      key: formKey,
+      key: ref.read(otpFormKeyStateProvider.notifier).state,
       child: InputFormField(
         onChanged: (value) {
           ref.read(otpButtonStateProvider.notifier).state = value.length >= 6;

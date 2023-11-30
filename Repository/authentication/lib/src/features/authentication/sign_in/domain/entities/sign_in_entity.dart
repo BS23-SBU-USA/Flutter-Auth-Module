@@ -20,6 +20,23 @@ class SignInEntity {
   }
 }
 
+class SignInCredential {
+  final String email;
+  final String password;
+
+  SignInCredential({
+    required this.email,
+    required this.password,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'password': password,
+    };
+  }
+}
+
 class UserCredential {
   final String email;
   final String password;

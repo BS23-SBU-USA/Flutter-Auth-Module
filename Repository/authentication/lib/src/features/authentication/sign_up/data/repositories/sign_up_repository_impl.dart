@@ -21,12 +21,14 @@ class SignUpRepositoryImp implements SignUpRepository {
     required bool offlineState,
   }) async {
     if (offlineState) {
-      mockUser.firstName = requestBody['firstname'];
-      mockUser.lastName = requestBody['lastname'];
-      mockUser.email = requestBody['email'];
-      mockUser.password = requestBody['password'];
-
       final response = await localDataSource.signUp(requestBody: requestBody);
+
+      if (response.statusMessage == '') {
+        mockUser.firstName = requestBody['firstname'];
+        mockUser.lastName = requestBody['lastname'];
+        mockUser.email = requestBody['email'];
+        mockUser.password = requestBody['password'];
+      }
 
       return Future.value((response.statusMessage!, true));
     }

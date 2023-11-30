@@ -1,16 +1,14 @@
 part of '../pages/forgot_password_page.dart';
 
 class _EmailField extends ConsumerWidget {
-  final GlobalKey<FormState> formKey;
-
-  const _EmailField({required this.formKey});
+  const _EmailField();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.read(forgotPasswordProvider.notifier);
 
     return Form(
-      key: formKey,
+      key: ref.read(forgotPasswordFormKeyStateProvider.notifier).state,
       child: InputFormField(
         onChanged: (value) {
           ref.read(forgotPassButtonStateProvider.notifier).state =

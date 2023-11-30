@@ -21,10 +21,12 @@ class SetNewPasswordRepositoryImp implements SetNewPasswordRepository {
     required bool offlineState,
   }) async {
     if (offlineState) {
-      mockUser.password = requestBody['password'];
       final response =
           await localDataSource.setNewPassword(requestBody: requestBody);
 
+      if (response.statusMessage == '') {
+        mockUser.password = requestBody['password'];
+      }
       return Future.value((response.statusMessage!, true));
     }
 

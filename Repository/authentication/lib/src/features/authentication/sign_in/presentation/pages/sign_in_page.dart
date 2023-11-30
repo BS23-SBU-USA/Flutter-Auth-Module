@@ -33,8 +33,6 @@ class SignInPage extends ConsumerStatefulWidget {
 }
 
 class _SignInPageState extends ConsumerState<SignInPage> {
-  final formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
@@ -91,19 +89,17 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           SizedBox(height: 30.h),
           const SingleSignOn(),
           SizedBox(height: 30.h),
-          _SignInFormBuilder(
-            formKey: formKey,
-          ),
+          const _SignInFormBuilder(),
           const _RememberMeAndForgetPassBuilder(),
           SizedBox(height: 177.h),
           Button(
             onPressed: () {
-              if (formKey.currentState!.validate()) {
-                notifier.signIn(
-                  email: ref.read(signInEmailStateProvider.notifier).state.text,
-                  password:
-                      ref.read(signInPasswordStateProvider.notifier).state.text,
-                );
+              if (ref
+                  .read(signInFormKeyStateProvider.notifier)
+                  .state
+                  .currentState!
+                  .validate()) {
+                notifier.signIn();
               }
             },
             isLoading: state.status == BaseStatus.loading,

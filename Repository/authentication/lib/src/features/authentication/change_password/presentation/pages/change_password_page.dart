@@ -28,8 +28,6 @@ class ChangePasswordPage extends ConsumerStatefulWidget {
 class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-
     ref.listen(changePasswordProvider, (_, next) {
       if (next.status == ChangePasswordStatus.success) {
         _onSuccess(context);
@@ -78,7 +76,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
               subtitleLastPart: TextConstants.changePasswordSubtitleLastPart,
             ),
             SizedBox(height: 70.sp),
-            ChangePasswordFormBuilder(formKey: formKey),
+            const ChangePasswordFormBuilder(),
             SizedBox(height: 40.sp),
           ],
         ),

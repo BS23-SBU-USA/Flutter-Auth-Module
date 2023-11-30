@@ -1,12 +1,7 @@
 part of '../pages/sign_up_page.dart';
 
 class SignUpFormBuilder extends ConsumerStatefulWidget {
-  final GlobalKey<FormState> formKey;
-
-  const SignUpFormBuilder({
-    super.key,
-    required this.formKey,
-  });
+  const SignUpFormBuilder({super.key});
 
   @override
   ConsumerState<SignUpFormBuilder> createState() => _SignUpFormBuilderState();
@@ -18,7 +13,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
     final notifier = ref.read(signUpProvider.notifier);
 
     return Form(
-      key: widget.formKey,
+      key: ref.read(signUpFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
           InputFormField(
