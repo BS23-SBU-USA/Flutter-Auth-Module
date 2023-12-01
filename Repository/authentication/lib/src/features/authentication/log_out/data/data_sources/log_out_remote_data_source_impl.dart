@@ -3,10 +3,10 @@ import 'package:auth_module/src/core/services/network/network_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';
 
-part 'log_out_data_source.dart';
+part 'log_out_remote_data_source.dart';
 
-class LogOutDataSourceImp implements LogOutDataSource {
-  const LogOutDataSourceImp({required this.restClient});
+class LogOutRemoteDataSourceImp implements LogOutRemoteDataSource {
+  const LogOutRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 

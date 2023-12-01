@@ -1,6 +1,6 @@
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
-import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
+import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/use_cases/sign_in_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +27,22 @@ final isUserLoggedInProvider = StateProvider<bool>(
 
 final buttonStateProvider = StateProvider<bool>(
   (ref) =>
-      ref.read(signInProvider.notifier).emailController.text.isEmpty ||
-      ref.read(signInProvider.notifier).passwordController.text.isEmpty,
+      ref.read(signInEmailStateProvider.notifier).state.text.isEmpty ||
+      ref.read(signInPasswordStateProvider.notifier).state.text.isEmpty,
+  name: 'buttonStateProvider',
+);
+
+final signInEmailStateProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+  name: 'signInEmailStateProvider',
+);
+
+final signInPasswordStateProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+  name: 'signInPasswordStateProvider',
+);
+
+final signInFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+  (ref) => GlobalKey<FormState>(),
+  name: 'signInFormKeyStateProvider',
 );

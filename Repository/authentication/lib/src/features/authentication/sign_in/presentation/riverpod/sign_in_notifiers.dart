@@ -1,13 +1,7 @@
 part of '../riverpod/sign_in_providers.dart';
 
 class SignInNotifier extends Notifier<BaseState> {
-  final formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  late bool offlineState;
   late SignInUseCase signInUseCase;
-  bool isValid = false;
 
   @override
   BaseState build() {
@@ -18,28 +12,20 @@ class SignInNotifier extends Notifier<BaseState> {
 
   Future<void> signIn() async {
     try {
-      if (!formKey.currentState!.validate()) {
-        return;
-      }
-
-      offlineState = ref.read(offlineStateProvider);
-      if (offlineState) {
-        offlineLogin();
-        return;
-      }
-
-      final email = emailController.text;
-      final password = passwordController.text;
-
       state = state.copyWith(status: BaseStatus.loading);
 
-      final result = await signInUseCase.call(
-        email: email,
-        password: password,
-        rememberMeState: ref.read(rememberMeStateProvider),
+      final signInCredential = SignInCredential(
+        email: ref.read(signInEmailStateProvider.notifier).state.text,
+        password: ref.read(signInPasswordStateProvider.notifier).state.text,
       );
 
-      if (result.$1!.isEmpty) {
+      final result = await signInUseCase.call(
+        requestBody: signInCredential.toMap(),
+        rememberMeState: ref.read(rememberMeStateProvider),
+        offlineState: ref.read(offlineStateProvider),
+      );
+
+      if (result.$1.isEmpty) {
         state = state.copyWith(
           status: BaseStatus.success,
           data: result.$2,
@@ -71,42 +57,17 @@ class SignInNotifier extends Notifier<BaseState> {
     final result = await signInUseCase.getStoredCredentials();
 
     if (result != null) {
-      emailController.text = result['userEmail'];
-      passwordController.text = result['password'];
-
+      ref.read(signInEmailStateProvider.notifier).state.text =
+          result['userEmail'];
+      ref.read(signInPasswordStateProvider.notifier).state.text =
+          result['password'];
       ref.read(rememberMeStateProvider.notifier).state = true;
     }
   }
 
-  Future<void> offlineLogin() async {
-    final email = emailController.text;
-    final password = passwordController.text;
-
-    final result = signInUseCase.offlineLogin(
-      email: email,
-      password: password,
-      rememberMeState: ref.read(rememberMeStateProvider),
-    );
-
-    final user = MockUserModel();
-
-    Log.debug(
-        '${user.firstName},  \n${user.lastName},  \n${user.email},  \n${user.password}');
-
-    if (result) {
-      state = state.copyWith(
-        status: BaseStatus.success,
-      );
-    } else {
-      state = state.copyWith(
-        status: BaseStatus.failure,
-        error: 'Invalid credentials',
-      );
-    }
-  }
-
   void _clearFields() {
-    emailController.clear();
-    passwordController.clear();
+    ref.read(signInEmailStateProvider.notifier).state = TextEditingController();
+    ref.read(signInPasswordStateProvider.notifier).state =
+        TextEditingController();
   }
 }

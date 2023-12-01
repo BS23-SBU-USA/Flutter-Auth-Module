@@ -1,8 +1,8 @@
-part of 'identity_verification_data_source.dart';
+part of 'identity_verification_remote_data_source.dart';
 
-class IdentityVerificationDataSourceImp
-    implements IdentityVerificationDataSource {
-  const IdentityVerificationDataSourceImp({required this.restClient});
+class IdentityVerificationRemoteDataSourceImp
+    implements IdentityVerificationRemoteDataSource {
+  const IdentityVerificationRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 

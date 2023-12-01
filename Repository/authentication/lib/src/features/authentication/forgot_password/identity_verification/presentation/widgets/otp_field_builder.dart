@@ -5,15 +5,13 @@ class _OtpField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(identityVerificationProvider.notifier);
-
     return Form(
-      key: notifier.formKey,
+      key: ref.read(otpFormKeyStateProvider.notifier).state,
       child: InputFormField(
         onChanged: (value) {
           ref.read(otpButtonStateProvider.notifier).state = value.length >= 6;
         },
-        textEditingController: notifier.otpController,
+        textEditingController: ref.read(otpStateProvider.notifier).state,
         labelText: TextConstants.yourCode,
         borderColor: UIColors.timberWolf,
         keyboardType: TextInputType.number,

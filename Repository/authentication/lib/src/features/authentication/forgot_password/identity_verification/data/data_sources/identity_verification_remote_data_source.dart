@@ -5,18 +5,19 @@ import 'package:auth_module/src/core/services/network/network_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';
 
-part 'sign_in_data_source_impl.dart';
+part 'identity_verification_remote_data_source_impl.dart';
 
-final signInDataSourceProvider = Provider<SignInDataSource>(
+final identityVerificationRemoteDataSourceProvider =
+    Provider<IdentityVerificationRemoteDataSource>(
   (ref) {
-    return SignInDataSourceImp(
+    return IdentityVerificationRemoteDataSourceImp(
       restClient: ref.read(networkProvider),
     );
   },
 );
 
-abstract class SignInDataSource {
-  Future<Response> signIn({
+abstract class IdentityVerificationRemoteDataSource {
+  Future<Response> identityVerification({
     required Map<String, dynamic> requestBody,
   });
 }

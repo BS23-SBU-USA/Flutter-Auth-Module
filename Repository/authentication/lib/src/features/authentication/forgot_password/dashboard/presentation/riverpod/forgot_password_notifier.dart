@@ -1,7 +1,8 @@
+import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
+import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/domain/use_case/forgot_password_use_cases.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'forgot_password_state.dart';
@@ -13,9 +14,6 @@ final forgotPasswordProvider =
 );
 
 class ForgotPasswordNotifier extends AutoDisposeNotifier<ForgotPasswordState> {
-  final formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-
   late ForgotPasswordUseCase useCase;
 
   @override
@@ -24,24 +22,18 @@ class ForgotPasswordNotifier extends AutoDisposeNotifier<ForgotPasswordState> {
     return const ForgotPasswordState();
   }
 
-  Future<void> forgotPasswordSubmit(bool offlineState) async {
+  Future<void> forgotPasswordSubmit() async {
     try {
-      if (!formKey.currentState!.validate()) {
-        return;
-      }
-
-      if (offlineState) {
-        offlineEmailSubmit();
-        return;
-      }
-
       state = state.copyWith(status: ForgotPasswordStatus.loading);
 
       final requestBody = <String, dynamic>{
-        'email': emailController.text,
+        'email': ref.read(forgotPasswordEmailStateProvider.notifier).state.text,
       };
 
-      final response = await useCase.call(requestBody: requestBody);
+      final response = await useCase.call(
+        requestBody: requestBody,
+        offlineState: ref.read(offlineStateProvider),
+      );
 
       if (response.$1.isEmpty) {
         state = state.copyWith(
@@ -58,25 +50,6 @@ class ForgotPasswordNotifier extends AutoDisposeNotifier<ForgotPasswordState> {
       state = state.copyWith(
         status: ForgotPasswordStatus.failure,
         errorMessage: e.toString(),
-      );
-    }
-  }
-
-  void offlineEmailSubmit() {
-    final email = emailController.text;
-
-    final result = useCase.offlineEmail(
-      email: email,
-    );
-
-    if (result) {
-      state = state.copyWith(
-        status: ForgotPasswordStatus.success,
-      );
-    } else {
-      state = state.copyWith(
-        status: ForgotPasswordStatus.failure,
-        errorMessage: 'Invalid email',
       );
     }
   }

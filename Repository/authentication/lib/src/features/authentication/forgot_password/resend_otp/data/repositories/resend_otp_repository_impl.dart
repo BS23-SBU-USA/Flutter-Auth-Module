@@ -1,20 +1,31 @@
 import 'package:auth_module/src/core/services/network/request_handler.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/data/data_sources/resend_otp_data_source.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/data/models/resend_otp_model.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/domain/entities/resend_otp_entity.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/data/data_sources/resend_otp_local_data_source.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/data/data_sources/resend_otp_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/domain/repositories/resend_otp_repositories.dart';
 
 class ResendOtpRepositoryImp implements ResendOtpRepository {
-  const ResendOtpRepositoryImp({required this.dataSource});
+  const ResendOtpRepositoryImp({
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
-  final ResendOtpDataSource dataSource;
+  final ResendOtpRemoteDataSource remoteDataSource;
+  final ResendOtpLocalDataSource localDataSource;
 
   @override
-  Future<(String, ResendOtpEntity?)> resendOtp({
+  Future<(String, dynamic)> resendOtp({
     required Map<String, dynamic> requestBody,
+    required bool offlineState,
   }) async {
-    return dataSource.resendOtp(requestBody: requestBody).guard((data) {
-      return ResendOtpModel.fromJson(data);
+    if (offlineState) {
+      final response =
+          await localDataSource.resendOtp(requestBody: requestBody);
+
+      return Future.value((response.statusMessage!, true));
+    }
+
+    return remoteDataSource.resendOtp(requestBody: requestBody).guard((data) {
+      return data;
     });
   }
 }

@@ -1,4 +1,3 @@
-import 'package:auth_module/src/features/authentication/sign_up/domain/entities/sign_up_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_up/domain/repositories/sign_up_repositories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,23 +13,13 @@ class SignUpUseCase {
 
   final SignUpRepository repository;
 
-  Future<(String, SignUpEntity?)> call({
+  Future<(String, dynamic)> call({
     required Map<String, dynamic> requestBody,
+    required bool offlineState,
   }) async {
-    return repository.signUp(requestBody: requestBody);
-  }
-
-  void offlineSignUp({
-    required String firstName,
-    required String lastName,
-    required String email,
-    required String password,
-  }) {
-    return repository.offlineSignUp(
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
+    return repository.signUp(
+      requestBody: requestBody,
+      offlineState: offlineState,
     );
   }
 }

@@ -4,7 +4,6 @@ import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_notifier.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,7 +33,6 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
     final seconds = (_secondsRemaining % 60).toString().padLeft(2, '0');
 
     final state = ref.watch(identityVerificationProvider);
-    final offlineState = ref.watch(offlineStateProvider);
 
     ref.listen(
       identityVerificationProvider,
@@ -58,9 +56,7 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
           setState(() {
             _resetTimer();
             showResendButton = false;
-            ref
-                .read(identityVerificationProvider.notifier)
-                .resendOTPToEmail(offlineState);
+            ref.read(identityVerificationProvider.notifier).resendOTPToEmail();
           });
         }
       },

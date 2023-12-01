@@ -1,38 +1,33 @@
-import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/core/services/network/request_handler.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/data/data_source/forgot_password_data_source.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/data/models/forgot_password_model.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/domain/entities/forgot_password_entity.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/dashboard/data/data_source/forgot_password_local_data_source.dart';
+import 'package:auth_module/src/features/authentication/forgot_password/dashboard/data/data_source/forgot_password_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/domain/repositories/forgot_password_repositories.dart';
-import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
 
 class ForgotPasswordRepositoryImp implements ForgotPasswordRepository {
   const ForgotPasswordRepositoryImp({
-    required this.dataSource,
-    required this.mockUser,
+    required this.remoteDataSource,
+    required this.localDataSource,
   });
 
-  final ForgotPasswordDataSource dataSource;
-  final MockUserModel mockUser;
+  final ForgotPasswordRemoteDataSource remoteDataSource;
+  final ForgotPasswordLocalDataSource localDataSource;
 
   @override
-  Future<(String, ForgotPasswordEntity?)> forgotPassword({
+  Future<(String, dynamic)> forgotPassword({
     required Map<String, dynamic> requestBody,
+    required bool offlineState,
   }) async {
-    return dataSource.forgotPassword(requestBody: requestBody).guard((data) {
-      return ForgotPasswordModel.fromJson(data);
-    });
-  }
+    if (offlineState) {
+      final response =
+          await localDataSource.forgotPassword(requestBody: requestBody);
 
-  @override
-  bool offlineEmail({
-    required String email,
-  }) {
-    Log.debug(email);
-    if (email == mockUser.email) {
-      return true;
-    } else {
-      return false;
+      return Future.value((response.statusMessage!, true));
     }
+
+    return remoteDataSource
+        .forgotPassword(requestBody: requestBody)
+        .guard((data) {
+      return data;
+    });
   }
 }

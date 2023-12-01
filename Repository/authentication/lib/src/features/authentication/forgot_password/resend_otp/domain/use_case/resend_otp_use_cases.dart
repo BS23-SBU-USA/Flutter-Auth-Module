@@ -1,4 +1,3 @@
-import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/domain/entities/resend_otp_entity.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/resend_otp/domain/repositories/resend_otp_repositories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,9 +14,13 @@ class ResendOtpUseCase {
 
   final ResendOtpRepository repository;
 
-  Future<(String, ResendOtpEntity?)> call({
+  Future<(String, dynamic)> call({
     required Map<String, dynamic> requestBody,
+    required bool offlineState,
   }) async {
-    return repository.resendOtp(requestBody: requestBody);
+    return repository.resendOtp(
+      requestBody: requestBody,
+      offlineState: offlineState,
+    );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:auth_module/src/features/authentication/log_out/domain/entities/log_out_entity.dart';
 import 'package:auth_module/src/features/authentication/log_out/domain/repositories/log_out_repositories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +13,11 @@ class LogOutUseCase {
 
   final LogOutRepository repository;
 
-  Future<(String, LogOutEntity?)> call() async {
-    return repository.logOut();
+  Future<(String, dynamic)> call({
+    required bool offlineState,
+  }) async {
+    return repository.logOut(
+      offlineState: offlineState,
+    );
   }
 }

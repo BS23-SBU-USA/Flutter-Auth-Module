@@ -1,3 +1,4 @@
+import 'package:auth_module/src/core/services/device_info/device_info_service.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/repositories/sign_in_repositories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,32 +15,34 @@ class SignInUseCase {
 
   final SignInRepository repository;
 
-  Future<(String?, SignInEntity?)> call({
-    required String email,
-    required String password,
+  Future<(String, dynamic)> call({
+    required Map<String, dynamic> requestBody,
+    required bool offlineState,
     required bool rememberMeState,
   }) async {
+    final deviceOS =
+        offlineState ? 'Android' : await DeviceInfoService().getDeviceOS();
+    final deviceModel = offlineState
+        ? 'Unknown Device'
+        : await DeviceInfoService().getDeviceModel();
+
+    final userCredential = UserCredential(
+      email: requestBody['email'],
+      password: requestBody['password'],
+      deviceOS: deviceOS,
+      deviceModel: deviceModel,
+      fcmToken: 'Token',
+    );
+
     return repository.signIn(
-      email: email,
-      password: password,
+      requestBody: userCredential.toMap(),
+      offlineState: offlineState,
       rememberMeState: rememberMeState,
     );
   }
 
   Future<Map<String, dynamic>?> getStoredCredentials() async {
     return repository.getStoredCredentials();
-  }
-
-  bool offlineLogin({
-    required String email,
-    required String password,
-    required bool rememberMeState,
-  }) {
-    return repository.offlineSignIn(
-      email: email,
-      password: password,
-      rememberMeState: rememberMeState,
-    );
   }
 
   Future<String?> decideNextRoute() async {

@@ -12,7 +12,9 @@ class LogOutNotifier extends Notifier<LogOutState> {
   Future<void> logOut() async {
     try {
       state = state.copyWith(status: LogOutStatus.loading);
-      final response = await logOutUseCase.call();
+      final response = await logOutUseCase.call(
+        offlineState: ref.read(offlineStateProvider),
+      );
 
       if (response.$1.isEmpty) {
         state = state.copyWith(
@@ -31,11 +33,5 @@ class LogOutNotifier extends Notifier<LogOutState> {
         errorMessage: e.toString(),
       );
     }
-  }
-
-  void logOutForOffline() {
-    state = state.copyWith(
-      status: LogOutStatus.success,
-    );
   }
 }

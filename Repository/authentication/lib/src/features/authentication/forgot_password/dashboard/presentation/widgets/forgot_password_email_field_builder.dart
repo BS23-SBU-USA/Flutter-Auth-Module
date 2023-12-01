@@ -5,16 +5,17 @@ class _EmailField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(forgotPasswordProvider.notifier);
+    ref.read(forgotPasswordProvider.notifier);
 
     return Form(
-      key: notifier.formKey,
+      key: ref.read(forgotPasswordFormKeyStateProvider.notifier).state,
       child: InputFormField(
         onChanged: (value) {
           ref.read(forgotPassButtonStateProvider.notifier).state =
               value.isNotEmpty;
         },
-        textEditingController: notifier.emailController,
+        textEditingController:
+            ref.read(forgotPasswordEmailStateProvider.notifier).state,
         labelText: TextConstants.yourEmail,
         borderColor: UIColors.timberWolf,
         keyboardType: TextInputType.emailAddress,

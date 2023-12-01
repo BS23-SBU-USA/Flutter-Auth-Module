@@ -13,14 +13,16 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
     final notifier = ref.read(signUpProvider.notifier);
 
     return Form(
-      key: notifier.formKey,
+      key: ref.read(signUpFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
           InputFormField(
             onChanged: (value) {
-              notifier.capitalizeFirstLetter(notifier.nameController1);
+              notifier.capitalizeFirstLetter(
+                  ref.read(signUpFirstNameStateProvider.notifier).state);
             },
-            textEditingController: notifier.nameController1,
+            textEditingController:
+                ref.read(signUpFirstNameStateProvider.notifier).state,
             labelText: TextConstants.firstName,
             autocorrect: false,
             keyboardType: TextInputType.name,
@@ -35,9 +37,11 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
           ),
           InputFormField(
             onChanged: (value) {
-              notifier.capitalizeFirstLetter(notifier.nameController2);
+              notifier.capitalizeFirstLetter(
+                  ref.read(signUpSecondNameStateProvider.notifier).state);
             },
-            textEditingController: notifier.nameController2,
+            textEditingController:
+                ref.read(signUpSecondNameStateProvider.notifier).state,
             labelText: TextConstants.lastName,
             autocorrect: false,
             keyboardType: TextInputType.name,
@@ -51,7 +55,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             bottomMargin: 30.h,
           ),
           InputFormField(
-            textEditingController: notifier.emailController,
+            textEditingController:
+                ref.read(signUpEmailStateProvider.notifier).state,
             labelText: TextConstants.email,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
@@ -70,7 +75,8 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
                   .watch(passwordValidityProvider.notifier)
                   .updateValidationVariables(value);
             },
-            textEditingController: notifier.passwordController,
+            textEditingController:
+                ref.read(signUpPasswordStateProvider.notifier).state,
             labelText: TextConstants.password,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
@@ -87,14 +93,15 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
           else
             const PasswordValidationBuilder(),
           InputFormField(
-            textEditingController: notifier.confirmPasswordController,
+            textEditingController:
+                ref.read(signUpConfirmPasswordStateProvider.notifier).state,
             labelText: TextConstants.confirmPassword,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             validator: (value) {
               return InputValidators.confirmPassword(
                 value,
-                notifier.passwordController.text,
+                ref.read(signUpPasswordStateProvider.notifier).state.text,
               );
             },
             borderType: BorderType.bottom,

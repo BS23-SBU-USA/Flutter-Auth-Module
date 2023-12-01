@@ -12,7 +12,6 @@ import 'package:auth_module/src/features/authentication/forgot_password/identity
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_back_button.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,13 +32,13 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(forgotPasswordProvider);
     final notifier = ref.read(forgotPasswordProvider.notifier);
-    final offlineState = ref.watch(offlineStateProvider);
 
     ref.listen(
       forgotPasswordProvider,
       (_, next) {
         if (next.status == ForgotPasswordStatus.success) {
-          _navigateToIdentityVerificationPage(notifier.emailController.text);
+          _navigateToIdentityVerificationPage(
+              ref.read(forgotPasswordEmailStateProvider.notifier).state.text);
         } else if (next.status == ForgotPasswordStatus.failure) {
           ShowSnackBarMessage.showErrorSnackBar(
             message: next.errorMessage,
@@ -65,7 +64,15 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           const _EmailField(),
           SizedBox(height: 347.h),
           Button(
-            onPressed: () => notifier.forgotPasswordSubmit(offlineState),
+            onPressed: () {
+              if (ref
+                  .read(forgotPasswordFormKeyStateProvider.notifier)
+                  .state
+                  .currentState!
+                  .validate()) {
+                notifier.forgotPasswordSubmit();
+              }
+            },
             isLoading: state.status == ForgotPasswordStatus.loading,
             label: TextConstants.submit,
             textStyle: !ref.watch(forgotPassButtonStateProvider)

@@ -5,18 +5,16 @@ import 'package:auth_module/src/core/services/network/network_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';
 
-part 'change_password_data_source_impl.dart';
+part 'resend_otp_remote_data_source_impl.dart';
 
-abstract class ChangePasswordDataSource {
-  Future<Response> changePassword({
-    required Map<String, dynamic> requestBody,
-  });
-}
-
-final changePasswordDataSourceProvider = Provider<ChangePasswordDataSource>(
+final resendOtpRemoteDataSourceProvider = Provider<ResendOtpRemoteDataSource>(
   (ref) {
-    return ChangePasswordDataSourceImp(
+    return ResendOtpRemoteDataSourceImp(
       restClient: ref.read(networkProvider),
     );
   },
 );
+
+abstract class ResendOtpRemoteDataSource {
+  Future<Response> resendOtp({required Map<String, dynamic> requestBody});
+}

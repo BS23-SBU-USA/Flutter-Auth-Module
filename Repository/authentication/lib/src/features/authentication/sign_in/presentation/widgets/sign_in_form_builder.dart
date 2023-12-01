@@ -5,14 +5,13 @@ class _SignInFormBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(signInProvider.notifier);
-
     return Form(
-      key: notifier.formKey,
+      key: ref.read(signInFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
           InputFormField(
-            textEditingController: notifier.emailController,
+            textEditingController:
+                ref.read(signInEmailStateProvider.notifier).state,
             labelText: TextConstants.yourEmail,
             labelTextStyle: AppTypography.medium14Circular(
               color: UIColors.pineGreen,
@@ -27,8 +26,8 @@ class _SignInFormBuilder extends ConsumerWidget {
             onChanged: (value) {
               final emailNotEmpty = value.isNotEmpty;
               final passwordNotEmpty = ref
-                  .read(signInProvider.notifier)
-                  .passwordController
+                  .read(signInPasswordStateProvider.notifier)
+                  .state
                   .text
                   .isNotEmpty;
 
@@ -37,7 +36,8 @@ class _SignInFormBuilder extends ConsumerWidget {
             },
           ),
           InputFormField(
-            textEditingController: notifier.passwordController,
+            textEditingController:
+                ref.read(signInPasswordStateProvider.notifier).state,
             bottomMargin: 0,
             labelText: TextConstants.password,
             labelTextStyle: AppTypography.medium14Circular(
@@ -51,10 +51,10 @@ class _SignInFormBuilder extends ConsumerWidget {
             borderType: BorderType.bottom,
             borderColor: UIColors.timberWolf,
             onChanged: (value) {
-              final emailNotEmpty = value.isNotEmpty;
-              final passwordNotEmpty = ref
-                  .read(signInProvider.notifier)
-                  .emailController
+              final passwordNotEmpty = value.isNotEmpty;
+              final emailNotEmpty = ref
+                  .read(signInEmailStateProvider.notifier)
+                  .state
                   .text
                   .isNotEmpty;
               ref.read(buttonStateProvider.notifier).state =

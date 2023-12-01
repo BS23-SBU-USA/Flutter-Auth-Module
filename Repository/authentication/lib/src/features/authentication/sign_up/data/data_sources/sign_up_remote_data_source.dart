@@ -1,20 +1,18 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/core/services/network/api_end_points.dart';
 import 'package:auth_module/src/core/services/network/network_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';
 
-part 'resend_otp_data_source_impl.dart';
+part 'sign_up_remote_data_source_impl.dart';
 
-final resendOtpDataSourceProvider = Provider<ResendOtpDataSource>(
+final signUpRemoteDataSourceProvider = Provider<SignUpRemoteDataSource>(
   (ref) {
-    return ResendOtpDataSourceImp(
+    return SignUpRemoteDataSourceImp(
       restClient: ref.read(networkProvider),
     );
   },
 );
 
-abstract class ResendOtpDataSource {
-  Future<Response> resendOtp({required Map<String, dynamic> requestBody});
+abstract class SignUpRemoteDataSource {
+  Future<Response> signUp({required Map<String, dynamic> requestBody});
 }

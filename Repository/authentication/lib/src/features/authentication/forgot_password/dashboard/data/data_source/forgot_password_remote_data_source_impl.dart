@@ -1,7 +1,8 @@
-part of 'forgot_password_data_source.dart';
+part of 'forgot_password_remote_data_source.dart';
 
-class ForgotPasswordDataSourceImp implements ForgotPasswordDataSource {
-  const ForgotPasswordDataSourceImp({required this.restClient});
+class ForgotPasswordRemoteDataSourceImp
+    implements ForgotPasswordRemoteDataSource {
+  const ForgotPasswordRemoteDataSourceImp({required this.restClient});
 
   final RestClient restClient;
 

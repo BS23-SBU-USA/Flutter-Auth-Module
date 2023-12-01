@@ -44,6 +44,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final buttonState = ref.watch(buttonStateProvider);
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
 
@@ -78,7 +79,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: [
           const BuildTitleAndSubtitle(
             titleFirstPart: TextConstants.signInTitleFirstPart,
             titleLastPart: TextConstants.signInTitleLastPart,
@@ -92,13 +93,21 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           const _RememberMeAndForgetPassBuilder(),
           SizedBox(height: 177.h),
           Button(
-            onPressed: notifier.signIn,
+            onPressed: () {
+              if (ref
+                  .read(signInFormKeyStateProvider.notifier)
+                  .state
+                  .currentState!
+                  .validate()) {
+                notifier.signIn();
+              }
+            },
             isLoading: state.status == BaseStatus.loading,
             label: TextConstants.login,
-            textStyle: !ref.watch(buttonStateProvider)
+            textStyle: !buttonState
                 ? AppTypography.semiBold16Caros(color: UIColors.gray)
                 : AppTypography.semiBold16Caros(color: UIColors.white),
-            disable: !ref.watch(buttonStateProvider),
+            disable: !buttonState,
           ),
           SizedBox(height: 16.h),
           const _SignUpNavigationBuilder(),

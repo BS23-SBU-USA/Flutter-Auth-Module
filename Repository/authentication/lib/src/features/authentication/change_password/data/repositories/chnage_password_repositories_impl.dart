@@ -1,36 +1,39 @@
-import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/core/services/network/request_handler.dart';
-import 'package:auth_module/src/features/authentication/change_password/data/data_sources/change_password_data_source.dart';
-import 'package:auth_module/src/features/authentication/change_password/data/models/change_password_model.dart';
-import 'package:auth_module/src/features/authentication/change_password/domain/entities/change_password_entity.dart';
+import 'package:auth_module/src/features/authentication/change_password/data/change_password_data_source/change_password_local_data_source.dart';
+import 'package:auth_module/src/features/authentication/change_password/data/change_password_data_source/change_password_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/change_password/domain/repositories/change_password_repositories.dart';
 import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
 
 class ChangePasswordRepositoryImp implements ChangePasswordRepository {
   const ChangePasswordRepositoryImp({
-    required this.dataSource,
+    required this.remoteDataSource,
+    required this.localDataSource,
     required this.mockUser,
   });
 
-  final ChangePasswordDataSource dataSource;
+  final ChangePasswordRemoteDataSource remoteDataSource;
+  final ChangePasswordLocalDataSource localDataSource;
   final MockUserModel mockUser;
 
   @override
-  Future<(String, ChangePasswordEntity?)> changePassword({
+  Future<(String, dynamic)> changePassword({
     required Map<String, dynamic> requestBody,
+    required bool offlineState,
   }) async {
-    return dataSource.changePassword(requestBody: requestBody).guard((data) {
-      return ChangePasswordModel.fromJson(
-        data,
+    if (offlineState) {
+      final response = await localDataSource.changePassword(
+        requestBody: requestBody,
       );
-    });
-  }
+      if (response.statusMessage == '') {
+        mockUser.password = requestBody['newPassword'];
+      }
+      return Future.value((response.statusMessage!, true));
+    }
 
-  @override
-  void offlineNewPassword({
-    required String password,
-  }) {
-    Log.debug(password);
-    mockUser.password = password;
+    return remoteDataSource
+        .changePassword(requestBody: requestBody)
+        .guard((data) {
+      return data;
+    });
   }
 }
