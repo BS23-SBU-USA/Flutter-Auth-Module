@@ -11,7 +11,7 @@
 <table>
   <tr>
     <td>
-      <img src="/assets/images/logo.svg" height=70 align="left"> 
+      <img src="https://github.com/BrainStation-23/Flutter-Auth-Module/blob/feat/read-me-file/Repository/authentication/assets/images/logo.svg" height=70 align="left"> 
     <p>
     The Auth Module is a comprehensive and powerful set of features crafted to manage user authentication and profile-related functionalities within your Flutter application. With seamless integration of both online and offline capabilities, this module ensures a robust and user-friendly experience for handling user authentication.
       </p>
