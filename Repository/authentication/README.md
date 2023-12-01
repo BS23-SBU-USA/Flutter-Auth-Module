@@ -1,6 +1,23 @@
-# Auth Module
+<p align="center">
+  <a href="https://github.com/BrainStation-23/Flutter-Auth-Module"><img src="https://img.shields.io/badge/View%20on-GitHub-blue?style=flat&logo=github" alt="GitHub"></a>
+  <a href="https://github.com/BrainStation-23/Flutter-Auth-Module"><img src="https://img.shields.io/badge/Star%20on-GitHub-FFD700?style=flat&logo=github" alt="Star on GitHub"></a>
+  <a href="https://github.com/BrainStation-23/Flutter-Auth-Module/releases"><img src="https://img.shields.io/badge/GitHub-Release-informational?style=flat&logo=github" alt="GitHub Release"></a>
+  <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-832878?style=flat" alt="License: Apache"></a>
+</p>
 
-Auth Module is a comprehensive feature set designed to manage user authentication and profile-related functionalities. It seamlessly integrates both online and offline capabilities, ensuring a robust and user-friendly experience.
+
+# Auth Module - Elevate Your Authentication Experience
+
+<table>
+  <tr>
+    <td>
+      <img src="/assets/images/logo.svg" height=70 align="left"> 
+    <p>
+    The Auth Module is a comprehensive and powerful set of features crafted to manage user authentication and profile-related functionalities within your Flutter application. With seamless integration of both online and offline capabilities, this module ensures a robust and user-friendly experience for handling user authentication.
+      </p>
+    </td>
+  </tr>
+</table>
 
 ## Features
 
