@@ -1,6 +1,7 @@
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
+import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,24 +52,11 @@ class _WebViewPageState extends State<WebViewPage> {
         backgroundColor: UIColors.white,
         elevation: 0,
         title: Text(
-          'Feed Module',
+          'Terms & Conditions',
           style: AppTypography.semiBold18Caros(),
         ),
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 22.sp,
-              vertical: 22.sp,
-            ),
-            child: SvgPicture.asset(
-              Assets.backIcon,
-            ),
-          ),
-        ),
+        leading: Button.back(),
       ),
       body: SafeArea(
         child: Stack(

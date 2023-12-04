@@ -58,22 +58,32 @@ class _UpdateProfileFormBuilderState
               ),
               borderColor: UIColors.timberWolf,
               maxLength: 10,
-              prefix: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CountryCodePicker(
-                    initialSelection: notifier.countryCodeController.text,
-                    countryFilter: const ['+880', 'US'],
-                    onChanged: (country) {
-                      notifier.countryCodeController.text = country.dialCode!;
-                    },
-                  ),
-                  Container(
-                    width: 1,
-                    color: UIColors.pineGreen,
-                    margin: const EdgeInsets.only(right: 16),
-                  ),
-                ],
+              prefix: IntrinsicHeight(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CountryCodePicker(
+                      initialSelection: notifier.countryCodeController.text,
+                      padding: EdgeInsets.zero, // Set zero padding to the left
+                      countryFilter: const ['+880', 'US'],
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        color: UIColors.black,
+                      ),
+                      onChanged: (country) {
+                        notifier.countryCodeController.text = country.dialCode!;
+                      },
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                      child: const VerticalDivider(
+                        color: UIColors.black,
+                        width: 1,
+                        thickness: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               validator: InputValidators.phone,
               onChanged: (value) {
