@@ -36,7 +36,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   @override
   void initState() {
     super.initState();
-    Future(() {
+    Future(() async {
+      ref.read(signInProvider.notifier).authConfigure();
       ref.read(signInProvider.notifier).getStoredCredentials();
       ref.read(signInProvider.notifier).decideNextRoute();
     });
@@ -47,6 +48,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     final buttonState = ref.watch(buttonStateProvider);
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
+    final logoState = ref.read(logoVisibilityStateProvider.notifier).state;
+    final ssoState = ref.read(ssoVisibilityStateProvider.notifier).state;
 
     ref
       ..listen(
@@ -80,14 +83,15 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BuildTitleAndSubtitle(
-            titleFirstPart: TextConstants.signInTitleFirstPart,
-            titleLastPart: TextConstants.signInTitleLastPart,
-            subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
-            subtitleLastPart: TextConstants.signInSubtitleLastPart,
-          ),
+          if (!logoState)
+            const BuildTitleAndSubtitle(
+              titleFirstPart: TextConstants.signInTitleFirstPart,
+              titleLastPart: TextConstants.signInTitleLastPart,
+              subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
+              subtitleLastPart: TextConstants.signInSubtitleLastPart,
+            ),
           SizedBox(height: 30.h),
-          const SingleSignOn(),
+          if (ssoState) const SingleSignOn(),
           SizedBox(height: 30.h),
           const _SignInFormBuilder(),
           const _RememberMeAndForgetPassBuilder(),

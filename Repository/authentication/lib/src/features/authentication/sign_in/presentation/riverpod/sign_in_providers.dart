@@ -46,3 +46,18 @@ final signInFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
   (ref) => GlobalKey<FormState>(),
   name: 'signInFormKeyStateProvider',
 );
+
+final logoVisibilityStateProvider = StateProvider<bool>(
+  (ref) => false,
+  name: 'logoVisibilityStateProvider',
+);
+
+final ssoVisibilityStateProvider = StateProvider<bool>(
+  (ref) => false,
+  name: 'ssoVisibilityStateProvider',
+);
+
+final userOptionStateProvider = StateProvider<String>(
+  (ref) => '',
+  name: 'logoVisibilityStateProvider',
+);

@@ -45,6 +45,15 @@ class SignInNotifier extends Notifier<BaseState> {
     }
   }
 
+  Future<void> authConfigure() async {
+    final result = await signInUseCase.authConfigure();
+
+    ref.read(logoVisibilityStateProvider.notifier).state =
+        result.logoVisibility;
+    ref.read(ssoVisibilityStateProvider.notifier).state = result.ssoVisibility;
+    ref.read(userOptionStateProvider.notifier).state = result.userOption;
+  }
+
   Future<void> decideNextRoute() async {
     final result = await signInUseCase.decideNextRoute();
 
