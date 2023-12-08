@@ -37,6 +37,16 @@ final signInEmailStateProvider = StateProvider<TextEditingController>(
   name: 'signInEmailStateProvider',
 );
 
+final signInMobileStateProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+  name: 'signInMobileStateProvider',
+);
+
+final signInCountryCodeStateProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+  name: 'signInCountryCodeStateProvider',
+);
+
 final signInPasswordStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'signInPasswordStateProvider',

@@ -4,6 +4,7 @@ import 'package:auth_module/src/features/authentication/forgot_password/dashboar
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/pages/identity_verification_page.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/pages/set_new_password_page.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/pages/sign_in_page.dart';
+import 'package:auth_module/src/features/authentication/sign_in/presentation/pages/splash_page.dart';
 import 'package:auth_module/src/features/authentication/sign_up/presentation/pages/sign_up_page.dart';
 import 'package:auth_module/src/features/authentication/sign_up/presentation/pages/sign_up_success_page.dart';
 import 'package:auth_module/src/features/authentication/sign_up/presentation/pages/web_view_page.dart';
@@ -24,6 +25,11 @@ class RouteGenerator {
       case Routes.signIn:
         return MaterialPageRoute(
           builder: (_) => const SignInPage(),
+        );
+
+      case Routes.splash:
+        return MaterialPageRoute(
+          builder: (_) => const SplashPage(),
         );
 
       case Routes.home:
