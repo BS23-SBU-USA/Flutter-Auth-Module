@@ -11,6 +11,7 @@ import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +37,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   @override
   void initState() {
     super.initState();
-    Future(() {
+    Future(() async {
       ref.read(signInProvider.notifier).getStoredCredentials();
       ref.read(signInProvider.notifier).decideNextRoute();
     });
@@ -47,6 +48,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     final buttonState = ref.watch(buttonStateProvider);
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
+    final logoState = ref.read(logoVisibilityStateProvider.notifier).state;
+    final ssoState = ref.read(ssoVisibilityStateProvider.notifier).state;
 
     ref
       ..listen(
@@ -80,14 +83,16 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BuildTitleAndSubtitle(
-            titleFirstPart: TextConstants.signInTitleFirstPart,
-            titleLastPart: TextConstants.signInTitleLastPart,
-            subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
-            subtitleLastPart: TextConstants.signInSubtitleLastPart,
-          ),
+          logoState
+              ? _buildAppLogo()
+              : const BuildTitleAndSubtitle(
+                  titleFirstPart: TextConstants.signInTitleFirstPart,
+                  titleLastPart: TextConstants.signInTitleLastPart,
+                  subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
+                  subtitleLastPart: TextConstants.signInSubtitleLastPart,
+                ),
           SizedBox(height: 30.h),
-          const SingleSignOn(),
+          if (ssoState) const SingleSignOn(),
           SizedBox(height: 30.h),
           const _SignInFormBuilder(),
           const _RememberMeAndForgetPassBuilder(),
@@ -143,6 +148,26 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAppLogo() {
+    return Container(
+      padding: EdgeInsets.all(10.h),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: UIColors.pineGreen, // Border color
+        ),
+      ),
+      child: SvgPicture.asset(
+        Assets.appLogo,
+        height: 60.sp,
+        colorFilter: const ColorFilter.mode(
+          UIColors.pineGreen,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }

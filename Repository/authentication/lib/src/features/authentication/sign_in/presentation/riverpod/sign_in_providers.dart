@@ -37,6 +37,16 @@ final signInEmailStateProvider = StateProvider<TextEditingController>(
   name: 'signInEmailStateProvider',
 );
 
+final signInMobileStateProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+  name: 'signInMobileStateProvider',
+);
+
+final signInCountryCodeStateProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+  name: 'signInCountryCodeStateProvider',
+);
+
 final signInPasswordStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'signInPasswordStateProvider',
@@ -45,4 +55,19 @@ final signInPasswordStateProvider = StateProvider<TextEditingController>(
 final signInFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
   (ref) => GlobalKey<FormState>(),
   name: 'signInFormKeyStateProvider',
+);
+
+final logoVisibilityStateProvider = StateProvider<bool>(
+  (ref) => false,
+  name: 'logoVisibilityStateProvider',
+);
+
+final ssoVisibilityStateProvider = StateProvider<bool>(
+  (ref) => false,
+  name: 'ssoVisibilityStateProvider',
+);
+
+final userOptionStateProvider = StateProvider<String>(
+  (ref) => '',
+  name: 'logoVisibilityStateProvider',
 );
