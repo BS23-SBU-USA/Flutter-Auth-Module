@@ -12,7 +12,20 @@
           "package_name": "com.brainstation23.authentication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "657622832573-7ihb6tat6hkqv2vjdeilirj1oho313n2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brainstation23.authentication",
+            "certificate_hash": "4832426aaf88712d0ba48e58b5cbe76f5daa701a"
+          }
+        },
+        {
+          "client_id": "657622832573-s66ca3rcabdue6rcat220kakq8gh8gju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDeTzwdM_VBs0hTIb_sn86UxLEYI6li8bU"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657622832573-s66ca3rcabdue6rcat220kakq8gh8gju.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "657622832573-1k4d1e2jvt6b493j7ml9rv7fdm710nq2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brainstation23.authentication"
+              }
+            }
+          ]
         }
       }
     }
