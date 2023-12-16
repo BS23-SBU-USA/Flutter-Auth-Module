@@ -1,5 +1,27 @@
 {
   "logoVisibility": false,
   "ssoVisibility": true,
-  "userOption": "email"
+  "userOption": "email",
+  "ssoOption": [
+    {
+      "google": {
+        "isEnable": true,
+        "apiKey": {
+          "webKey": "AIzaSyAmaJ0wS34SRNP6oCJwIQ8YYu8GdVePe9Y",
+          "androidKey": "AIzaSyAmaJ0wS34SRNP6oCJwIQ8YYu8GdVePe9Y",
+          "iosKey": "AIzaSyAmaJ0wS34SRNP6oCJwIQ8YYu8GdVePe9Y"
+        },
+        "appId": {
+          "webId": "1:657622832573:web:f08dba3b5abc2416dfeed4",
+          "androidId": "1:657622832573:android:6c692aa88da4bc03dfeed4",
+          "iosId": "1:657622832573:ios:c9d399a512281efbdfeed4"
+        },
+        "messagingSenderId": "657622832573",
+        "projectId": "boilerplate-authenticati-17496",
+        "storageBucket": "boilerplate-authenticati-17496.appspot.com",
+        "authDomain": "boilerplate-authenticati-17496.firebaseapp.com",
+        "iosBundleId": "com.brainstation23.authentication"
+      }
+    }
+  ]
 }

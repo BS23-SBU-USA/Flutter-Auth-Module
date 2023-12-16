@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_sso_data_source.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/auth_configure_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_auth_configure_data_source.dart';
 import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_local_data_source.dart';
 import 'package:auth_module/src/features/authentication/sign_in/data/data_sources/sign_in_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/sign_in/data/repositories/sign_in_repository_impl.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final signInRepositoryProvider = Provider<SignInRepository>(
@@ -13,11 +15,13 @@ final signInRepositoryProvider = Provider<SignInRepository>(
     final localDataSource = ref.read(signInLocalDataSourceProvider);
     final authConfigureDataSource =
         ref.read(signInAuthConfigureDataSourceProvider);
+    final ssoSignInDataSource = ref.read(ssoSignInDataSourceProvider);
 
     return SignInRepositoryImp(
       remoteDataSource: remoteDataSource,
       localDataSource: localDataSource,
       authConfigureDataSource: authConfigureDataSource,
+      ssoSignInDataSource: ssoSignInDataSource,
     );
   },
 );
@@ -28,6 +32,8 @@ abstract class SignInRepository {
     required bool offlineState,
     required bool rememberMeState,
   });
+
+  Future<(String, dynamic)> ssoSignIn({required BuildContext context});
 
   Future<AuthConfigureEntity> authConfigure();
 

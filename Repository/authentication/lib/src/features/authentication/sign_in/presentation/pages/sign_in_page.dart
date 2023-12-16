@@ -26,6 +26,8 @@ part '../widgets/sign_up_navigation_builder.dart';
 
 part '../widgets/single_sign_on.dart';
 
+part '../widgets/social_logo.dart';
+
 class SignInPage extends ConsumerStatefulWidget {
   const SignInPage({super.key});
 
@@ -37,19 +39,29 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   @override
   void initState() {
     super.initState();
-    Future(() async {
+    Future(initializationSignIn);
+  }
+
+  Future<void> initializationSignIn() async {
+    final ssoUserNotifier = ref.read(ssoUserProvider.notifier);
+    final ssoSignInNotifier = ref.read(ssoSignInProvider.notifier);
+
+    if (ssoUserNotifier.state != null) {
+      ssoSignInNotifier.state = true;
+      navigateToDashboardPage();
+    } else {
       ref.read(signInProvider.notifier).getStoredCredentials();
       ref.read(signInProvider.notifier).decideNextRoute();
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final buttonState = ref.watch(buttonStateProvider);
-    final state = ref.watch(signInProvider);
-    final notifier = ref.read(signInProvider.notifier);
-    final logoState = ref.read(logoVisibilityStateProvider.notifier).state;
-    final ssoState = ref.read(ssoVisibilityStateProvider.notifier).state;
+    final signInState = ref.watch(signInProvider);
+    final logoVisibilityState = ref.watch(logoVisibilityStateProvider);
+    final ssoVisibilityState = ref.watch(ssoVisibilityStateProvider);
+    final signInNotifier = ref.read(signInProvider.notifier);
 
     ref
       ..listen(
@@ -65,11 +77,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           }
         },
       )
-      ..listen(isUserLoggedInProvider, (_, next) {
-        if (next) {
-          navigateToDashboardPage();
-        }
-      });
+      ..listen(
+        isUserLoggedInProvider,
+        (_, next) {
+          if (next) {
+            navigateToDashboardPage();
+          }
+        },
+      );
 
     return ScrollableWrapper(
       appBar: AppBar(
@@ -83,7 +98,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          logoState
+          logoVisibilityState
               ? _buildAppLogo()
               : const BuildTitleAndSubtitle(
                   titleFirstPart: TextConstants.signInTitleFirstPart,
@@ -92,7 +107,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   subtitleLastPart: TextConstants.signInSubtitleLastPart,
                 ),
           SizedBox(height: 30.h),
-          if (ssoState) const SingleSignOn(),
+          if (ssoVisibilityState) const SingleSignOn(),
           SizedBox(height: 30.h),
           const _SignInFormBuilder(),
           const _RememberMeAndForgetPassBuilder(),
@@ -104,10 +119,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   .state
                   .currentState!
                   .validate()) {
-                notifier.signIn();
+                signInNotifier.signIn();
               }
             },
-            isLoading: state.status == BaseStatus.loading,
+            isLoading: signInState.status == BaseStatus.loading,
             label: TextConstants.login,
             textStyle: !buttonState
                 ? AppTypography.semiBold16Caros(color: UIColors.gray)

@@ -9,80 +9,64 @@ class DrawerHeaderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileState = ref.watch(userProfileInfoProvider);
     final updateState = ref.watch(updateProfileInfoProvider);
-    bool offlineState = ref.read(offlineStateProvider);
+    final offlineState = ref.read(offlineStateProvider.notifier).state;
+    final ssoNotifier = ref.read(ssoSignInProvider.notifier).state;
+    final user = ref.read(ssoUserProvider.notifier).state;
+    final mockUser = ref.read(mockUserProvider);
 
-    final name =
-        NameInitials.getInitialsFromFullName(profileState.data?.fullName ?? '');
+    final name = NameInitials.getInitialsFromFullName(
+        offlineState ? mockUser.fullName : profileState.data?.fullName ?? '');
 
-    if (offlineState) {
-      return _buildOfflineHeader(ref);
-    } else if (profileState.status.isLoading || updateState.status.isLoading) {
+    if ((profileState.status.isLoading || updateState.status.isLoading) &&
+        (!ssoNotifier && !offlineState)) {
       return const Center(
         child: CircularProgressIndicator(
           color: UIColors.white,
         ),
       );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (profileState.data!.avatar != null)
-            CircleAvatar(
-              backgroundImage:
-                  MemoryImage(base64Decode(profileState.data!.avatar!)),
-              backgroundColor: UIColors.pineGreen,
-              radius: 30,
-            ),
-          if (profileState.data!.avatar == null)
-            Avatar.circleWithFullName(
-              height: 60.r,
-              width: 60.r,
-              borderColor: UIColors.white,
-              backgroundColor: UIColors.celeste,
-              nameWithLetter: name,
-            ),
-          const SizedBox(height: 10),
-          Text(
-            profileState.data!.fullName,
-            style: AppTypography.semiBold16Caros(color: UIColors.white),
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 5),
-          Text(
-            profileState.data?.email != null
-                ? profileState.data!.email!
-                : 'userEmail',
-            style: AppTypography.regular14Caros(color: UIColors.white),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      );
     }
-  }
-
-  Widget _buildOfflineHeader(WidgetRef ref) {
-    final mockUser = ref.read(mockUserProvider);
-    final name = NameInitials.getInitialsFromFullName(mockUser.fullName);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Avatar.circleWithFullName(
-          height: 60.r,
-          width: 60.r,
-          borderColor: UIColors.white,
-          backgroundColor: UIColors.celeste,
-          nameWithLetter: name,
-        ),
+        if (ssoNotifier)
+          CircleAvatar(
+            backgroundImage: NetworkImage(user!.photoURL ?? ''),
+            backgroundColor: UIColors.pineGreen,
+            radius: 30,
+          )
+        else
+          (offlineState || profileState.data!.avatar == null)
+              ? Avatar.circleWithFullName(
+                  height: 60.r,
+                  width: 60.r,
+                  borderColor: UIColors.white,
+                  backgroundColor: UIColors.celeste,
+                  nameWithLetter: name,
+                )
+              : CircleAvatar(
+                  backgroundImage:
+                      MemoryImage(base64Decode(profileState.data!.avatar!)),
+                  backgroundColor: UIColors.pineGreen,
+                  radius: 30,
+                ),
         const SizedBox(height: 10),
         Text(
-          mockUser.fullName,
+          ssoNotifier
+              ? user!.displayName ?? 'User Name'
+              : offlineState
+                  ? mockUser.fullName
+                  : profileState.data!.fullName,
           style: AppTypography.semiBold16Caros(color: UIColors.white),
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 5),
         Text(
-          mockUser.email,
+          ssoNotifier
+              ? user!.email ?? 'userEmail'
+              : offlineState
+                  ? mockUser.email
+                  : profileState.data?.email ?? 'userEmail',
           style: AppTypography.regular14Caros(color: UIColors.white),
           overflow: TextOverflow.ellipsis,
         ),

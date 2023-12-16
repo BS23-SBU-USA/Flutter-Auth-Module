@@ -33,11 +33,10 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
   Widget build(BuildContext context) {
     final logOutState = ref.watch(logOutProvider);
     final logOutNotifier = ref.read(logOutProvider.notifier);
-
     final profileState = ref.watch(userProfileInfoProvider);
     final updateState = ref.watch(updateProfileInfoProvider);
-
-    bool offlineState = ref.read(offlineStateProvider);
+    final offlineState = ref.read(offlineStateProvider.notifier);
+    final ssoNotifier = ref.read(ssoSignInProvider.notifier);
 
     ref.listen(logOutProvider, (previous, next) {
       if (next.status == LogOutStatus.success) {
@@ -55,31 +54,34 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
             ),
             child: DrawerHeaderWidget(),
           ),
-          if (!offlineState)
-            if (profileState.status == UserProfileStatus.loading ||
-                updateState.status == UpdateProfileStatus.loading)
-              const Center(
-                child: CircularProgressIndicator(
-                  color: UIColors.pineGreen,
+          if (!ssoNotifier.state)
+            if (!offlineState.state)
+              if (profileState.status == UserProfileStatus.loading ||
+                  updateState.status == UpdateProfileStatus.loading)
+                const Center(
+                  child: CircularProgressIndicator(
+                    color: UIColors.pineGreen,
+                  ),
+                )
+              else
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: Text(
+                    TextConstants.updateProfile,
+                    style:
+                        AppTypography.regular14Circular(color: UIColors.black),
+                  ),
+                  onTap: _navigateToUpdateProfile,
                 ),
-              )
-            else
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: Text(
-                  TextConstants.updateProfile,
-                  style: AppTypography.regular14Circular(color: UIColors.black),
-                ),
-                onTap: _navigateToUpdateProfile,
+          if (!ssoNotifier.state)
+            ListTile(
+              leading: const Icon(Icons.lock),
+              title: Text(
+                TextConstants.changePassword,
+                style: AppTypography.regular14Circular(color: UIColors.black),
               ),
-          ListTile(
-            leading: const Icon(Icons.lock),
-            title: Text(
-              TextConstants.changePassword,
-              style: AppTypography.regular14Circular(color: UIColors.black),
+              onTap: _navigateToChangePassword,
             ),
-            onTap: _navigateToChangePassword,
-          ),
           ListTile(
             leading: logOutState.status == LogOutStatus.loading
                 ? SizedBox(
@@ -99,7 +101,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
             ),
             onTap: () {
               if (logOutState.status != LogOutStatus.loading) {
-                logOutNotifier.logOut();
+                logOutNotifier.logOut(context: context);
               }
             },
           ),
@@ -109,6 +111,8 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
   }
 
   Future<void> _logoutAndNavigateToSignIn() async {
+    final logOutNotifier = ref.read(logOutProvider.notifier);
+
     await CacheService.instance.clearBearerToken();
     await CacheService.instance.clearProfileId();
 
@@ -117,6 +121,8 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
         message: TextConstants.logOutSuccessful,
         context: context,
       );
+
+      logOutNotifier.removeStates();
 
       await Navigator.of(context).pushNamedAndRemoveUntil(
         Routes.signIn,
@@ -134,5 +140,13 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
     Navigator.pop(context);
 
     Navigator.pushNamed(context, Routes.updateProfile);
+  }
+
+  void navigateToSignInPage() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      Routes.signIn,
+      (route) => false,
+    );
   }
 }
