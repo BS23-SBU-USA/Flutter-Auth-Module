@@ -38,16 +38,6 @@ final signInEmailStateProvider = StateProvider<TextEditingController>(
   name: 'signInEmailStateProvider',
 );
 
-final signInMobileStateProvider = StateProvider<TextEditingController>(
-  (ref) => TextEditingController(),
-  name: 'signInMobileStateProvider',
-);
-
-final signInCountryCodeStateProvider = StateProvider<TextEditingController>(
-  (ref) => TextEditingController(),
-  name: 'signInCountryCodeStateProvider',
-);
-
 final signInPasswordStateProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
   name: 'signInPasswordStateProvider',
@@ -67,18 +57,3 @@ final ssoUserProvider = StateProvider<User?>((ref) {
   final user = FirebaseAuth.instance.currentUser;
   return user;
 }, name: 'ssoUserProvider');
-
-final logoVisibilityStateProvider = StateProvider<bool>(
-  (ref) => false,
-  name: 'logoVisibilityStateProvider',
-);
-
-final ssoVisibilityStateProvider = StateProvider<bool>(
-  (ref) => false,
-  name: 'ssoVisibilityStateProvider',
-);
-
-final userOptionStateProvider = StateProvider<String>(
-  (ref) => '',
-  name: 'logoVisibilityStateProvider',
-);

@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: Routes.splash,
+          initialRoute: Routes.signIn,
           navigatorKey: navigatorKey,
         );
       },

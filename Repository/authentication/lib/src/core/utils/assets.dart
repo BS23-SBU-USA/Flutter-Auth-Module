@@ -13,7 +13,4 @@ class Assets {
   static const String expandIcon = '$imagePath/expand_icon.png';
   static const String mediaIcon = '$imagePath/media_icon.svg';
   static const String cameraIcon = '$imagePath/camera_icon.svg';
-
-  static const String authConfigure =
-      'assets/auth_configure/auth_configure.json';
 }

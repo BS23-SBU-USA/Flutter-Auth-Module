@@ -11,7 +11,6 @@ import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,29 +38,17 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   @override
   void initState() {
     super.initState();
-    Future(initializationSignIn);
-  }
-
-  Future<void> initializationSignIn() async {
-    final ssoUserNotifier = ref.read(ssoUserProvider.notifier);
-    final ssoSignInNotifier = ref.read(ssoSignInProvider.notifier);
-
-    if (ssoUserNotifier.state != null) {
-      ssoSignInNotifier.state = true;
-      navigateToDashboardPage();
-    } else {
+    Future(() {
       ref.read(signInProvider.notifier).getStoredCredentials();
       ref.read(signInProvider.notifier).decideNextRoute();
-    }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final buttonState = ref.watch(buttonStateProvider);
-    final signInState = ref.watch(signInProvider);
-    final logoVisibilityState = ref.watch(logoVisibilityStateProvider);
-    final ssoVisibilityState = ref.watch(ssoVisibilityStateProvider);
-    final signInNotifier = ref.read(signInProvider.notifier);
+    final state = ref.watch(signInProvider);
+    final notifier = ref.read(signInProvider.notifier);
 
     ref
       ..listen(
@@ -77,14 +64,11 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           }
         },
       )
-      ..listen(
-        isUserLoggedInProvider,
-        (_, next) {
-          if (next) {
-            navigateToDashboardPage();
-          }
-        },
-      );
+      ..listen(isUserLoggedInProvider, (_, next) {
+        if (next) {
+          navigateToDashboardPage();
+        }
+      });
 
     return ScrollableWrapper(
       appBar: AppBar(
@@ -98,16 +82,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          logoVisibilityState
-              ? _buildAppLogo()
-              : const BuildTitleAndSubtitle(
-                  titleFirstPart: TextConstants.signInTitleFirstPart,
-                  titleLastPart: TextConstants.signInTitleLastPart,
-                  subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
-                  subtitleLastPart: TextConstants.signInSubtitleLastPart,
-                ),
+          const BuildTitleAndSubtitle(
+            titleFirstPart: TextConstants.signInTitleFirstPart,
+            titleLastPart: TextConstants.signInTitleLastPart,
+            subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
+            subtitleLastPart: TextConstants.signInSubtitleLastPart,
+          ),
           SizedBox(height: 30.h),
-          if (ssoVisibilityState) const SingleSignOn(),
+          const SingleSignOn(),
           SizedBox(height: 30.h),
           const _SignInFormBuilder(),
           const _RememberMeAndForgetPassBuilder(),
@@ -119,10 +101,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   .state
                   .currentState!
                   .validate()) {
-                signInNotifier.signIn();
+                notifier.signIn();
               }
             },
-            isLoading: signInState.status == BaseStatus.loading,
+            isLoading: state.status == BaseStatus.loading,
             label: TextConstants.login,
             textStyle: !buttonState
                 ? AppTypography.semiBold16Caros(color: UIColors.gray)
@@ -163,26 +145,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildAppLogo() {
-    return Container(
-      padding: EdgeInsets.all(10.h),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: UIColors.pineGreen, // Border color
-        ),
-      ),
-      child: SvgPicture.asset(
-        Assets.appLogo,
-        height: 60.sp,
-        colorFilter: const ColorFilter.mode(
-          UIColors.pineGreen,
-          BlendMode.srcIn,
-        ),
       ),
     );
   }

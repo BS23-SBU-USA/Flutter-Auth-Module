@@ -49,7 +49,6 @@ class SignInNotifier extends Notifier<BaseState> {
     try {
       final result = await signInUseCase.ssoSignIn(context: context);
       ref.read(ssoUserProvider.notifier).state = result.$2;
-
       if (result.$1.isEmpty) {
         state = state.copyWith(
           status: BaseStatus.success,
@@ -68,15 +67,6 @@ class SignInNotifier extends Notifier<BaseState> {
         error: e.toString(),
       );
     }
-  }
-
-  Future<void> authConfigure() async {
-    final result = await signInUseCase.authConfigure();
-
-    ref.read(logoVisibilityStateProvider.notifier).state =
-        result.logoVisibility;
-    ref.read(ssoVisibilityStateProvider.notifier).state = result.ssoVisibility;
-    ref.read(userOptionStateProvider.notifier).state = result.userOption;
   }
 
   Future<void> decideNextRoute() async {
