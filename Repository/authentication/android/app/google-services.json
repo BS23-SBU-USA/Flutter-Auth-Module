@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "657622832573",
+    "project_id": "boilerplate-authenticati-17496",
+    "storage_bucket": "boilerplate-authenticati-17496.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657622832573:android:6c692aa88da4bc03dfeed4",
+        "android_client_info": {
+          "package_name": "com.brainstation23.authentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657622832573-7ihb6tat6hkqv2vjdeilirj1oho313n2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brainstation23.authentication",
+            "certificate_hash": "4832426aaf88712d0ba48e58b5cbe76f5daa701a"
+          }
+        },
+        {
+          "client_id": "657622832573-s66ca3rcabdue6rcat220kakq8gh8gju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeTzwdM_VBs0hTIb_sn86UxLEYI6li8bU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657622832573-s66ca3rcabdue6rcat220kakq8gh8gju.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "657622832573-1k4d1e2jvt6b493j7ml9rv7fdm710nq2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brainstation23.authentication"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,7 +14,6 @@ class UserProfileInfoNotifier extends Notifier<UserProfileState> {
   }
 
   Future<void> fetchUserProfile(String? userID) async {
-    Log.debug('Came to fetch Profile');
     state = state.copyWith(
       status: UserProfileStatus.loading,
     );

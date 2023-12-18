@@ -1,6 +1,7 @@
 import 'package:auth_module/src/core/services/device_info/device_info_service.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/repositories/sign_in_repositories.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final signInUseCaseProvider = Provider<SignInUseCase>(
@@ -43,6 +44,10 @@ class SignInUseCase {
 
   Future<Map<String, dynamic>?> getStoredCredentials() async {
     return repository.getStoredCredentials();
+  }
+
+  Future<(String, dynamic)> ssoSignIn({required BuildContext context}) async {
+    return repository.ssoSignIn(context: context);
   }
 
   Future<String?> decideNextRoute() async {

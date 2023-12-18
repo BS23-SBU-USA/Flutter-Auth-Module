@@ -1,22 +1,35 @@
 part of '../pages/sign_in_page.dart';
 
-class SingleSignOn extends StatelessWidget {
+class SingleSignOn extends ConsumerStatefulWidget {
   const SingleSignOn({super.key});
 
   @override
+  ConsumerState createState() => _SingleSignOnState();
+}
+
+class _SingleSignOnState extends ConsumerState<SingleSignOn> {
+  @override
   Widget build(BuildContext context) {
+    ref.watch(signInProvider);
+    final signInNotifier = ref.read(signInProvider.notifier);
+    final ssoSignInNotifier = ref.read(ssoSignInProvider.notifier);
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildSocialLogoContainer(Assets.facebookLogo),
+            const _SocialLogo(url: Assets.facebookLogo),
             SizedBox(width: 20.h),
-            _buildSocialLogoContainer(
-              Assets.googleLogo,
+            _SocialLogo(
+              url: Assets.googleLogo,
+              onTap: () {
+                ssoSignInNotifier.state = true;
+                signInNotifier.ssoSignIn(context: context);
+              },
             ),
             SizedBox(width: 20.h),
-            _buildSocialLogoContainer(Assets.appleLogo),
+            const _SocialLogo(url: Assets.appleLogo),
           ],
         ),
         SizedBox(height: 30.h),
@@ -40,19 +53,6 @@ class SingleSignOn extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-
-  Widget _buildSocialLogoContainer(String url) {
-    return Container(
-      padding: EdgeInsets.all(10.h),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: UIColors.black, // Border color
-        ),
-      ),
-      child: SvgPicture.asset(url),
     );
   }
 }

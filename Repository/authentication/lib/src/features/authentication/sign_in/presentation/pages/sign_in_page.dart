@@ -25,6 +25,8 @@ part '../widgets/sign_up_navigation_builder.dart';
 
 part '../widgets/single_sign_on.dart';
 
+part '../widgets/social_logo.dart';
+
 class SignInPage extends ConsumerStatefulWidget {
   const SignInPage({super.key});
 

@@ -9,11 +9,13 @@ class LogOutNotifier extends Notifier<LogOutState> {
     return const LogOutState();
   }
 
-  Future<void> logOut() async {
+  Future<void> logOut({required BuildContext context}) async {
+    Authentication.signOutFromGoogle(context: context);
+    final offlineState = ref.read(offlineStateProvider);
+    final ssoState = ref.read(ssoSignInProvider);
     try {
-      state = state.copyWith(status: LogOutStatus.loading);
       final response = await logOutUseCase.call(
-        offlineState: ref.read(offlineStateProvider),
+        offlineState: ssoState ? ssoState : offlineState,
       );
 
       if (response.$1.isEmpty) {
@@ -33,5 +35,11 @@ class LogOutNotifier extends Notifier<LogOutState> {
         errorMessage: e.toString(),
       );
     }
+  }
+
+  Future<void> removeStates() async {
+    ref.read(offlineStateProvider.notifier).state = false;
+    ref.read(ssoSignInProvider.notifier).state = false;
+    ref.read(ssoUserProvider.notifier).state = null;
   }
 }

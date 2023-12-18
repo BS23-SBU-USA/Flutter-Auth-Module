@@ -2,6 +2,7 @@ import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/use_cases/sign_in_use_case.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -46,3 +47,13 @@ final signInFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
   (ref) => GlobalKey<FormState>(),
   name: 'signInFormKeyStateProvider',
 );
+
+final ssoSignInProvider = StateProvider<bool>(
+  (ref) => false,
+  name: 'ssoSignInProvider',
+);
+
+final ssoUserProvider = StateProvider<User?>((ref) {
+  final user = FirebaseAuth.instance.currentUser;
+  return user;
+}, name: 'ssoUserProvider');

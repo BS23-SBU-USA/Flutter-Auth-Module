@@ -39,11 +39,13 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final profileState = ref.watch(userProfileInfoProvider);
     final updateState = ref.watch(updateProfileInfoProvider);
-    bool offlineState = ref.read(offlineStateProvider);
     final mockUser = ref.read(mockUserProvider);
-
+    final offlineState = ref.read(offlineStateProvider.notifier).state;
+    final ssoState = ref.read(ssoSignInProvider.notifier).state;
+    final ssoUser = ref.read(ssoUserProvider.notifier).state;
     final name = NameInitials.getInitialsFromFullName(
-        offlineState ? mockUser.fullName : profileState.data?.fullName ?? '');
+      offlineState ? mockUser.fullName : profileState.data?.fullName ?? '',
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +60,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               },
               child: Padding(
                 padding: EdgeInsets.all(10.h),
-                child: offlineState
+                child: (offlineState)
                     ? Avatar.circleWithFullName(
                         height: 30.r,
                         width: 30.r,
@@ -66,60 +68,70 @@ class _HomePageState extends ConsumerState<HomePage> {
                         backgroundColor: UIColors.celeste,
                         nameWithLetter: name,
                       )
-                    : (profileState.status.isLoading ||
-                            updateState.status.isLoading)
-                        ? Center(
-                            child: SizedBox(
-                              height: 20.sp,
-                              width: 20.sp,
-                              child: CircularProgressIndicator(
-                                color: UIColors.white,
-                                strokeWidth: 2.sp,
-                              ),
-                            ),
+                    : ssoState
+                        ? Avatar.circle(
+                            url: ssoUser?.photoURL ?? '',
+                            height: 30.r,
+                            width: 30.r,
+                            borderColor: UIColors.pineGreen,
                           )
-                        : profileState.status.isFailure
-                            ? const Text(TextConstants.somethingWentWrong)
-                            : profileState.data?.avatar != null
-                                ? Avatar.circle(
-                                    url: profileState.data!.avatar!,
-                                    height: 30.r,
-                                    width: 30.r,
-                                    borderColor: UIColors.pineGreen,
-                                  )
-                                : Avatar.circleWithFullName(
-                                    height: 30.r,
-                                    width: 30.r,
-                                    borderColor: UIColors.pineGreen,
-                                    backgroundColor: UIColors.celeste,
-                                    nameWithLetter: name,
+                        : (profileState.status.isLoading ||
+                                updateState.status.isLoading)
+                            ? Center(
+                                child: SizedBox(
+                                  height: 20.sp,
+                                  width: 20.sp,
+                                  child: CircularProgressIndicator(
+                                    color: UIColors.white,
+                                    strokeWidth: 2.sp,
                                   ),
+                                ),
+                              )
+                            : profileState.status.isFailure
+                                ? const Text(TextConstants.somethingWentWrong)
+                                : profileState.data?.avatar != null
+                                    ? Avatar.circle(
+                                        url: profileState.data!.avatar!,
+                                        height: 30.r,
+                                        width: 30.r,
+                                        borderColor: UIColors.pineGreen,
+                                      )
+                                    : Avatar.circleWithFullName(
+                                        height: 30.r,
+                                        width: 30.r,
+                                        borderColor: UIColors.pineGreen,
+                                        backgroundColor: UIColors.celeste,
+                                        nameWithLetter: name,
+                                      ),
               ),
             );
           },
         ),
-        title: offlineState
-            ? Text(
-                '${mockUser.firstName} ${mockUser.lastName}',
-                style: AppTypography.semiBold18Caros(color: UIColors.white),
-              )
-            : Text(
-                (profileState.status.isLoading || updateState.status.isLoading)
-                    ? TextConstants.connecting
-                    : '${profileState.data?.firstname} '
-                        '${profileState.data?.lastname}',
-                style: AppTypography.semiBold18Caros(color: UIColors.white),
-              ),
+        title: Text(
+          offlineState
+              ? '${mockUser.firstName} ${mockUser.lastName}'
+              : ssoState
+                  ? ssoUser?.displayName ?? 'User Name'
+                  : (profileState.status.isLoading ||
+                          updateState.status.isLoading)
+                      ? TextConstants.connecting
+                      : '${profileState.data?.firstname} '
+                          '${profileState.data?.lastname}',
+          style: AppTypography.semiBold18Caros(color: UIColors.white),
+        ),
         centerTitle: false,
       ),
       drawer: const DrawerBuilder(),
       body: Center(
         child: Text(
-          !offlineState
-              ? (profileState.status.isLoading || updateState.status.isLoading)
-                  ? ''
-                  : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!'
-              : 'Hello\n${mockUser.firstName} ${mockUser.lastName}!',
+          offlineState
+              ? 'Hello\n${mockUser.firstName} ${mockUser.lastName}!'
+              : ssoState
+                  ? 'Hello\n${ssoUser?.displayName ?? 'User Name'}'
+                  : (profileState.status.isLoading ||
+                          updateState.status.isLoading)
+                      ? ''
+                      : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!',
           style: AppTypography.bold24Caros(color: UIColors.pineGreen),
           textAlign: TextAlign.center,
         ),

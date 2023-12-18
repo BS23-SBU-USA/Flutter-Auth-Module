@@ -6,7 +6,7 @@ class LogOutLocalDataSourceImp implements LogOutLocalDataSource {
   @override
   Future<Response> logOut() async {
     final LogOutEntity entity = LogOutEntity(
-      message: 'LogOut successfully.',
+      message: 'Logout successfully.',
     );
 
     return Response(
