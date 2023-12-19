@@ -58,8 +58,8 @@ class SignInRepositoryImp implements SignInRepository {
   }
 
   @override
-  Future<(String, dynamic)> ssoSignIn({required BuildContext context}) async {
-    final response = await ssoSignInDataSource.ssoSignIn(context: context);
+  Future<(String, dynamic)> ssoSignIn() async {
+    final response = await ssoSignInDataSource.ssoSignIn();
     return Future.value((response.statusMessage!, response.data));
   }
 

@@ -4,9 +4,8 @@ class SSOSignInDataSourceImp implements SSOSignInDataSource {
   const SSOSignInDataSourceImp();
 
   @override
-  Future<Response> ssoSignIn({required BuildContext context}) async {
-    Map<String, dynamic> result =
-        await Authentication.signInWithGoogle(context: context);
+  Future<Response> ssoSignIn() async {
+    Map<String, dynamic> result = await Authentication.signInWithGoogleCloud();
 
     return Response(
       requestOptions: RequestOptions(),

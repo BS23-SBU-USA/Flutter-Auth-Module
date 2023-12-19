@@ -10,7 +10,7 @@ class LogOutNotifier extends Notifier<LogOutState> {
   }
 
   Future<void> logOut({required BuildContext context}) async {
-    Authentication.signOutFromGoogle(context: context);
+    Authentication.signOutFromGoogle();
     final offlineState = ref.read(offlineStateProvider);
     final ssoState = ref.read(ssoSignInProvider);
     try {

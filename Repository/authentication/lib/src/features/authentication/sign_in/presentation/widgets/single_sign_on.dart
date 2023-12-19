@@ -25,7 +25,7 @@ class _SingleSignOnState extends ConsumerState<SingleSignOn> {
               url: Assets.googleLogo,
               onTap: () {
                 ssoSignInNotifier.state = true;
-                signInNotifier.ssoSignIn(context: context);
+                signInNotifier.ssoSignIn();
               },
             ),
             SizedBox(width: 20.h),

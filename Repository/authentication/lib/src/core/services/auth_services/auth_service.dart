@@ -1,59 +1,39 @@
 import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
-  static Future<Map<String, dynamic>> signInWithGoogle(
-      {required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-
-    Map<String, dynamic> result = {
-      'errorCode': '',
-      'user': user,
-    };
+  static Future<Map<String, dynamic>> signInWithGoogleCloud() async {
+    Log.debug('came: ');
 
     final GoogleSignInAccount? googleAccount = await GoogleSignIn().signIn();
 
-    if (googleAccount != null) {
-      final GoogleSignInAuthentication authentication =
-          await googleAccount.authentication;
+    Map<String, dynamic> result = {
+      'errorCode': '',
+      'user': googleAccount,
+    };
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: authentication.accessToken,
-        idToken: authentication.idToken,
-      );
+    Log.debug('result: ');
+    Log.debug(result.toString());
 
-      try {
-        final UserCredential userCredential =
-            await auth.signInWithCredential(credential);
+    Log.debug('googleAccount: ');
+    Log.debug(googleAccount.toString());
 
-        result['user'] = userCredential.user;
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          result['errorCode'] =
-              'The account already exists with a different credential';
-        } else if (e.code == 'invalid-credential') {
-          result['errorCode'] =
-              'Error occurred while accessing credentials. Try again.';
-        }
-      } catch (e) {
-        result['errorCode'] = 'Error occurred using Google Sign In. Try again.';
+    try {
+      if (googleAccount != null) {
+        result['errorCode'] = '';
       }
-    } else {
-      result['errorCode'] = 'Sign-in canceled by the user.';
+    } catch (e) {
+      result['errorCode'] = 'Error occurred using Google Sign In. Try again.';
     }
 
     return result;
   }
 
-  static Future<void> signOutFromGoogle({
-    required BuildContext context,
-  }) async {
+  static Future<void> signOutFromGoogle() async {
     try {
       await GoogleSignIn().signOut();
-      await FirebaseAuth.instance.signOut();
     } catch (e) {
       snackBar(
         content: 'Error signing out. Try again.',

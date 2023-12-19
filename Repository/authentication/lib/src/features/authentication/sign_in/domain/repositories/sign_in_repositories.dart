@@ -28,7 +28,7 @@ abstract class SignInRepository {
     required bool rememberMeState,
   });
 
-  Future<(String, dynamic)> ssoSignIn({required BuildContext context});
+  Future<(String, dynamic)> ssoSignIn();
 
   Future<Map<String, dynamic>?> getStoredCredentials();
 

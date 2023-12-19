@@ -1,4 +1,3 @@
-import 'package:auth_module/firebase_options.dart';
 import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
 import 'package:auth_module/src/core/services/routes/route_generator.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
@@ -7,7 +6,6 @@ import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/loggers/riverpod_logger.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/pages/sign_in_page.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,7 +28,6 @@ void logoutOnUnauthorizedError() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

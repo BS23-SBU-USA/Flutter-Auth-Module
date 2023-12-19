@@ -46,8 +46,8 @@ class SignInUseCase {
     return repository.getStoredCredentials();
   }
 
-  Future<(String, dynamic)> ssoSignIn({required BuildContext context}) async {
-    return repository.ssoSignIn(context: context);
+  Future<(String, dynamic)> ssoSignIn() async {
+    return repository.ssoSignIn();
   }
 
   Future<String?> decideNextRoute() async {

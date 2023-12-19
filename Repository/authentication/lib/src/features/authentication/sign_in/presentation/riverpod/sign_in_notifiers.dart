@@ -45,9 +45,9 @@ class SignInNotifier extends Notifier<BaseState> {
     }
   }
 
-  Future<void> ssoSignIn({required BuildContext context}) async {
+  Future<void> ssoSignIn() async {
     try {
-      final result = await signInUseCase.ssoSignIn(context: context);
+      final result = await signInUseCase.ssoSignIn();
       ref.read(ssoUserProvider.notifier).state = result.$2;
       if (result.$1.isEmpty) {
         state = state.copyWith(

@@ -14,5 +14,5 @@ final ssoSignInDataSourceProvider = Provider<SSOSignInDataSource>(
 );
 
 abstract class SSOSignInDataSource {
-  Future<Response> ssoSignIn({required BuildContext context});
+  Future<Response> ssoSignIn();
 }

@@ -31,7 +31,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
       children: [
         if (ssoNotifier)
           CircleAvatar(
-            backgroundImage: NetworkImage(user!.photoURL ?? ''),
+            backgroundImage: NetworkImage(user!.photoUrl ?? ''),
             backgroundColor: UIColors.pineGreen,
             radius: 30,
           )
@@ -63,7 +63,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
         const SizedBox(height: 5),
         Text(
           ssoNotifier
-              ? user!.email ?? 'userEmail'
+              ? user!.email
               : offlineState
                   ? mockUser.email
                   : profileState.data?.email ?? 'userEmail',
