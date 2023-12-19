@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+    <!-- Google Sign-in Section -->
+    <key>CFBundleURLTypes</key>
+    <array>
+	    <dict>
+		    <key>CFBundleTypeRole</key>
+		    <string>Editor</string>
+		    <key>CFBundleURLSchemes</key>
+		    <array>
+		    	<!-- TODO Replace this value: -->
+		    	<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+		    	<string>com.googleusercontent.apps.657622832573-vu7aqgk8od412cjssu64evfc4k0g3b7v</string>
+	    	</array>
+	    </dict>
+    </array>
+    <!-- End of the Google Sign-in Section -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -45,9 +61,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>We need access to your photo library to pick images.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>We need access to your camera to take photos.</string>
 </dict>
 </plist>
