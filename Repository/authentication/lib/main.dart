@@ -57,6 +57,43 @@ class MyApp extends StatelessWidget {
           title: TextConstants.appName,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            inputDecorationTheme: const InputDecorationTheme(
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              labelStyle: TextStyle(
+                color: UIColors.pineGreen,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.1,
+                fontFamily: 'Circular',
+              ),
+              errorStyle: TextStyle(
+                color: Color(0xFFFF2D1B),
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: UIColors.timberWolf,
+                ),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: UIColors.pineGreen,
+                ),
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: UIColors.red,
+                ),
+              ),
+            ),
             appBarTheme: AppBarTheme(
               backgroundColor: UIColors.white,
               elevation: 0,
