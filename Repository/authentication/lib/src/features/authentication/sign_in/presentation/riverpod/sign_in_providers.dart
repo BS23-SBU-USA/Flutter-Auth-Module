@@ -26,27 +26,27 @@ final isUserLoggedInProvider = StateProvider<bool>(
   name: 'navigateToHomePageProvider',
 );
 
-final buttonStateProvider = StateProvider<bool>(
-  (ref) =>
-      ref.read(signInEmailStateProvider.notifier).state.text.isEmpty ||
-      ref.read(signInPasswordStateProvider.notifier).state.text.isEmpty,
-  name: 'buttonStateProvider',
-);
+// final buttonStateProvider = StateProvider<bool>(
+//   (ref) =>
+//       ref.read(signInEmailStateProvider.notifier).state.text.isEmpty ||
+//       ref.read(signInPasswordStateProvider.notifier).state.text.isEmpty,
+//   name: 'buttonStateProvider',
+// );
 
-final signInEmailStateProvider = StateProvider<TextEditingController>(
-  (ref) => TextEditingController(),
-  name: 'signInEmailStateProvider',
-);
+// final signInEmailStateProvider = StateProvider<TextEditingController>(
+//   (ref) => TextEditingController(),
+//   name: 'signInEmailStateProvider',
+// );
 
-final signInPasswordStateProvider = StateProvider<TextEditingController>(
-  (ref) => TextEditingController(),
-  name: 'signInPasswordStateProvider',
-);
+// final signInPasswordStateProvider = StateProvider<TextEditingController>(
+//   (ref) => TextEditingController(),
+//   name: 'signInPasswordStateProvider',
+// );
 
-final signInFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
-  (ref) => GlobalKey<FormState>(),
-  name: 'signInFormKeyStateProvider',
-);
+// final signInFormKeyStateProvider = StateProvider<GlobalKey<FormState>>(
+//   (ref) => GlobalKey<FormState>(),
+//   name: 'signInFormKeyStateProvider',
+// );
 
 final ssoSignInProvider = StateProvider<bool>(
   (ref) => false,

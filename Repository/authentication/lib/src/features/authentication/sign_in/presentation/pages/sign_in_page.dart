@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
@@ -6,7 +8,6 @@ import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
-import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
@@ -16,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../../core/widgets/cutom_text_field.dart';
 
 part '../widgets/remember_me_and_forget_pass_builder.dart';
 
@@ -35,9 +38,14 @@ class SignInPage extends ConsumerStatefulWidget {
 }
 
 class _SignInPageState extends ConsumerState<SignInPage> {
+  late MaterialStatesController _signInButtonStateController;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String _email = "";
+  String _password = "";
   @override
   void initState() {
     super.initState();
+    _signInButtonStateController = MaterialStatesController();
     Future(() {
       ref.read(signInProvider.notifier).getStoredCredentials();
       ref.read(signInProvider.notifier).decideNextRoute();
@@ -45,30 +53,42 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _signInButtonStateController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final buttonState = ref.watch(buttonStateProvider);
+    //final buttonState = ref.watch(buttonStateProvider);
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
 
-    ref
-      ..listen(
-        signInProvider,
-        (previous, next) {
-          if (next.status == BaseStatus.failure) {
-            ShowSnackBarMessage.showErrorSnackBar(
-              message: next.error!,
-              context: context,
-            );
-          } else if (next.status == BaseStatus.success) {
-            navigateToDashboardPage();
-          }
-        },
-      )
-      ..listen(isUserLoggedInProvider, (_, next) {
-        if (next) {
-          navigateToDashboardPage();
-        }
-      });
+    // if (buttonState) {
+    //   _signInButtonStateController.update(MaterialState.disabled, false);
+    // } else {
+    //   _signInButtonStateController.update(MaterialState.disabled, true);
+    // }
+
+    ref.listen(isUserLoggedInProvider, (_, next) {
+      if (next) {
+        navigateToDashboardPage();
+      }
+    });
+    // ..listen(
+    //   signInProvider,
+    //   (previous, next) {
+    //     if (next.status == BaseStatus.failure) {
+    //       ShowSnackBarMessage.showErrorSnackBar(
+    //         message: next.error!,
+    //         context: context,
+    //       );
+    //     } else if (next.status == BaseStatus.success) {
+    //       navigateToDashboardPage();
+    //     }
+    //   },
+    // )
 
     return ScrollableWrapper(
       appBar: AppBar(
@@ -91,26 +111,53 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           SizedBox(height: 30.h),
           const SingleSignOn(),
           SizedBox(height: 30.h),
-          const _SignInFormBuilder(),
+          _SignInFormBuilder(
+            onEmailSaved: (value) => _email = value!,
+            onPasswordSaved: (value) => _password = value!,
+            formKey: formKey,
+          ),
           const _RememberMeAndForgetPassBuilder(),
           SizedBox(height: 177.h),
-          Button(
+          OutlinedButton(
+            statesController: _signInButtonStateController,
             onPressed: () {
-              if (ref
-                  .read(signInFormKeyStateProvider.notifier)
-                  .state
-                  .currentState!
-                  .validate()) {
-                notifier.signIn();
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+                final email = _email;
+                final password = _password;
+                notifier.signIn(
+                  email: email,
+                  password: password,
+                );
               }
             },
-            isLoading: state.status == BaseStatus.loading,
-            label: TextConstants.login,
-            textStyle: !buttonState
-                ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                : AppTypography.semiBold16Caros(color: UIColors.white),
-            disable: !buttonState,
+            child: (state.status == BaseStatus.loading)
+                ? CircularProgressIndicator()
+                : const Text(TextConstants.login),
           ),
+          // SizedBox(
+          //   height: 20,
+          // ),
+          // Button(
+          //   onPressed: () {
+          //     if (formKey.currentState!.validate()) {
+          //       formKey.currentState!.save();
+          //       final email = _email;
+          //       final password = _password;
+          //       log(email + " " + password);
+          //       notifier.signIn(
+          //         email: email,
+          //         password: password,
+          //       );
+          //     }
+          //   },
+          //   isLoading: state.status == BaseStatus.loading,
+          //   label: TextConstants.login,
+          //   textStyle: !buttonState
+          //       ? AppTypography.semiBold16Caros(color: UIColors.gray)
+          //       : AppTypography.semiBold16Caros(color: UIColors.white),
+          //   disable: !buttonState,
+          // ),
           SizedBox(height: 16.h),
           const _SignUpNavigationBuilder(),
         ],
