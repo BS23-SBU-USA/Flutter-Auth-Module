@@ -16,83 +16,127 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
       key: ref.read(signUpFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
-          InputFormField(
+          CustomInputFied(
+            textEditingController:
+                ref.read(signUpFirstNameStateProvider.notifier).state,
+            labelText: TextConstants.firstName,
+            keyboardType: TextInputType.name,
+            bottomMargin: 30.h,
+            validator: InputValidators.name,
             onChanged: (value) {
               notifier.capitalizeFirstLetter(
                   ref.read(signUpFirstNameStateProvider.notifier).state);
             },
+          ),
+          // InputFormField(
+          //   onChanged: (value) {
+          //     notifier.capitalizeFirstLetter(
+          //         ref.read(signUpFirstNameStateProvider.notifier).state);
+          //   },
+          //   textEditingController:
+          //       ref.read(signUpFirstNameStateProvider.notifier).state,
+          //   labelText: TextConstants.firstName,
+          //   autocorrect: false,
+          //   keyboardType: TextInputType.name,
+          //   validator: InputValidators.name,
+          //   borderType: BorderType.bottom,
+          //   borderColor: UIColors.timberWolf,
+          //   style: AppTypography.regular16Caros(),
+          //   labelTextStyle: AppTypography.medium14Circular(
+          //     color: UIColors.pineGreen,
+          //   ),
+          //   bottomMargin: 30.h,
+          // ),
+          CustomInputFied(
             textEditingController:
-                ref.read(signUpFirstNameStateProvider.notifier).state,
-            labelText: TextConstants.firstName,
-            autocorrect: false,
+                ref.read(signUpSecondNameStateProvider.notifier).state,
+            labelText: TextConstants.lastName,
             keyboardType: TextInputType.name,
             validator: InputValidators.name,
-            borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
             bottomMargin: 30.h,
-          ),
-          InputFormField(
             onChanged: (value) {
               notifier.capitalizeFirstLetter(
                   ref.read(signUpSecondNameStateProvider.notifier).state);
             },
-            textEditingController:
-                ref.read(signUpSecondNameStateProvider.notifier).state,
-            labelText: TextConstants.lastName,
-            autocorrect: false,
-            keyboardType: TextInputType.name,
-            validator: InputValidators.name,
-            borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
-            bottomMargin: 30.h,
           ),
-          InputFormField(
+          // InputFormField(
+          //   onChanged: (value) {
+          //     notifier.capitalizeFirstLetter(
+          //         ref.read(signUpSecondNameStateProvider.notifier).state);
+          //   },
+          //   textEditingController:
+          //       ref.read(signUpSecondNameStateProvider.notifier).state,
+          //   labelText: TextConstants.lastName,
+          //   autocorrect: false,
+          //   keyboardType: TextInputType.name,
+          //   validator: InputValidators.name,
+          //   borderType: BorderType.bottom,
+          //   borderColor: UIColors.timberWolf,
+          //   style: AppTypography.regular16Caros(),
+          //   labelTextStyle: AppTypography.medium14Circular(
+          //     color: UIColors.pineGreen,
+          //   ),
+          //   bottomMargin: 30.h,
+          // ),
+          CustomInputFied(
             textEditingController:
                 ref.read(signUpEmailStateProvider.notifier).state,
             labelText: TextConstants.email,
-            autocorrect: false,
             keyboardType: TextInputType.emailAddress,
             validator: InputValidators.email,
-            borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
             bottomMargin: 30.h,
           ),
-          InputFormField(
-            onChanged: (value) {
-              ref
-                  .watch(passwordValidityProvider.notifier)
-                  .updateValidationVariables(value);
-            },
+          // InputFormField(
+          //   textEditingController:
+          //       ref.read(signUpEmailStateProvider.notifier).state,
+          //   labelText: TextConstants.email,
+          //   autocorrect: false,
+          //   keyboardType: TextInputType.emailAddress,
+          //   validator: InputValidators.email,
+          //   borderType: BorderType.bottom,
+          //   borderColor: UIColors.timberWolf,
+          //   style: AppTypography.regular16Caros(),
+          //   labelTextStyle: AppTypography.medium14Circular(
+          //     color: UIColors.pineGreen,
+          //   ),
+          //   bottomMargin: 30.h,
+          // ),
+          CustomInputFied(
             textEditingController:
                 ref.read(signUpPasswordStateProvider.notifier).state,
             labelText: TextConstants.password,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
-            borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
-            bottomMargin: 0,
+            onChanged: (value) {
+              ref
+                  .watch(passwordValidityProvider.notifier)
+                  .updateValidationVariables(value);
+            },
           ),
+          // InputFormField(
+          //   onChanged: (value) {
+          //     ref
+          //         .watch(passwordValidityProvider.notifier)
+          //         .updateValidationVariables(value);
+          //   },
+          //   textEditingController:
+          //       ref.read(signUpPasswordStateProvider.notifier).state,
+          //   labelText: TextConstants.password,
+          //   keyboardType: TextInputType.visiblePassword,
+          //   password: EnabledPassword(),
+          //   borderType: BorderType.bottom,
+          //   borderColor: UIColors.timberWolf,
+          //   style: AppTypography.regular16Caros(),
+          //   labelTextStyle: AppTypography.medium14Circular(
+          //     color: UIColors.pineGreen,
+          //   ),
+          //   bottomMargin: 0,
+          // ),
           if (ref.watch(passwordValidityProvider).isValid)
             Container(height: 20.h)
           else
             const PasswordValidationBuilder(),
-          InputFormField(
+          CustomInputFied(
             textEditingController:
                 ref.read(signUpConfirmPasswordStateProvider.notifier).state,
             labelText: TextConstants.confirmPassword,
@@ -104,14 +148,32 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
                 ref.read(signUpPasswordStateProvider.notifier).state.text,
               );
             },
-            borderType: BorderType.bottom,
-            borderColor: UIColors.timberWolf,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
-            bottomMargin: 0,
+            onChanged: (value) {
+              ref
+                  .watch(passwordValidityProvider.notifier)
+                  .updateValidationVariables(value);
+            },
           ),
+          // InputFormField(
+          //   textEditingController:
+          //       ref.read(signUpConfirmPasswordStateProvider.notifier).state,
+          //   labelText: TextConstants.confirmPassword,
+          //   keyboardType: TextInputType.visiblePassword,
+          //   password: EnabledPassword(),
+          //   validator: (value) {
+          //     return InputValidators.confirmPassword(
+          //       value,
+          //       ref.read(signUpPasswordStateProvider.notifier).state.text,
+          //     );
+          //   },
+          //   borderType: BorderType.bottom,
+          //   borderColor: UIColors.timberWolf,
+          //   style: AppTypography.regular16Caros(),
+          //   labelTextStyle: AppTypography.medium14Circular(
+          //     color: UIColors.pineGreen,
+          //   ),
+          //   bottomMargin: 0,
+          // ),
         ],
       ),
     );
