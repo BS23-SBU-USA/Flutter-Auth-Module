@@ -73,7 +73,6 @@ class MyApp extends StatelessWidget {
                 color: Color(0xFFFF2D1B),
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                
               ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(

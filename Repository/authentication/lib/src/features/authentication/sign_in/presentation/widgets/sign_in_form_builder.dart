@@ -159,11 +159,34 @@ class CustomInputFied extends StatefulWidget {
 
 class _CustomInputFiedState extends State<CustomInputFied> {
   bool _showPassword = true;
+  bool isError = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.textEditingController.addListener(_clearError);
+  }
+
+  @override
+  void dispose() {
+    widget.textEditingController.removeListener(_clearError);
+    super.dispose();
+  }
+
+  void _clearError() {
+    if (isError) {
+      setState(() {
+        isError = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: widget.bottomMargin),
       child: TextFormField(
+        controller: widget.textEditingController,
         obscureText: widget.password.isNotNull
             ? _showPassword
             : widget.obscureText ?? false,
