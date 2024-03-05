@@ -40,16 +40,29 @@ class SignInPage extends ConsumerStatefulWidget {
 class _SignInPageState extends ConsumerState<SignInPage> {
   late MaterialStatesController _signInButtonStateController;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String _email = "";
-  String _password = "";
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _rememberMe = false;
   @override
   void initState() {
     super.initState();
     _signInButtonStateController = MaterialStatesController();
+    getData();
     Future(() {
-      ref.read(signInProvider.notifier).getStoredCredentials();
       ref.read(signInProvider.notifier).decideNextRoute();
     });
+  }
+
+  Future getData() async {
+    Map<String, String>? result =
+        await ref.read(signInProvider.notifier).getStoredCredentials();
+    log(result.toString());
+    if (result != null) {
+      _rememberMe = true;
+      _emailController.text = result['email']!;
+      _passwordController.text = result['password']!;
+      setState(() {});
+    }
   }
 
   @override
@@ -65,17 +78,26 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
 
+    if (state.status == BaseStatus.loading) {
+      _signInButtonStateController.update(MaterialState.selected, true);
+    }
     // if (buttonState) {
     //   _signInButtonStateController.update(MaterialState.disabled, false);
     // } else {
     //   _signInButtonStateController.update(MaterialState.disabled, true);
     // }
 
-    ref.listen(isUserLoggedInProvider, (_, next) {
-      if (next) {
-        navigateToDashboardPage();
-      }
-    });
+    ref
+      ..listen(isUserLoggedInProvider, (_, next) {
+        if (next) {
+          navigateToDashboardPage();
+        }
+      })
+      ..listen(signInProvider, (previous, next) {
+        if (next.status == BaseStatus.success) {
+          navigateToDashboardPage();
+        }
+      });
     // ..listen(
     //   signInProvider,
     //   (previous, next) {
@@ -112,8 +134,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           const SingleSignOn(),
           SizedBox(height: 30.h),
           _SignInFormBuilder(
-            onEmailSaved: (value) => _email = value!,
-            onPasswordSaved: (value) => _password = value!,
+            emailController: _emailController,
+            passwordController: _passwordController,
             formKey: formKey,
           ),
           const _RememberMeAndForgetPassBuilder(),
@@ -123,16 +145,20 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-                final email = _email;
-                final password = _password;
+
                 notifier.signIn(
-                  email: email,
-                  password: password,
+                  email: _emailController.text,
+                  password: _passwordController.text,
                 );
               }
             },
             child: (state.status == BaseStatus.loading)
-                ? CircularProgressIndicator()
+                ? Transform.scale(
+                    scale: 0.75,
+                    child: const CircularProgressIndicator(
+                      color: UIColors.pineGreen,
+                    ),
+                  )
                 : const Text(TextConstants.login),
           ),
           // SizedBox(

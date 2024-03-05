@@ -77,8 +77,17 @@ class SignInNotifier extends Notifier<BaseState> {
     }
   }
 
-  Future<void> getStoredCredentials() async {
+  Future<Map<String, String>?> getStoredCredentials() async {
     final result = await signInUseCase.getStoredCredentials();
+    
+    if (result != null) {
+      return {
+        'email': result['userEmail'],
+        'password': result['password'],
+      };
+    } else {
+      return null;
+    }
 
     // if (result != null) {
     //   ref.read(signInEmailStateProvider.notifier).state.text =

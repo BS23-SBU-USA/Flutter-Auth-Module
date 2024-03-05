@@ -2,16 +2,16 @@ part of '../pages/sign_in_page.dart';
 
 class _SignInFormBuilder extends ConsumerWidget {
   const _SignInFormBuilder({
-    required this.onEmailSaved,
-    required this.onPasswordSaved,
+    required this.emailController,
+    required this.passwordController,
     required GlobalKey<FormState> formKey,
   }) : _formKey = formKey;
 
   // GlobalKey for the form
   final GlobalKey<FormState> _formKey;
 
-  final Function(String?)? onEmailSaved;
-  final Function(String?)? onPasswordSaved;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,10 +20,11 @@ class _SignInFormBuilder extends ConsumerWidget {
       child: Column(
         children: [
           CustomInputFied(
+            textEditingController: emailController,
             labelText: TextConstants.yourEmail,
             bottomMargin: 30.h,
             validator: InputValidators.email,
-            onSaved: onEmailSaved,
+
             // onChanged: (value) {
             //   final emailNotEmpty = value.isNotEmpty;
             //   final passwordNotEmpty = ref
@@ -37,11 +38,12 @@ class _SignInFormBuilder extends ConsumerWidget {
             // },
           ),
           CustomInputFied(
+            textEditingController: passwordController,
             labelText: TextConstants.password,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             validator: InputValidators.password,
-            onSaved: onPasswordSaved,
+
             // onChanged: (value) {
             //   final passwordNotEmpty = value.isNotEmpty;
             //   final emailNotEmpty = ref
