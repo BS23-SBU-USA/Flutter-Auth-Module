@@ -13,8 +13,7 @@ class CustomInputFied extends StatefulWidget {
     this.obscuringCharacter = "•",
     this.password,
     this.validator,
-    this.onChanged,
-    this.onSaved,
+    this.onChanged, required this.textEditingController,
   })  : assert(obscuringCharacter.isNotNull && obscuringCharacter.length == 1),
         assert(
           !(password.isNotNull && obscureText.isNotNull),
@@ -50,7 +49,9 @@ class CustomInputFied extends StatefulWidget {
 
   final Function(String)? onChanged;
 
-  final Function(String?)? onSaved;
+  // mandatory textediting Controller.
+  // used for holding the state of the textfield.
+  final TextEditingController textEditingController;
 
   @override
   State<CustomInputFied> createState() => _CustomInputFiedState();
@@ -65,6 +66,7 @@ class _CustomInputFiedState extends State<CustomInputFied> {
     return Padding(
       padding: EdgeInsets.only(bottom: widget.bottomMargin),
       child: TextFormField(
+        controller: widget.textEditingController,
         validator: widget.validator,
         obscureText: widget.password.isNotNull
             ? _showPassword
@@ -79,7 +81,6 @@ class _CustomInputFiedState extends State<CustomInputFied> {
           color: UIColors.black,
           fontFamily: 'Caros',
         ),
-        onSaved: widget.onSaved,
         decoration: InputDecoration(
           labelText: widget.labelText,
           suffixIcon: widget.password.isNotNull

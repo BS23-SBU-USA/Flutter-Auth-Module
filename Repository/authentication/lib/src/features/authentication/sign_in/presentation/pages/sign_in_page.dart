@@ -80,13 +80,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
     if (state.status == BaseStatus.loading) {
       _signInButtonStateController.update(MaterialState.selected, true);
+    } else {
+      _signInButtonStateController.update(MaterialState.selected, false);
     }
     // if (buttonState) {
     //   _signInButtonStateController.update(MaterialState.disabled, false);
     // } else {
     //   _signInButtonStateController.update(MaterialState.disabled, true);
     // }
-
     ref
       ..listen(isUserLoggedInProvider, (_, next) {
         if (next) {
@@ -94,7 +95,12 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         }
       })
       ..listen(signInProvider, (previous, next) {
-        if (next.status == BaseStatus.success) {
+        if (next.status == BaseStatus.failure) {
+          ShowSnackBarMessage.showErrorSnackBar(
+            message: next.error!,
+            context: context,
+          );
+        } else if (next.status == BaseStatus.success) {
           navigateToDashboardPage();
         }
       });
