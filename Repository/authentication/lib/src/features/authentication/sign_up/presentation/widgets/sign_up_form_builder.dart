@@ -108,7 +108,6 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             onChanged: (value) {
-              log(value);
               ref
                   .read(passwordValidityProvider.notifier)
                   .updateValidationVariables(value);
