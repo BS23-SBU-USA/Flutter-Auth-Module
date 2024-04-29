@@ -19,7 +19,7 @@ class _SignInFormBuilder extends ConsumerWidget {
       key: _formKey,
       child: Column(
         children: [
-          CustomInputFied(
+          CustomInputField(
             textEditingController: emailController,
             labelText: TextConstants.yourEmail,
             bottomMargin: 30.h,
@@ -37,7 +37,7 @@ class _SignInFormBuilder extends ConsumerWidget {
             //       emailNotEmpty && passwordNotEmpty;
             // },
           ),
-          CustomInputFied(
+          CustomInputField(
             textEditingController: passwordController,
             labelText: TextConstants.password,
             keyboardType: TextInputType.visiblePassword,

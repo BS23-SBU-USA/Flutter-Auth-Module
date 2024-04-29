@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/colors.dart';
 
-class CustomInputFied extends StatefulWidget {
-  CustomInputFied({
+class CustomInputField extends StatefulWidget {
+  CustomInputField({
     super.key,
     this.labelText,
     this.bottomMargin = 0.0,
@@ -55,10 +55,10 @@ class CustomInputFied extends StatefulWidget {
   final TextEditingController textEditingController;
 
   @override
-  State<CustomInputFied> createState() => _CustomInputFiedState();
+  State<CustomInputField> createState() => _CustomInputFieldState();
 }
 
-class _CustomInputFiedState extends State<CustomInputFied> {
+class _CustomInputFieldState extends State<CustomInputField> {
   bool _showPassword = true;
   bool isError = false;
 
@@ -82,6 +82,7 @@ class _CustomInputFiedState extends State<CustomInputFied> {
           color: UIColors.black,
           fontFamily: 'Caros',
         ),
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           labelText: widget.labelText,
           suffixIcon: widget.password.isNotNull

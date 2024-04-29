@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
           title: TextConstants.appName,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            useMaterial3: true,          
             textSelectionTheme:
                 const TextSelectionThemeData(cursorColor: UIColors.pineGreen),
             inputDecorationTheme: const InputDecorationTheme(

@@ -16,7 +16,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
       key: ref.read(signUpFormKeyStateProvider.notifier).state,
       child: Column(
         children: [
-          CustomInputFied(
+          CustomInputField(
             textEditingController:
                 ref.read(signUpFirstNameStateProvider.notifier).state,
             labelText: TextConstants.firstName,
@@ -47,7 +47,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
           //   ),
           //   bottomMargin: 30.h,
           // ),
-          CustomInputFied(
+          CustomInputField(
             textEditingController:
                 ref.read(signUpSecondNameStateProvider.notifier).state,
             labelText: TextConstants.lastName,
@@ -78,7 +78,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
           //   ),
           //   bottomMargin: 30.h,
           // ),
-          CustomInputFied(
+          CustomInputField(
             textEditingController:
                 ref.read(signUpEmailStateProvider.notifier).state,
             labelText: TextConstants.email,
@@ -101,15 +101,16 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
           //   ),
           //   bottomMargin: 30.h,
           // ),
-          CustomInputFied(
+          CustomInputField(
             textEditingController:
                 ref.read(signUpPasswordStateProvider.notifier).state,
             labelText: TextConstants.password,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             onChanged: (value) {
+              log(value);
               ref
-                  .watch(passwordValidityProvider.notifier)
+                  .read(passwordValidityProvider.notifier)
                   .updateValidationVariables(value);
             },
           ),
@@ -136,7 +137,7 @@ class _SignUpFormBuilderState extends ConsumerState<SignUpFormBuilder> {
             Container(height: 20.h)
           else
             const PasswordValidationBuilder(),
-          CustomInputFied(
+          CustomInputField(
             textEditingController:
                 ref.read(signUpConfirmPasswordStateProvider.notifier).state,
             labelText: TextConstants.confirmPassword,
