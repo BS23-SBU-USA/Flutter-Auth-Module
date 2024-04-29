@@ -70,23 +70,46 @@ class _SignUpState extends ConsumerState<SignUpPage> {
           SizedBox(height: 10.h),
           const TermsAndConditionCheckerBuilder(),
           SizedBox(height: 34.h),
-          Button(
-            onPressed: () {
-              if (ref
-                  .read(signUpFormKeyStateProvider.notifier)
-                  .state
-                  .currentState!
-                  .validate()) {
-                signUpNotifier.signUp();
-              }
-            },
-            isLoading: signUpState.status == BaseStatus.loading,
-            label: TextConstants.createAnAccount,
-            textStyle: !signUpFormState
-                ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                : AppTypography.semiBold16Caros(color: UIColors.white),
-            disable: !signUpFormState,
+          OutlinedButton(
+            onPressed: signUpFormState
+                ? () {
+                    if (ref
+                        .read(signUpFormKeyStateProvider.notifier)
+                        .state
+                        .currentState!
+                        .validate()) {
+                      signUpNotifier.signUp();
+                    }
+                  }
+                : null,
+            child: signUpState.status == BaseStatus.loading
+                ? Transform.scale(
+                    scale: 0.75,
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  )
+                : const Text(
+                    TextConstants.createAnAccount,
+                  ),
           ),
+          // Button(
+          //   onPressed: () {
+          //     if (ref
+          //         .read(signUpFormKeyStateProvider.notifier)
+          //         .state
+          //         .currentState!
+          //         .validate()) {
+          //       signUpNotifier.signUp();
+          //     }
+          //   },
+          //   isLoading: signUpState.status == BaseStatus.loading,
+          //   label: TextConstants.createAnAccount,
+          //   textStyle: !signUpFormState
+          //       ? AppTypography.semiBold16Caros(color: UIColors.gray)
+          //       : AppTypography.semiBold16Caros(color: UIColors.white),
+          //   disable: !signUpFormState,
+          // ),
           SizedBox(height: 16.h),
           const _SignInNavigationBuilder(),
           SizedBox(height: 37.h),

@@ -64,6 +64,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
     return Padding(
       padding: EdgeInsets.only(bottom: widget.bottomMargin),
       child: TextFormField(
@@ -73,13 +74,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
             ? _showPassword
             : widget.obscureText ?? false,
         obscuringCharacter: widget.obscuringCharacter,
-        cursorColor: UIColors.pineGreen,
+        cursorColor: color.primary,
         keyboardType: widget.keyboardType,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.1,
-          color: UIColors.black,
+          color: color.onSurface,
           fontFamily: 'Caros',
         ),
         onChanged: widget.onChanged,
