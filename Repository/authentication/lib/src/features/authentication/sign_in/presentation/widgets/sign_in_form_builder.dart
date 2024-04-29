@@ -1,49 +1,59 @@
 part of '../pages/sign_in_page.dart';
 
 class _SignInFormBuilder extends ConsumerWidget {
-  const _SignInFormBuilder();
+  const _SignInFormBuilder({
+    required this.emailController,
+    required this.passwordController,
+    required GlobalKey<FormState> formKey,
+  }) : _formKey = formKey;
+
+  // GlobalKey for the form
+  final GlobalKey<FormState> _formKey;
+
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Form(
-      key: ref.read(signInFormKeyStateProvider.notifier).state,
+      key: _formKey,
       child: Column(
         children: [
           CustomInputFied(
-            textEditingController:
-                ref.read(signInEmailStateProvider.notifier).state,
+            textEditingController: emailController,
             labelText: TextConstants.yourEmail,
             bottomMargin: 30.h,
             validator: InputValidators.email,
-            onChanged: (value) {
-              final emailNotEmpty = value.isNotEmpty;
-              final passwordNotEmpty = ref
-                  .read(signInPasswordStateProvider.notifier)
-                  .state
-                  .text
-                  .isNotEmpty;
 
-              ref.read(buttonStateProvider.notifier).state =
-                  emailNotEmpty && passwordNotEmpty;
-            },
+            // onChanged: (value) {
+            //   final emailNotEmpty = value.isNotEmpty;
+            //   final passwordNotEmpty = ref
+            //       .read(signInPasswordStateProvider.notifier)
+            //       .state
+            //       .text
+            //       .isNotEmpty;
+
+            //   ref.read(buttonStateProvider.notifier).state =
+            //       emailNotEmpty && passwordNotEmpty;
+            // },
           ),
           CustomInputFied(
-            textEditingController:
-                ref.read(signInPasswordStateProvider.notifier).state,
+            textEditingController: passwordController,
             labelText: TextConstants.password,
             keyboardType: TextInputType.visiblePassword,
             password: EnabledPassword(),
             validator: InputValidators.password,
-            onChanged: (value) {
-              final passwordNotEmpty = value.isNotEmpty;
-              final emailNotEmpty = ref
-                  .read(signInEmailStateProvider.notifier)
-                  .state
-                  .text
-                  .isNotEmpty;
-              ref.read(buttonStateProvider.notifier).state =
-                  emailNotEmpty && passwordNotEmpty;
-            },
+
+            // onChanged: (value) {
+            //   final passwordNotEmpty = value.isNotEmpty;
+            //   final emailNotEmpty = ref
+            //       .read(signInEmailStateProvider.notifier)
+            //       .state
+            //       .text
+            //       .isNotEmpty;
+            //   ref.read(buttonStateProvider.notifier).state =
+            //       emailNotEmpty && passwordNotEmpty;
+            // },
           ),
           // InputFormField(
           //   textEditingController:
@@ -102,4 +112,3 @@ class _SignInFormBuilder extends ConsumerWidget {
     );
   }
 }
-

@@ -12,17 +12,14 @@ class CustomInputFied extends StatefulWidget {
     this.obscureText,
     this.obscuringCharacter = "•",
     this.password,
-    required this.textEditingController,
     this.validator,
     this.onChanged,
+    required this.textEditingController,
   })  : assert(obscuringCharacter.isNotNull && obscuringCharacter.length == 1),
         assert(
           !(password.isNotNull && obscureText.isNotNull),
           """Both can't be used at the same time. Use isPasswordTrue to handle password visibility internally. To handle externally use obscureText""",
         );
-
-  // Mandatory textEditingController
-  final TextEditingController textEditingController;
 
   /// Optional text that describes the input field.
   final String? labelText;
@@ -53,6 +50,10 @@ class CustomInputFied extends StatefulWidget {
 
   final Function(String)? onChanged;
 
+  // mandatory textediting Controller.
+  // used for holding the state of the textfield.
+  final TextEditingController textEditingController;
+
   @override
   State<CustomInputFied> createState() => _CustomInputFiedState();
 }
@@ -62,31 +63,12 @@ class _CustomInputFiedState extends State<CustomInputFied> {
   bool isError = false;
 
   @override
-  void initState() {
-    super.initState();
-    widget.textEditingController.addListener(_clearError);
-  }
-
-  @override
-  void dispose() {
-    widget.textEditingController.removeListener(_clearError);
-    super.dispose();
-  }
-
-  void _clearError() {
-    if (isError) {
-      setState(() {
-        isError = false;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: widget.bottomMargin),
       child: TextFormField(
         controller: widget.textEditingController,
+        validator: widget.validator,
         obscureText: widget.password.isNotNull
             ? _showPassword
             : widget.obscureText ?? false,
@@ -100,7 +82,6 @@ class _CustomInputFiedState extends State<CustomInputFied> {
           color: UIColors.black,
           fontFamily: 'Caros',
         ),
-        onChanged: widget.onChanged,
         decoration: InputDecoration(
           labelText: widget.labelText,
           suffixIcon: widget.password.isNotNull

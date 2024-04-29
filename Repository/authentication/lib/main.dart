@@ -8,6 +8,7 @@ import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/pages/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
           title: TextConstants.appName,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            textSelectionTheme:
+                const TextSelectionThemeData(cursorColor: UIColors.pineGreen),
             inputDecorationTheme: const InputDecorationTheme(
               isDense: true,
               contentPadding: EdgeInsets.symmetric(
@@ -71,8 +74,10 @@ class MyApp extends StatelessWidget {
               ),
               errorStyle: TextStyle(
                 color: Color(0xFFFF2D1B),
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                letterSpacing: 0.1,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Circular',
               ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -90,6 +95,51 @@ class MyApp extends StatelessWidget {
                 borderSide: BorderSide(
                   width: 1,
                   color: UIColors.red,
+                ),
+              ),
+            ),
+            outlinedButtonTheme: OutlinedButtonThemeData(
+              style: ButtonStyle(
+                side: const MaterialStatePropertyAll(
+                    BorderSide(color: UIColors.transparent)),
+                backgroundColor: MaterialStateProperty.resolveWith(
+                  (states) {
+                    if (states.contains(MaterialState.disabled) ||
+                        states.contains(MaterialState.selected)) {
+                      return UIColors.antiFlashWhite;
+                    } else {
+                      return UIColors.pineGreen;
+                    }
+                  },
+                ),
+                foregroundColor: MaterialStateProperty.resolveWith(
+                  (states) {
+                    if (states.contains(MaterialState.disabled)) {
+                      return UIColors.gray;
+                    } else {
+                      return UIColors.white;
+                    }
+                  },
+                ),
+                textStyle: MaterialStateProperty.resolveWith(
+                  (states) {
+                    if (states.contains(MaterialState.disabled)) {
+                      return AppTypography.semiBold16Caros(
+                          color: UIColors.gray);
+                    } else {
+                      return AppTypography.semiBold16Caros(
+                          color: UIColors.white);
+                    }
+                  },
+                ),
+                animationDuration: const Duration(milliseconds: 200),
+                minimumSize: const MaterialStatePropertyAll(
+                  Size(double.infinity, 48),
+                ),
+                shape: MaterialStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
                 ),
               ),
             ),
