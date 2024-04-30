@@ -13,7 +13,9 @@ class _SingleSignOnState extends ConsumerState<SingleSignOn> {
     ref.watch(signInProvider);
     final signInNotifier = ref.read(signInProvider.notifier);
     final ssoSignInNotifier = ref.read(ssoSignInProvider.notifier);
-
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final textStyle = theme.textTheme;
     return Column(
       children: [
         Row(
@@ -36,17 +38,14 @@ class _SingleSignOnState extends ConsumerState<SingleSignOn> {
         Stack(
           alignment: Alignment.center,
           children: [
-            const Divider(
-              color: UIColors.timberWolf,
-              thickness: 1,
-            ),
+            const Divider(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
-              color: Colors.white,
+              color: color.background,
               child: Text(
                 'OR',
-                style: AppTypography.medium14Circular(
-                  color: UIColors.gray,
+                style: textStyle.titleSmall!.copyWith(
+                  color: color.onSurfaceVariant,
                 ),
               ),
             ),

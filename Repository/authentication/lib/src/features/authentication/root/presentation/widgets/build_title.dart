@@ -1,4 +1,5 @@
 import 'package:auth_module/src/core/theme/theme.dart';
+import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,9 @@ class BuildTitleAndSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final textStyle = theme.textTheme;
     return Column(
       children: [
         Row(
@@ -32,30 +36,27 @@ class BuildTitleAndSubtitle extends StatelessWidget {
                   right: 0,
                   child: Container(
                     height: 8.h,
-                    color: UIColors.verdigris,
+                    color: color.primary.withOpacity(0.75),
                   ),
                 ),
                 Text(
                   titleFirstPart,
-                  style: AppTypography.semiBold18Caros(
-                    color: UIColors.black,
-                  ),
+                  style: textStyle.titleMedium,
                 ),
               ],
             ),
             Text(
               titleLastPart,
-              style: AppTypography.semiBold18Caros(
-                color: UIColors.black,
-              ),
+              style: textStyle.titleMedium,
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Text(
           '$subtitleFirstPart\n$subtitleLastPart',
-          style: AppTypography.medium14Circular(
-            color: UIColors.gray,
+          style: textStyle.titleSmall!.copyWith(
+            fontFamily: FontConstants.fontFamilyCaros,
+            color: color.secondary,
           ),
           textAlign: TextAlign.center,
         ),

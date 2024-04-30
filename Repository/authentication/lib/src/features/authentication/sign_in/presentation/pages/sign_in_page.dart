@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
@@ -117,11 +118,11 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     //     }
     //   },
     // )
-
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final textStyle = theme.textTheme;
     return ScrollableWrapper(
       appBar: AppBar(
-        backgroundColor: UIColors.white,
-        elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
           _buildOfflineButton(),
@@ -161,11 +162,13 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             child: (state.status == BaseStatus.loading)
                 ? Transform.scale(
                     scale: 0.75,
-                    child: const CircularProgressIndicator(
-                      color: UIColors.pineGreen,
+                    child: CircularProgressIndicator(
+                      color: color.onPrimary,
                     ),
                   )
-                : const Text(TextConstants.login),
+                : const Text(
+                    TextConstants.login,
+                  ),
           ),
           // SizedBox(
           //   height: 20,
@@ -200,24 +203,24 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   Widget _buildOfflineButton() {
     final state = ref.watch(offlineStateProvider);
     final notifier = ref.read(offlineStateProvider.notifier);
-
+    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.only(right: 16.w),
       child: Row(
         children: [
           Text(
             TextConstants.offline,
-            style: AppTypography.bold14Caros(
-              color: UIColors.pineGreen,
+            style: theme.textTheme.titleSmall!.copyWith(
+              color: theme.colorScheme.primary,
             ),
           ),
           Transform.scale(
             scale: 0.7,
             child: CupertinoSwitch(
               value: state,
-              activeColor: UIColors.pineGreen,
-              trackColor: UIColors.gray,
-              thumbColor: UIColors.white,
+              activeColor: theme.colorScheme.primary,
+              trackColor: theme.colorScheme.secondary,
+              thumbColor: theme.colorScheme.onPrimary,
               onChanged: (value) {
                 notifier.state = value;
               },

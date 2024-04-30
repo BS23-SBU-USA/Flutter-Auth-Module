@@ -105,13 +105,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
           ? password.hidePasswordIcon ??
               Icon(
                 Icons.visibility_off,
-                color: UIColors.pineGreen,
+                color: Theme.of(context).colorScheme.primary,
                 size: 16.sp,
               )
           : password.showPasswordIcon ??
               Icon(
                 Icons.visibility,
-                color: UIColors.pineGreen,
+                color: Theme.of(context).colorScheme.primary,
                 size: 16.sp,
               ),
       splashColor: Colors.transparent,
