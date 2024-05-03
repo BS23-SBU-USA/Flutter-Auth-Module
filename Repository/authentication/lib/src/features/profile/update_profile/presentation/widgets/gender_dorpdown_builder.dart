@@ -2,6 +2,7 @@ import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
+import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
 import 'package:auth_module/src/core/widgets/modal_bottom_sheet.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/riverpod/update_profile_info_provider.dart';
@@ -34,18 +35,13 @@ class _CustomDropdownInputFormFieldState
     return Row(
       children: [
         Expanded(
-          child: InputFormField(
+          child: CustomInputField(
             textEditingController: notifier.genderController,
             readOnly: true,
-            label: Text(
-              TextConstants.gender,
-              style: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
-            ),
-            style: AppTypography.regular16Caros(),
-            borderColor: UIColors.timberWolf,
+            labelText: TextConstants.gender,
+            bottomMargin: 10,
             suffix: ModalBottomSheet(
+              
               title: TextConstants.selectGender,
               children: [
                 ModalCard(

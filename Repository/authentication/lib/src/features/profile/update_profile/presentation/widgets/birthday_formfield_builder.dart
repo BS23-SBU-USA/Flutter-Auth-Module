@@ -13,30 +13,26 @@ class _BirthdayFormFieldBuilderState
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
     return Row(
       children: [
         Expanded(
-          child: InputFormField(
+          child: CustomInputField(
             onChanged: (value) {
               _picKCalender(context);
             },
             readOnly: true,
             textEditingController: notifier.dateOfBirthController,
             labelText: TextConstants.dateOfBirth,
-            style: AppTypography.regular16Caros(),
-            labelTextStyle: AppTypography.medium14Circular(
-              color: UIColors.pineGreen,
-            ),
-            borderColor: UIColors.timberWolf,
-            autocorrect: false,
             suffix: GestureDetector(
               onTap: () {
                 _picKCalender(context);
               },
               child: Image.asset(
                 Assets.calenderIcon,
-                height: 8.sp,
-                width: 20.sp,
+                color: color.primary,
+                colorBlendMode: BlendMode.srcIn,
               ),
             ),
           ),
@@ -53,16 +49,6 @@ class _BirthdayFormFieldBuilderState
       initialDate: DateTime.now(),
       firstDate: DateTime(1950),
       lastDate: DateTime.now(),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: UIColors.pineGreen,
-            ),
-          ),
-          child: child!,
-        );
-      },
     );
     if (pickedDate != null) {
       final formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);

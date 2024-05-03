@@ -13,19 +13,21 @@ class UnderlinedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final textStyle = theme.textTheme;
+
     return Stack(
       alignment: Alignment.bottomLeft,
       children: [
         Container(
           height: 8.h,
           width: 50.w,
-          color: UIColors.verdigris,
+          color: color.primary.withOpacity(0.75),
         ),
         Text(
           title,
-          style: AppTypography.semiBold18Caros(
-            color: UIColors.black,
-          ),
+          style: textStyle.titleMedium,
         ),
       ],
     );

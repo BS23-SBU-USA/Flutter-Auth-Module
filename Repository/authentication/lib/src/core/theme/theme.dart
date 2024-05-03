@@ -32,31 +32,32 @@ class GlobalThemeData {
       brightness: Brightness.light,
       scaffoldBackgroundColor: lightColorScheme.background,
       textTheme: _textTheme,
-    
       dividerTheme: DividerThemeData(
         color: lightColorScheme.surfaceVariant,
         thickness: 1,
       ));
 
   static final ThemeData _darkTheme = ThemeData(
-      useMaterial3: true,
-      colorScheme: darkColorScheme,
-      appBarTheme: CustomAppBarTheme(scheme: darkColorScheme),
-      textSelectionTheme:
-          TextSelectionThemeData(cursorColor: darkColorScheme.primary),
-      inputDecorationTheme: CustomInputDecorationTheme.dark(),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: CustomOutlinedButtonStyle.dark(),
-      ),
-      fontFamily: FontConstants.fontFamilyCaros,
-      focusColor: darkColorScheme.primary,
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: darkColorScheme.background,
-      textTheme: _textTheme,
-      dividerTheme: DividerThemeData(
-        color: darkColorScheme.onSurfaceVariant,
-        thickness: 1,
-      ));
+    useMaterial3: true,
+    colorScheme: darkColorScheme,
+    appBarTheme: CustomAppBarTheme(scheme: darkColorScheme),
+    textSelectionTheme:
+        TextSelectionThemeData(cursorColor: darkColorScheme.primary),
+    inputDecorationTheme: CustomInputDecorationTheme.dark(),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: CustomOutlinedButtonStyle.dark(),
+    ),
+    fontFamily: FontConstants.fontFamilyCaros,
+    focusColor: darkColorScheme.primary,
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: darkColorScheme.background,
+    textTheme: _textTheme,
+    dividerTheme: DividerThemeData(
+      color: darkColorScheme.onSurfaceVariant,
+      thickness: 1,
+    ),
+    bottomSheetTheme: BottomSheetThemeData(),
+  );
 
   static ThemeData get lightTheme => _lightTheme;
 

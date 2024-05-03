@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/image_service/image_capture.dart';
@@ -14,7 +15,9 @@ import 'package:auth_module/src/core/widgets/underlined_text.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/riverpod/update_profile_form_validation_provider.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/riverpod/update_profile_info_provider.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/widgets/gender_dorpdown_builder.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,7 +57,6 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
     });
 
     return Scaffold(
-      backgroundColor: UIColors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Button.back(),

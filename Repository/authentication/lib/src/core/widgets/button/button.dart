@@ -97,6 +97,9 @@ class Button extends StatelessWidget {
     final height = this.height;
     const borderRadius = 16.0;
 
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+  
     return isBackButton
         ? GestureDetector(
             onTap: () {
@@ -111,6 +114,10 @@ class Button extends StatelessWidget {
                   Assets.backIcon,
                   width: 8.sp,
                   height: 12.sp,
+                  colorFilter: ColorFilter.mode(
+                    color.onBackground,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),

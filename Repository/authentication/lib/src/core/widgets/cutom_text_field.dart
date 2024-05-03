@@ -16,7 +16,10 @@ class CustomInputField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.maxLength,
+    this.suffix,
+    this.readOnly = false,
     required this.textEditingController,
+    this.prefix,
   })  : assert(obscuringCharacter.isNotNull && obscuringCharacter.length == 1),
         assert(
           !(password.isNotNull && obscureText.isNotNull),
@@ -58,6 +61,11 @@ class CustomInputField extends StatefulWidget {
 
   final int? maxLength;
 
+  final Widget? prefix;
+  final Widget? suffix;
+
+  final bool readOnly;
+
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
 }
@@ -72,6 +80,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
     return Padding(
       padding: EdgeInsets.only(bottom: widget.bottomMargin),
       child: TextFormField(
+        readOnly: widget.readOnly,
         controller: widget.textEditingController,
         validator: widget.validator,
         obscureText: widget.password.isNotNull
@@ -92,16 +101,17 @@ class _CustomInputFieldState extends State<CustomInputField> {
         ),
         onChanged: widget.onChanged,
         decoration: InputDecoration(
+          prefix: widget.prefix,
           labelText: widget.labelText,
+          suffix: widget.suffix,
           suffixIcon: widget.password.isNotNull
               ? _visibilityButton(widget.password!)
-              : _suffixPrefixPlaceHolder(),
+              : null,
         ),
       ),
     );
   }
 
-  Widget? _suffixPrefixPlaceHolder() => const SizedBox.shrink();
 
   IconButton _visibilityButton(EnabledPassword password) {
     return IconButton(

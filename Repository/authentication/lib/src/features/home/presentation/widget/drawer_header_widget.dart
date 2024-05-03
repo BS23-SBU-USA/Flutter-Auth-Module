@@ -17,11 +17,15 @@ class DrawerHeaderWidget extends ConsumerWidget {
     final name = NameInitials.getInitialsFromFullName(
         offlineState ? mockUser.fullName : profileState.data?.fullName ?? '');
 
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
+
     if ((profileState.status.isLoading || updateState.status.isLoading) &&
         (!ssoNotifier && !offlineState)) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
-          color: UIColors.white,
+          color: color.onPrimary,
         ),
       );
     }
@@ -32,7 +36,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
         if (ssoNotifier)
           CircleAvatar(
             backgroundImage: NetworkImage(user!.photoUrl ?? ''),
-            backgroundColor: UIColors.pineGreen,
+            backgroundColor: color.primary,
             radius: 30,
           )
         else
@@ -40,14 +44,14 @@ class DrawerHeaderWidget extends ConsumerWidget {
               ? Avatar.circleWithFullName(
                   height: 60.r,
                   width: 60.r,
-                  borderColor: UIColors.white,
-                  backgroundColor: UIColors.celeste,
+                  borderColor: color.outline,
+                  backgroundColor: color.primaryContainer,
                   nameWithLetter: name,
                 )
               : CircleAvatar(
                   backgroundImage:
                       MemoryImage(base64Decode(profileState.data!.avatar!)),
-                  backgroundColor: UIColors.pineGreen,
+                  backgroundColor: color.primaryContainer,
                   radius: 30,
                 ),
         const SizedBox(height: 10),
@@ -57,7 +61,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
               : offlineState
                   ? mockUser.fullName
                   : profileState.data!.fullName,
-          style: AppTypography.semiBold16Caros(color: UIColors.white),
+          style: text.titleMedium!.copyWith(color: color.onPrimary),
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 5),
@@ -67,7 +71,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
               : offlineState
                   ? mockUser.email
                   : profileState.data?.email ?? 'userEmail',
-          style: AppTypography.regular14Caros(color: UIColors.white),
+          style: text.titleSmall!.copyWith(color: color.onPrimary),
           overflow: TextOverflow.ellipsis,
         ),
       ],

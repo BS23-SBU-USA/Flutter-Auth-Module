@@ -44,23 +44,27 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
       }
     });
 
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: UIColors.pineGreen,
+              color: color.primary,
             ),
-            child: DrawerHeaderWidget(),
+            child: const DrawerHeaderWidget(),
           ),
           if (!ssoNotifier.state)
             if (!offlineState.state)
               if (profileState.status == UserProfileStatus.loading ||
                   updateState.status == UpdateProfileStatus.loading)
-                const Center(
+                Center(
                   child: CircularProgressIndicator(
-                    color: UIColors.pineGreen,
+                    color: color.onPrimary,
                   ),
                 )
               else
@@ -68,8 +72,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                   leading: const Icon(Icons.person),
                   title: Text(
                     TextConstants.updateProfile,
-                    style:
-                        AppTypography.regular14Circular(color: UIColors.black),
+                    style: text.labelLarge,
                   ),
                   onTap: _navigateToUpdateProfile,
                 ),
@@ -78,7 +81,7 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
               leading: const Icon(Icons.lock),
               title: Text(
                 TextConstants.changePassword,
-                style: AppTypography.regular14Circular(color: UIColors.black),
+                style: text.labelLarge,
               ),
               onTap: _navigateToChangePassword,
             ),
@@ -90,14 +93,14 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                     child: Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2.sp,
-                        color: UIColors.gray,
+                        color: color.onPrimary,
                       ),
                     ),
                   )
                 : const Icon(Icons.logout),
             title: Text(
               TextConstants.logOut,
-              style: AppTypography.regular14Circular(color: UIColors.black),
+              style: text.labelLarge,
             ),
             onTap: () {
               if (logOutState.status != LogOutStatus.loading) {

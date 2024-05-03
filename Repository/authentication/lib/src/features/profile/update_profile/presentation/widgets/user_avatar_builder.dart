@@ -11,6 +11,11 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
+
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
+
     return Stack(
       children: [
         CircleAvatar(
@@ -22,14 +27,14 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                 )
               : null,
           backgroundColor: notifier.avatarController.text.isEmpty
-              ? UIColors.platinum
-              : UIColors.pineGreen,
+              ? color.primaryContainer
+              : color.primary,
           radius: 41,
           child: notifier.avatarController.text.isEmpty
-              ? const Icon(
+              ? Icon(
                   Icons.photo,
                   size: 30,
-                  color: UIColors.white,
+                  color: color.surface,
                 )
               : null,
         ),
@@ -51,36 +56,30 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                     height: 300.h,
                     child: Padding(
                       padding: EdgeInsets.all(24.sp),
-                      child: Column(
+                      child: Stack(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Positioned(
+                            top: -10.h,
+                            right: 0,
+                            child: IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                          Column(
                             children: [
-                              IconButton(
-                                icon: const Icon(Icons.close),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
                               Text(
                                 'Profile Photo',
-                                style: AppTypography.semiBold16Caros(
-                                  color: UIColors.black,
-                                ),
+                                style: text.titleMedium,
                               ),
-                              const IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: UIColors.white,
-                                ),
-                                onPressed: null,
-                              ),
+                              SizedBox(height: 20.h),
+                              _buildCameraButton(),
+                              SizedBox(height: 40.h),
+                              _buildMediaButton(),
                             ],
                           ),
-                          SizedBox(height: 20.h),
-                          _buildCameraButton(),
-                          SizedBox(height: 40.h),
-                          _buildMediaButton(),
                         ],
                       ),
                     ),
@@ -88,13 +87,13 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                 },
               );
             },
-            child: const CircleAvatar(
-              backgroundColor: UIColors.pineGreen,
+            child: CircleAvatar(
+              backgroundColor: color.primary,
               radius: 12,
               child: Icon(
                 Icons.add_a_photo,
                 size: 12,
-                color: UIColors.white,
+                color: color.onPrimary,
               ),
             ),
           ),
@@ -105,7 +104,9 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
 
   Widget _buildMediaButton() {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
-
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return GestureDetector(
       onTap: () async {
         Navigator.of(context).pop();
@@ -138,15 +139,15 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           Container(
             height: 44.h,
             width: 44.h,
-            decoration: const BoxDecoration(
-              color: UIColors.antiFlashWhite,
+            decoration: BoxDecoration(
+              color: color.primaryContainer,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: SvgPicture.asset(
                 Assets.mediaIcon,
-                colorFilter: const ColorFilter.mode(
-                  UIColors.black,
+                colorFilter: ColorFilter.mode(
+                  color.onPrimaryContainer,
                   BlendMode.srcIn,
                 ),
               ),
@@ -155,8 +156,8 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           SizedBox(width: 12.w),
           Text(
             'Choose from Gallery',
-            style: AppTypography.bold14Caros(
-              color: UIColors.black,
+            style: text.labelLarge!.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -167,6 +168,9 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   Widget _buildCameraButton() {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
 
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return GestureDetector(
       onTap: () async {
         Navigator.of(context).pop();
@@ -196,21 +200,25 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           Container(
             height: 44.h,
             width: 44.h,
-            decoration: const BoxDecoration(
-              color: UIColors.antiFlashWhite,
+            decoration: BoxDecoration(
+              color: color.primaryContainer,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: SvgPicture.asset(
                 Assets.cameraIcon,
+                colorFilter: ColorFilter.mode(
+                  color.onPrimaryContainer,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),
           SizedBox(width: 12.w),
           Text(
             'Take a Photo',
-            style: AppTypography.bold14Caros(
-              color: UIColors.black,
+            style: text.labelLarge!.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

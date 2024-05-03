@@ -14,50 +14,36 @@ class _UpdateProfileFormBuilderState
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(updateProfileInfoProvider.notifier);
-
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return SingleChildScrollView(
       child: Form(
         key: notifier.formKey,
         child: Column(
           children: [
-            InputFormField(
+            CustomInputField(
               onChanged: (value) {
                 _capitalizeFirstLetter(notifier.firstNameController);
               },
-              borderColor: UIColors.timberWolf,
               textEditingController: notifier.firstNameController,
               labelText: TextConstants.firstName,
-              style: AppTypography.regular16Caros(),
-              labelTextStyle: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
-              autocorrect: false,
+              bottomMargin: 10,
             ),
-            InputFormField(
+            CustomInputField(
               onChanged: (value) {
                 _capitalizeFirstLetter(notifier.lastNameController);
               },
-              borderColor: UIColors.timberWolf,
               textEditingController: notifier.lastNameController,
               labelText: TextConstants.lastName,
-              style: AppTypography.regular16Caros(),
-              labelTextStyle: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
-              autocorrect: false,
               keyboardType: TextInputType.name,
+              bottomMargin: 10,
             ),
-            InputFormField(
+            CustomInputField(
               textEditingController: notifier.onlyPhoneController,
-              style: AppTypography.regular16Caros(),
-              label: Text(
-                TextConstants.phoneNumber,
-                style: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
-              ),
-              borderColor: UIColors.timberWolf,
+              labelText: TextConstants.phoneNumber,
               maxLength: 10,
+              bottomMargin: 10,
               prefix: IntrinsicHeight(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -66,9 +52,8 @@ class _UpdateProfileFormBuilderState
                       initialSelection: notifier.countryCodeController.text,
                       padding: EdgeInsets.zero, // Set zero padding to the left
                       countryFilter: const ['+880', 'US'],
-                      textStyle: const TextStyle(
+                      textStyle: text.labelMedium?.copyWith(
                         fontSize: 16,
-                        color: UIColors.black,
                       ),
                       onChanged: (country) {
                         notifier.countryCodeController.text = country.dialCode!;
@@ -76,8 +61,8 @@ class _UpdateProfileFormBuilderState
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                      child: const VerticalDivider(
-                        color: UIColors.black,
+                      child: VerticalDivider(
+                        color: color.outline,
                         width: 1,
                         thickness: 1,
                       ),
