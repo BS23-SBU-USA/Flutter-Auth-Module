@@ -7,23 +7,34 @@ class _OtpField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: ref.read(otpFormKeyStateProvider.notifier).state,
-      child: InputFormField(
+      child: CustomInputField(
+        textEditingController: ref.read(otpStateProvider.notifier).state,
+        labelText: TextConstants.yourCode,
+        keyboardType: TextInputType.number,
+        validator: InputValidators.otp,
+        maxLength: 6,
         onChanged: (value) {
           ref.read(otpButtonStateProvider.notifier).state = value.length >= 6;
         },
-        textEditingController: ref.read(otpStateProvider.notifier).state,
-        labelText: TextConstants.yourCode,
-        borderColor: UIColors.timberWolf,
-        keyboardType: TextInputType.number,
-        validator: InputValidators.otp,
-        autocorrect: false,
-        maxLength: 6,
-        borderType: BorderType.bottom,
-        style: AppTypography.regular16Caros(),
-        labelTextStyle: AppTypography.medium14Circular(
-          color: UIColors.pineGreen,
-        ),
       ),
+
+      // InputFormField(
+      //   onChanged: (value) {
+      //     ref.read(otpButtonStateProvider.notifier).state = value.length >= 6;
+      //   },
+      //   textEditingController: ref.read(otpStateProvider.notifier).state,
+      //   labelText: TextConstants.yourCode,
+      //   borderColor: UIColors.timberWolf,
+      //   keyboardType: TextInputType.number,
+      //   validator: InputValidators.otp,
+      //   autocorrect: false,
+      //   maxLength: 6,
+      //   borderType: BorderType.bottom,
+      //   style: AppTypography.regular16Caros(),
+      //   labelTextStyle: AppTypography.medium14Circular(
+      //     color: UIColors.pineGreen,
+      //   ),
+      // ),
     );
   }
 }

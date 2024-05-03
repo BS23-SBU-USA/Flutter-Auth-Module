@@ -26,12 +26,13 @@ class GlobalThemeData {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: CustomOutlinedButtonStyle.light(),
       ),
-      appBarTheme: CustomAppBarTheme.light(),
+      appBarTheme: CustomAppBarTheme(scheme: lightColorScheme),
       fontFamily: FontConstants.fontFamilyCaros,
       focusColor: lightColorScheme.primary,
       brightness: Brightness.light,
       scaffoldBackgroundColor: lightColorScheme.background,
       textTheme: _textTheme,
+    
       dividerTheme: DividerThemeData(
         color: lightColorScheme.surfaceVariant,
         thickness: 1,
@@ -40,7 +41,7 @@ class GlobalThemeData {
   static final ThemeData _darkTheme = ThemeData(
       useMaterial3: true,
       colorScheme: darkColorScheme,
-      appBarTheme: CustomAppBarTheme.dark(),
+      appBarTheme: CustomAppBarTheme(scheme: darkColorScheme),
       textSelectionTheme:
           TextSelectionThemeData(cursorColor: darkColorScheme.primary),
       inputDecorationTheme: CustomInputDecorationTheme.dark(),

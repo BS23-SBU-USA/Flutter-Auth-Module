@@ -14,11 +14,15 @@ class BuildBackButton extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 6.sp,
-          vertical: 8.sp,
+          horizontal: 8.sp,
+          vertical: 10.sp,
         ),
         child: SvgPicture.asset(
           Assets.backIcon,
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.onBackground,
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );

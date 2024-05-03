@@ -1,30 +1,15 @@
 part of 'theme.dart';
 
-   
-class CustomAppBarTheme{
-  static final AppBarTheme _appBarTheme = AppBarTheme(
-    backgroundColor: UIColors.white,
-    elevation: 0,
-    titleSpacing: 0,
-    centerTitle: true,
-    titleTextStyle: AppTypography.semiBold18Caros(
-      color: UIColors.black,
-    ),
-    iconTheme: const IconThemeData(
-      color: UIColors.black,
-    ),
-  );
+class CustomAppBarTheme extends AppBarTheme {
+  final ColorScheme scheme;
 
-  static AppBarTheme light(){
-    return _appBarTheme.copyWith(
-      backgroundColor: lightColorScheme.background,
-    );
-  }
-
-  static AppBarTheme dark(){
-    return _appBarTheme.copyWith(
-      backgroundColor: darkColorScheme.background,
-    );
-  }
-   
+  CustomAppBarTheme({
+    required this.scheme,
+  }) : super(
+          backgroundColor: scheme.background,
+          elevation: 0,
+          titleSpacing: 0,
+          centerTitle: true,
+          foregroundColor: scheme.onBackground,
+        );
 }

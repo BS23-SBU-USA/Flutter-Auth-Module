@@ -3,6 +3,7 @@ import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_notifier.dart';
@@ -46,7 +47,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
         }
       },
     );
-
+    final isButtonEnabled = !ref.watch(forgotPassButtonStateProvider);
     return ScrollableWrapper(
       floatingActionButton: const BuildBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -62,22 +63,25 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           SizedBox(height: 70.h),
           const _EmailField(),
           SizedBox(height: 347.h),
-          Button(
-            onPressed: () {
-              if (ref
-                  .read(forgotPasswordFormKeyStateProvider.notifier)
-                  .state
-                  .currentState!
-                  .validate()) {
-                notifier.forgotPasswordSubmit();
-              }
-            },
-            isLoading: state.status == ForgotPasswordStatus.loading,
-            label: TextConstants.submit,
-            textStyle: !ref.watch(forgotPassButtonStateProvider)
-                ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                : AppTypography.semiBold16Caros(color: UIColors.white),
-            disable: !ref.watch(forgotPassButtonStateProvider),
+          OutlinedButton(
+            onPressed: isButtonEnabled
+                ? null
+                : () {
+                    if (ref
+                        .read(forgotPasswordFormKeyStateProvider.notifier)
+                        .state
+                        .currentState!
+                        .validate()) {
+                      notifier.forgotPasswordSubmit();
+                    }
+                  },
+            child: state.status == ForgotPasswordStatus.loading
+                ? CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  )
+                : const Text(
+                    TextConstants.submit,
+                  ),
           ),
           SizedBox(height: 16.h),
           const _SignInNavigationBuilder(),

@@ -34,6 +34,10 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
 
     final state = ref.watch(identityVerificationProvider);
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textStyle = theme.textTheme;
+
     ref.listen(
       identityVerificationProvider,
       (_, next) {
@@ -64,8 +68,8 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
         showResendButton
             ? TextConstants.resendEmail
             : '${TextConstants.resendEmail} in ${seconds}s',
-        style: AppTypography.semiBold14Circular(
-          color: UIColors.pineGreen,
+        style: textStyle.labelLarge?.copyWith(
+          color: colorScheme.primary,
         ),
       ),
     );

@@ -4,7 +4,7 @@ import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
-import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
+import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_notifier.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_provider.dart';
@@ -47,6 +47,8 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
       },
     );
 
+    final isButtonEnabled = !ref.watch(passwordValidityProvider).isValid;
+
     return Scaffold(
       body: ScrollableWrapper(
         floatingActionButton: const BuildBackButton(),
@@ -63,14 +65,15 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
             SizedBox(height: 70.h),
             const _ResetPasswordFormBuilder(),
             SizedBox(height: 288.h),
-            Button(
-              onPressed: onButtonPressed,
-              isLoading: state.status == SetNewPasswordStatus.loading,
-              label: TextConstants.resetPassword,
-              textStyle: !ref.watch(passwordValidityProvider).isValid
-                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                  : AppTypography.semiBold16Caros(color: UIColors.white),
-              disable: !ref.watch(passwordValidityProvider).isValid,
+            OutlinedButton(
+              onPressed: isButtonEnabled ? null : onButtonPressed,
+              child: state.status == SetNewPasswordStatus.loading
+                  ? CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    )
+                  : const Text(
+                      TextConstants.resetPassword,
+                    ),
             ),
           ],
         ),

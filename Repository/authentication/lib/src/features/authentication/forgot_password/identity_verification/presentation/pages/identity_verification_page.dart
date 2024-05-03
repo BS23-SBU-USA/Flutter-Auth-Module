@@ -4,6 +4,7 @@ import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
@@ -100,22 +101,29 @@ class _IdentityVerificationPageState
             SizedBox(height: 70.h),
             const _OtpField(),
             SizedBox(height: 347.h),
-            Button(
-              onPressed: () {
-                if (ref
-                    .read(otpFormKeyStateProvider.notifier)
-                    .state
-                    .currentState!
-                    .validate()) {
-                  onButtonPressed(state, context);
-                }
-              },
-              isLoading: state.status == IdentityVerificationStatus.loading,
-              label: TextConstants.submit,
-              textStyle: !ref.watch(otpButtonStateProvider)
-                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                  : AppTypography.semiBold16Caros(color: UIColors.white),
-              disable: !ref.watch(otpButtonStateProvider),
+            OutlinedButton(
+              onPressed: !ref.watch(otpButtonStateProvider)
+                  ? null
+                  : () {
+                      if (ref
+                          .read(otpFormKeyStateProvider.notifier)
+                          .state
+                          .currentState!
+                          .validate()) {
+                        onButtonPressed(state, context);
+                      }
+                    },
+              child: state.status == IdentityVerificationStatus.loading
+                  ? const SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(
+                        color: UIColors.pineGreen,
+                      ),
+                    )
+                  : const Text(
+                      TextConstants.submit,
+                    ),
             ),
             SizedBox(height: 16.h),
             const CountdownTimer(),

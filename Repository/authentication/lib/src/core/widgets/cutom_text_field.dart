@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/colors.dart';
@@ -14,6 +15,7 @@ class CustomInputField extends StatefulWidget {
     this.password,
     this.validator,
     this.onChanged,
+    this.maxLength,
     required this.textEditingController,
   })  : assert(obscuringCharacter.isNotNull && obscuringCharacter.length == 1),
         assert(
@@ -54,6 +56,8 @@ class CustomInputField extends StatefulWidget {
   // used for holding the state of the textfield.
   final TextEditingController textEditingController;
 
+  final int? maxLength;
+
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
 }
@@ -74,6 +78,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
             ? _showPassword
             : widget.obscureText ?? false,
         obscuringCharacter: widget.obscuringCharacter,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(widget.maxLength),
+        ],
         cursorColor: color.primary,
         keyboardType: widget.keyboardType,
         style: TextStyle(
