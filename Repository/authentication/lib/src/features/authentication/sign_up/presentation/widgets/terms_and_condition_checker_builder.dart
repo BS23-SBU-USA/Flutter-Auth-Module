@@ -5,6 +5,9 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final textStyle = theme.textTheme;
     return GestureDetector(
       onTap: () {
         bool value = !ref.read(termsAndConditionCheckerProvider);
@@ -23,9 +26,9 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                   fillColor: MaterialStateProperty.resolveWith<Color?>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.selected)) {
-                        return UIColors.pineGreen;
+                        return color.primary;
                       }
-                      return UIColors.platinum;
+                      return color.primaryContainer;
                     },
                   ),
                   shape: RoundedRectangleBorder(
@@ -33,17 +36,16 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                   ),
                   value: ref.watch(termsAndConditionCheckerProvider),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  activeColor: UIColors.pineGreen,
-                  checkColor: UIColors.white,
+                  checkColor: color.onPrimary,
                   side: MaterialStateBorderSide.resolveWith(
                     (states) {
                       if (states.contains(MaterialState.selected)) {
-                        return const BorderSide(
-                          color: UIColors.tiffanyBlue,
+                        return BorderSide(
+                          color: color.onPrimaryContainer,
                         );
                       }
-                      return const BorderSide(
-                        color: UIColors.pineGreen,
+                      return BorderSide(
+                        color: color.primary,
                       );
                     },
                   ),
@@ -58,12 +60,13 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
           RichText(
             text: TextSpan(
               text: TextConstants.iAgreeWith,
-              style: AppTypography.medium14Circular(),
+              style: textStyle.bodySmall,
               children: <TextSpan>[
                 TextSpan(
                   text: TextConstants.termsAndConditions,
-                  style: AppTypography.medium14Circular(
-                    color: UIColors.pineGreen,
+                  style: textStyle.bodySmall!.copyWith(
+                    color: color.primary,
+                    fontFamily: FontConstants.fontFamilyCaros,
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {

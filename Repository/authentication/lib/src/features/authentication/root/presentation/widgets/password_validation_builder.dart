@@ -52,7 +52,7 @@ class _PasswordValidationBuilderState
             const TextSpan(text: TextConstants.dot),
           ],
         ),
-        style: AppTypography.regular12Caros(),
+        style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.start,
       ),
     );

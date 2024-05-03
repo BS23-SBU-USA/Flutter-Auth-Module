@@ -105,7 +105,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
           ? password.hidePasswordIcon ??
               Icon(
                 Icons.visibility_off,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onPrimary,
                 size: 16.sp,
               )
           : password.showPasswordIcon ??
