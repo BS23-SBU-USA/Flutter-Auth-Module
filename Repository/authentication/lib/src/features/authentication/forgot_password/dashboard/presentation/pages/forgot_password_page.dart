@@ -64,7 +64,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           const _EmailField(),
           SizedBox(height: 347.h),
           OutlinedButton(
-            onPressed: isButtonEnabled
+            onPressed: state.status == ForgotPasswordStatus.loading
                 ? null
                 : () {
                     if (ref
@@ -76,8 +76,11 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                     }
                   },
             child: state.status == ForgotPasswordStatus.loading
-                ? CircularProgressIndicator(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                ? Transform.scale(
+                    scale: 0.75,
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   )
                 : const Text(
                     TextConstants.submit,

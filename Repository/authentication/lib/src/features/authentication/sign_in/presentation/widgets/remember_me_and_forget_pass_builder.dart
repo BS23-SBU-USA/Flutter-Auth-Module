@@ -26,37 +26,7 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
                   width: 16.h,
                   child: Transform.scale(
                     scale: 0.8.sp,
-                    child: Checkbox(
-                      fillColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
-                            return color.primary;
-                          }
-                          return color.primaryContainer;
-                        },
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.r),
-                      ),
-                      side: MaterialStateBorderSide.resolveWith(
-                        (states) {
-                          if (states.contains(MaterialState.selected)) {
-                            return BorderSide(
-                              color: color.onPrimaryContainer,
-                            );
-                          }
-                          return BorderSide(
-                            color: color.primary,
-                          );
-                        },
-                      ),
-                      value: state,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      checkColor: color.onPrimary,
-                      onChanged: (value) {
-                        notifier.state = value!;
-                      },
-                    ),
+                    child: const RememberMeCheckbox(),
                   ),
                 ),
               ),
@@ -86,6 +56,51 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class RememberMeCheckbox extends ConsumerWidget {
+  const RememberMeCheckbox({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(rememberMeStateProvider);
+    final notifier = ref.read(rememberMeStateProvider.notifier);
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    return Checkbox(
+      fillColor: MaterialStateProperty.resolveWith<Color?>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return color.primary;
+          }
+          return color.primaryContainer;
+        },
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      side: MaterialStateBorderSide.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return BorderSide(
+              color: color.onPrimaryContainer,
+            );
+          }
+          return BorderSide(
+            color: color.primary,
+          );
+        },
+      ),
+      value: state,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      checkColor: color.onPrimary,
+      onChanged: (value) {
+        notifier.state = value!;
+      },
     );
   }
 }

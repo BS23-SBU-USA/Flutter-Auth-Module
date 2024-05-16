@@ -22,38 +22,7 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
               height: 16.h,
               child: Transform.scale(
                 scale: 0.8.sp,
-                child: Checkbox(
-                  fillColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.selected)) {
-                        return color.primary;
-                      }
-                      return color.primaryContainer;
-                    },
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.r),
-                  ),
-                  value: ref.watch(termsAndConditionCheckerProvider),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  checkColor: color.onPrimary,
-                  side: MaterialStateBorderSide.resolveWith(
-                    (states) {
-                      if (states.contains(MaterialState.selected)) {
-                        return BorderSide(
-                          color: color.onPrimaryContainer,
-                        );
-                      }
-                      return BorderSide(
-                        color: color.primary,
-                      );
-                    },
-                  ),
-                  onChanged: (value) {
-                    ref.read(termsAndConditionCheckerProvider.notifier).state =
-                        value!;
-                  },
-                ),
+                child: TermsCheckbox(color: color),
               ),
             ),
           ),
@@ -82,6 +51,53 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class TermsCheckbox extends ConsumerWidget {
+  const TermsCheckbox({
+    super.key,
+    required this.color,
+  });
+
+  final ColorScheme color;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    return Checkbox(
+      fillColor: MaterialStateProperty.resolveWith<Color?>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return color.primary;
+          }
+          return color.primaryContainer;
+        },
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      value: ref.watch(termsAndConditionCheckerProvider),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      checkColor: color.onPrimary,
+      side: MaterialStateBorderSide.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return BorderSide(
+              color: color.onPrimaryContainer,
+            );
+          }
+          return BorderSide(
+            color: color.primary,
+          );
+        },
+      ),
+      onChanged: (value) {
+        ref.read(termsAndConditionCheckerProvider.notifier).state =
+            value!;
+      },
     );
   }
 }

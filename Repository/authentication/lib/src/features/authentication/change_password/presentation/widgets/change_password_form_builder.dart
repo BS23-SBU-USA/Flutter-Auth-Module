@@ -70,15 +70,10 @@ class _ChangePasswordFormBuilderState
                 bottomMargin: 30.h,
               ),
               const Spacer(),
-              Row(
-                children: [
-                  Expanded(
-                    child: Button(
-                      width: 327.sp,
-                      height: 48.sp,
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-
+              OutlinedButton(
+                onPressed: state.status == ChangePasswordStatus.loading
+                    ? null
+                    : () {
                         if (formKey.currentState!.validate() &&
                             newPasswordState.text ==
                                 confirmPasswordState.text) {
@@ -90,15 +85,44 @@ class _ChangePasswordFormBuilderState
                           );
                         }
                       },
-                      isLoading: state.status == ChangePasswordStatus.loading,
-                      label: TextConstants.changePassword,
-                      textStyle: AppTypography.semiBold16Caros(
-                        color: UIColors.white,
+                child: state.status == ChangePasswordStatus.loading
+                    ? Transform.scale(
+                        scale: 0.75,
+                        child: const CircularProgressIndicator(),
+                      )
+                    : const Text(
+                        TextConstants.changePassword,
                       ),
-                    ),
-                  ),
-                ],
               ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Button(
+              //         width: 327.sp,
+              //         height: 48.sp,
+              //         onPressed: () {
+              //           FocusScope.of(context).unfocus();
+
+              //           if (formKey.currentState!.validate() &&
+              //               newPasswordState.text ==
+              //                   confirmPasswordState.text) {
+              //             notifier.changePassword();
+              //           } else {
+              //             ShowSnackBarMessage.showErrorSnackBar(
+              //               message: TextConstants.passwordFieldsNotMatched,
+              //               context: context,
+              //             );
+              //           }
+              //         },
+              //         isLoading: state.status == ChangePasswordStatus.loading,
+              //         label: TextConstants.changePassword,
+              //         textStyle: AppTypography.semiBold16Caros(
+              //           color: UIColors.white,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

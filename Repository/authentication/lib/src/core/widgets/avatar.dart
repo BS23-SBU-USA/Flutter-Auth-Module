@@ -106,7 +106,7 @@ class Avatar extends StatelessWidget {
                 child: Text(
                   nameWithLetter,
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: fontSize,
                   ),
                 ),

@@ -18,6 +18,9 @@ class SuccessPage extends StatefulWidget {
 class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return Scaffold(
       floatingActionButton: GestureDetector(
         onTap: _navigateToSignInPage,
@@ -28,11 +31,15 @@ class _SuccessPageState extends State<SuccessPage> {
           ),
           child: SvgPicture.asset(
             Assets.backIcon,
+            colorFilter: ColorFilter.mode(
+              color.onPrimary,
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      backgroundColor: UIColors.white,
+      backgroundColor: color.background,
       body: Center(
         child: SizedBox(
           width: 400.w,
@@ -42,24 +49,19 @@ class _SuccessPageState extends State<SuccessPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  TextConstants.congratulations,
-                  style: AppTypography.bold24Caros(
-                    color: UIColors.pineGreen,
-                  ),
-                ),
+                Text(TextConstants.congratulations,
+                    style: text.titleLarge!.copyWith(
+                      color: color.primary,
+                    )),
                 SizedBox(height: 20.h),
                 Text(
                   TextConstants.accountCreatedSuccess,
-                  style: AppTypography.regular14Caros(),
+                  style: text.bodyMedium,
                 ),
                 SizedBox(height: 30.h),
-                Button(
-                  onPressed: _navigateToSignInPage,
-                  label: TextConstants.login,
-                  textStyle:
-                      AppTypography.semiBold16Caros(color: UIColors.white),
-                ),
+                OutlinedButton(
+                    onPressed: _navigateToSignInPage,
+                    child: const Text(TextConstants.login)),
               ],
             ),
           ),

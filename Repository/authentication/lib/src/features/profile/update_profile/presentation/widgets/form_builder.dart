@@ -55,6 +55,9 @@ class _UpdateProfileFormBuilderState
                       textStyle: text.labelMedium?.copyWith(
                         fontSize: 16,
                       ),
+
+                      barrierColor: color.background.withOpacity(0.75),
+                      dialogBackgroundColor: color.surface.withAlpha(10),
                       onChanged: (country) {
                         notifier.countryCodeController.text = country.dialCode!;
                       },

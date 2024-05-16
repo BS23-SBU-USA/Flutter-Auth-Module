@@ -70,15 +70,26 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
             const SizedBox(height: 15),
             const UpdateProfileFormBuilder(),
             const Spacer(),
-            Button(
-              isLoading: state.status.isLoading,
-              label: TextConstants.updateProfile,
-              onPressed: notifier.onUpdateProfileSubmit,
-              textStyle: !ref.watch(updateProfileValidationProvider).isValid
-                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                  : AppTypography.semiBold16Caros(color: UIColors.white),
-              disable: !ref.watch(updateProfileValidationProvider).isValid,
+            OutlinedButton(
+              onPressed: state.status.isLoading
+                  ? null
+                  : notifier.onUpdateProfileSubmit,
+              child: state.status.isLoading
+                  ? Transform.scale(
+                      scale: 0.75,
+                      child: const CircularProgressIndicator(),
+                    )
+                  : const Text(TextConstants.updateProfile),
             ),
+            // Button(
+            //   isLoading: state.status.isLoading,
+            //   label: TextConstants.updateProfile,
+            //   onPressed: notifier.onUpdateProfileSubmit,
+            //   textStyle: !ref.watch(updateProfileValidationProvider).isValid
+            //       ? AppTypography.semiBold16Caros(color: UIColors.gray)
+            //       : AppTypography.semiBold16Caros(color: UIColors.white),
+            //   disable: !ref.watch(updateProfileValidationProvider).isValid,
+            // ),
             SizedBox(height: 40.sp),
           ],
         ),

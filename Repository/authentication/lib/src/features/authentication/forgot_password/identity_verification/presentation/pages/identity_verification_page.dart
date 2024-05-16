@@ -79,6 +79,10 @@ class _IdentityVerificationPageState
         }
       },
     );
+
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    // !!: Do we really need this 
     return WillPopScope(
       onWillPop: () async {
         _onPressed();
@@ -102,7 +106,7 @@ class _IdentityVerificationPageState
             const _OtpField(),
             SizedBox(height: 347.h),
             OutlinedButton(
-              onPressed: !ref.watch(otpButtonStateProvider)
+              onPressed: state.status == IdentityVerificationStatus.loading
                   ? null
                   : () {
                       if (ref
@@ -114,11 +118,10 @@ class _IdentityVerificationPageState
                       }
                     },
               child: state.status == IdentityVerificationStatus.loading
-                  ? const SizedBox(
-                      height: 30,
-                      width: 30,
+                  ? Transform.scale(
+                      scale: 0.75,
                       child: CircularProgressIndicator(
-                        color: UIColors.pineGreen,
+                        color: color.primary,
                       ),
                     )
                   : const Text(
@@ -140,6 +143,8 @@ class _IdentityVerificationPageState
         .identityVerificationSubmit();
   }
 
+
+  // !!: Do we really need this?
   void _onPressed() {
     showDialog<void>(
       context: context,

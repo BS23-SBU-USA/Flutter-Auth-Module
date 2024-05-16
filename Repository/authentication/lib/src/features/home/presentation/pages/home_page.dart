@@ -71,8 +71,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ? Avatar.circleWithFullName(
                         height: 30.r,
                         width: 30.r,
-                        borderColor: UIColors.pineGreen,
-                        backgroundColor: UIColors.celeste,
+                        borderColor:color.primary,
+                        backgroundColor: color.primaryContainer,
                         nameWithLetter: name,
                       )
                     : ssoState

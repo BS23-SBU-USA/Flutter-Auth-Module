@@ -72,17 +72,19 @@ class _SignUpState extends ConsumerState<SignUpPage> {
           const TermsAndConditionCheckerBuilder(),
           SizedBox(height: 34.h),
           OutlinedButton(
-            onPressed: signUpFormState
-                ? () {
-                    if (ref
-                        .read(signUpFormKeyStateProvider.notifier)
-                        .state
-                        .currentState!
-                        .validate()) {
-                      signUpNotifier.signUp();
-                    }
-                  }
-                : null,
+            onPressed: signUpState.status == BaseStatus.loading
+                ? null
+                : signUpFormState
+                    ? () {
+                        if (ref
+                            .read(signUpFormKeyStateProvider.notifier)
+                            .state
+                            .currentState!
+                            .validate()) {
+                          signUpNotifier.signUp();
+                        }
+                      }
+                    : null,
             child: signUpState.status == BaseStatus.loading
                 ? Transform.scale(
                     scale: 0.75,

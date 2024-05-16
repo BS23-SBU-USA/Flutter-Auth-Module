@@ -92,13 +92,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
         ],
         cursorColor: color.primary,
         keyboardType: widget.keyboardType,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.1,
-          color: color.onSurface,
-          fontFamily: 'Caros',
-        ),
         onChanged: widget.onChanged,
         decoration: InputDecoration(
           prefix: widget.prefix,
@@ -111,7 +104,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
       ),
     );
   }
-
 
   IconButton _visibilityButton(EnabledPassword password) {
     return IconButton(
