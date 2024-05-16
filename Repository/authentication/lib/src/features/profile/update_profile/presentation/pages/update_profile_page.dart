@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
+import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/image_service/image_capture.dart';

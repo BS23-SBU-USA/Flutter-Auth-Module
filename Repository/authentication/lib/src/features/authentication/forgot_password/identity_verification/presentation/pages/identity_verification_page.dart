@@ -4,7 +4,7 @@ import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
-import 'package:auth_module/src/core/widgets/cutom_text_field.dart';
+import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
 import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';

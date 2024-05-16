@@ -1,67 +1,47 @@
 part of 'theme.dart';
 
-class CustomOutlinedButtonStyle {
-  static final ButtonStyle _style = ButtonStyle(
-    side:
-        const MaterialStatePropertyAll(BorderSide(color: UIColors.transparent)),
-    backgroundColor: MaterialStateProperty.resolveWith(
-      (states) {
-        if (states.contains(MaterialState.disabled) ||
-            states.contains(MaterialState.selected)) {
-          return lightColorScheme.primaryContainer;
-        } else {
-          return lightColorScheme.primary;
-        }
-      },
-    ),
-    foregroundColor: MaterialStateProperty.resolveWith(
-      (states) {
-        if (states.contains(MaterialState.disabled)) {
-          return lightColorScheme.onPrimaryContainer;
-        } else {
-          return lightColorScheme.onPrimary;
-        }
-      },
-    ),
-    textStyle: MaterialStatePropertyAll(
-      AppTypography.semiBold16Caros(),
-    ),
-    animationDuration: const Duration(milliseconds: 200),
-    minimumSize: const MaterialStatePropertyAll(
-      Size(double.infinity, 48),
-    ),
-    shape: MaterialStatePropertyAll(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-    ),
-  );
+class CustomOutlinedButtonStyle extends ButtonStyle {
+  final ColorScheme scheme;
 
-  static ButtonStyle light() {
-    return _style;
-  }
-
-  static ButtonStyle dark() {
-    return _style.copyWith(
-      backgroundColor: MaterialStateProperty.resolveWith(
-        (states) {
-          if (states.contains(MaterialState.disabled) ||
-              states.contains(MaterialState.selected)) {
-            return darkColorScheme.primaryContainer;
-          } else {
-            return darkColorScheme.primary;
-          }
-        },
-      ),
-      foregroundColor: MaterialStateProperty.resolveWith(
-        (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return darkColorScheme.onPrimaryContainer;
-          } else {
-            return darkColorScheme.onPrimary;
-          }
-        },
-      ),
-    );
-  }
+  CustomOutlinedButtonStyle({required this.scheme})
+      : super(
+          side: const MaterialStatePropertyAll(
+              BorderSide(color: UIColors.transparent)),
+          backgroundColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.disabled) ||
+                  states.contains(MaterialState.selected)) {
+                return scheme.primaryContainer;
+              } else {
+                return scheme.primary;
+              }
+            },
+          ),
+          foregroundColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.disabled)) {
+                return scheme.onPrimaryContainer;
+              } else {
+                return scheme.onPrimary;
+              }
+            },
+          ),
+          textStyle: MaterialStatePropertyAll(
+            TextStyle(
+              color: scheme.onPrimary,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              fontFamily: FontConstants.fontFamilyCaros,
+            ),
+          ),
+          animationDuration: const Duration(milliseconds: 200),
+          minimumSize: const MaterialStatePropertyAll(
+            Size(double.infinity, 48),
+          ),
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+          ),
+        );
 }

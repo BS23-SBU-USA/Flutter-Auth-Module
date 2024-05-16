@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: GlobalThemeData.lightTheme,
           darkTheme: GlobalThemeData.darkTheme,
+        
           onGenerateRoute: RouteGenerator.generateRoute,
           initialRoute: Routes.signIn,
           navigatorKey: navigatorKey,

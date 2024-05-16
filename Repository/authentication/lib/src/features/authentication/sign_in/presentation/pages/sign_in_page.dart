@@ -19,7 +19,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/widgets/cutom_text_field.dart';
+import '../../../../../core/widgets/cutom_input_field.dart';
 
 part '../widgets/remember_me_and_forget_pass_builder.dart';
 
@@ -118,9 +118,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     //     }
     //   },
     // )
-    final theme = Theme.of(context);
-    final color = theme.colorScheme;
-    final textStyle = theme.textTheme;
+  
     return ScrollableWrapper(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -162,9 +160,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             child: (state.status == BaseStatus.loading)
                 ? Transform.scale(
                     scale: 0.75,
-                    child: CircularProgressIndicator(
-                      color: color.onPrimary,
-                    ),
+                    child: const CircularProgressIndicator(),
                   )
                 : const Text(
                     TextConstants.login,

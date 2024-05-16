@@ -5,7 +5,7 @@ import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
-import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
+import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/change_password/presentation/riverpod/change_password_provider.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
@@ -39,7 +39,6 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: UIColors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: GestureDetector(
@@ -58,6 +57,10 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                       Assets.backIcon,
                       width: 8.sp,
                       height: 12.sp,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onBackground,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),

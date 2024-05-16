@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/widgets/cutom_text_field.dart';
+import '../../../../../core/widgets/cutom_input_field.dart';
 
 part '../widgets/sign_in_navigation_builder.dart';
 

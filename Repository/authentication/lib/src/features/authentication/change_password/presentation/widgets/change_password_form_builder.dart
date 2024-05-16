@@ -32,21 +32,15 @@ class _ChangePasswordFormBuilderState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InputFormField(
+              CustomInputField(
                 textEditingController: oldPasswordState,
                 labelText: TextConstants.oldPassword,
-                autocorrect: false,
                 keyboardType: TextInputType.visiblePassword,
                 validator: InputValidators.password,
-                borderType: BorderType.bottom,
-                style: AppTypography.regular16Caros(),
-                labelTextStyle: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
                 bottomMargin: 30.h,
                 password: EnabledPassword(),
               ),
-              InputFormField(
+              CustomInputField(
                 onChanged: (value) {
                   ref
                       .read(passwordValidityProvider.notifier)
@@ -55,20 +49,14 @@ class _ChangePasswordFormBuilderState
                 textEditingController: newPasswordState,
                 labelText: TextConstants.newPassword,
                 keyboardType: TextInputType.visiblePassword,
-                borderType: BorderType.bottom,
-                style: AppTypography.regular16Caros(),
-                labelTextStyle: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
                 password: EnabledPassword(),
-                autocorrect: false,
                 bottomMargin: 0,
               ),
               if (ref.watch(passwordValidityProvider).isValid)
                 Container(height: 20.h)
               else
                 const PasswordValidationBuilder(),
-              InputFormField(
+              CustomInputField(
                 textEditingController: confirmPasswordState,
                 labelText: TextConstants.confirmPassword,
                 keyboardType: TextInputType.visiblePassword,
@@ -79,13 +67,7 @@ class _ChangePasswordFormBuilderState
                     newPasswordState.text,
                   );
                 },
-                borderType: BorderType.bottom,
-                style: AppTypography.regular16Caros(),
-                labelTextStyle: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
                 bottomMargin: 30.h,
-                autocorrect: false,
               ),
               const Spacer(),
               Row(
