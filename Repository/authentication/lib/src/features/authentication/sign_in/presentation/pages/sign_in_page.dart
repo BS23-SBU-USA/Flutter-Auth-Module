@@ -115,7 +115,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         }
       });
     _textEditingControllersListenable.addListener(() {
-      _signInButtonState.value = _textEditingControllersListenable.areEmpty;
+      _signInButtonState.value = !_textEditingControllersListenable.areEmpty;
     });
 
     return ScrollableWrapper(
@@ -128,7 +128,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-            const BuildTitleAndSubtitle(
+          const BuildTitleAndSubtitle(
             titleFirstPart: TextConstants.signInTitleFirstPart,
             titleLastPart: TextConstants.signInTitleLastPart,
             subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
@@ -148,8 +148,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
               valueListenable: _signInButtonState,
               builder: (context, buttonState, child) {
                 return OutlinedButton(
-                  onPressed: (state.status == BaseStatus.loading ||
-                          buttonState == false)
+                  onPressed: (state.status.isLoading || buttonState == false)
                       ? null
                       : () {
                           if (formKey.currentState!.validate()) {
@@ -160,7 +159,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                             );
                           }
                         },
-                  child: (state.status == BaseStatus.loading)
+                  child: (state.status.isLoading)
                       ? Transform.scale(
                           scale: 0.75,
                           child: const CircularProgressIndicator(),
