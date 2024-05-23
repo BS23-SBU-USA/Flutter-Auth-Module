@@ -1,7 +1,5 @@
-import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'typography/fonts.dart';
-
 
 export 'colors.dart';
 
@@ -21,9 +19,8 @@ class GlobalThemeData {
     textSelectionTheme:
         TextSelectionThemeData(cursorColor: lightColorScheme.primary),
     inputDecorationTheme: CustomInputDecorationTheme(scheme: lightColorScheme),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      
-      style: CustomOutlinedButtonStyle(scheme: lightColorScheme),
+    filledButtonTheme: FilledButtonThemeData(
+      style: CustomFilledButtonStyle(scheme: lightColorScheme),
     ),
     appBarTheme: CustomAppBarTheme(scheme: lightColorScheme),
     fontFamily: FontConstants.fontFamilyCaros,
@@ -44,8 +41,8 @@ class GlobalThemeData {
     textSelectionTheme:
         TextSelectionThemeData(cursorColor: darkColorScheme.primary),
     inputDecorationTheme: CustomInputDecorationTheme(scheme: darkColorScheme),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: CustomOutlinedButtonStyle(scheme: darkColorScheme),
+    filledButtonTheme: FilledButtonThemeData(
+      style: CustomFilledButtonStyle(scheme: darkColorScheme),
     ),
     fontFamily: FontConstants.fontFamilyCaros,
     focusColor: darkColorScheme.primary,

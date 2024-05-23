@@ -65,7 +65,7 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
             SizedBox(height: 70.h),
             const _ResetPasswordFormBuilder(),
             SizedBox(height: 288.h),
-            OutlinedButton(
+            FilledButton(
               onPressed: isButtonEnabled ? null : onButtonPressed,
               child: state.status == SetNewPasswordStatus.loading
                   ? CircularProgressIndicator(

@@ -95,8 +95,7 @@ class TermsCheckbox extends ConsumerWidget {
         },
       ),
       onChanged: (value) {
-        ref.read(termsAndConditionCheckerProvider.notifier).state =
-            value!;
+        ref.read(termsAndConditionCheckerProvider.notifier).state = value!;
       },
     );
   }

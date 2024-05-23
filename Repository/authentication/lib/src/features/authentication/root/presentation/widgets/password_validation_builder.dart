@@ -5,20 +5,16 @@ import 'package:auth_module/src/features/authentication/root/presentation/riverp
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PasswordValidationBuilder extends ConsumerStatefulWidget {
-  const PasswordValidationBuilder({super.key});
+class PasswordValidationBuilder extends ConsumerWidget {
+  const PasswordValidationBuilder(this.controller, {super.key});
+  final TextEditingController controller;
+
 
   @override
-  ConsumerState<PasswordValidationBuilder> createState() =>
-      _PasswordValidationBuilderState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
 
-class _PasswordValidationBuilderState
-    extends ConsumerState<PasswordValidationBuilder> {
-  @override
-  Widget build(BuildContext context) {
-    final passWordValidityState = ref.watch(passwordValidityProvider);
-
+   final  state = ref.watch(passwordValidityProvider);
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Text.rich(
@@ -26,27 +22,27 @@ class _PasswordValidationBuilderState
           text: TextConstants.passwordMustBe,
           children: [
             _buildValidationTextSpan(
-              passWordValidityState.isLengthValid,
+              state.isLengthValid,
               TextConstants.eightCharacter,
             ),
             const TextSpan(text: TextConstants.lengthCombination),
             _buildValidationTextSpan(
-              passWordValidityState.hasUpper,
+              state.hasUpper,
               TextConstants.uppercase,
             ),
             const TextSpan(text: TextConstants.letter),
             _buildValidationTextSpan(
-              passWordValidityState.hasLower,
+              state.hasLower,
               TextConstants.lowercase,
             ),
             const TextSpan(text: TextConstants.letter),
             _buildValidationTextSpan(
-              passWordValidityState.hasNumber,
+              state.hasNumber,
               TextConstants.number,
             ),
             const TextSpan(text: TextConstants.and),
             _buildValidationTextSpan(
-              passWordValidityState.hasSpecialCharacter,
+              state.hasSpecialCharacter,
               TextConstants.specialCharacter,
             ),
             const TextSpan(text: TextConstants.dot),
@@ -59,6 +55,7 @@ class _PasswordValidationBuilderState
   }
 
   TextSpan _buildValidationTextSpan(bool isValid, String text) {
+    
     return TextSpan(
       text: text,
       style: AppTypography.bold12Caros(
@@ -66,4 +63,6 @@ class _PasswordValidationBuilderState
       ),
     );
   }
+
+  
 }

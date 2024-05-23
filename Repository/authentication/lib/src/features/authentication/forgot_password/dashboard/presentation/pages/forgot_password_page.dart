@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
@@ -28,6 +30,9 @@ class ForgotPasswordPage extends ConsumerStatefulWidget {
 }
 
 class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(forgotPasswordProvider);
@@ -36,18 +41,18 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
     ref.listen(
       forgotPasswordProvider,
       (_, next) {
-        if (next.status == ForgotPasswordStatus.success) {
+        if (next.status.isSuccess) {
           _navigateToIdentityVerificationPage(
               ref.read(forgotPasswordEmailStateProvider.notifier).state.text);
-        } else if (next.status == ForgotPasswordStatus.failure) {
+        } else if (next.status.isFailure) {
           ShowSnackBarMessage.showErrorSnackBar(
-            message: next.errorMessage,
+            message: next.error!,
             context: context,
           );
         }
       },
     );
-    final isButtonEnabled = !ref.watch(forgotPassButtonStateProvider);
+    
     return ScrollableWrapper(
       floatingActionButton: const BuildBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -61,31 +66,46 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
             subtitleLastPart: TextConstants.dashboardSubtitleLastPart,
           ),
           SizedBox(height: 70.h),
-          const _EmailField(),
-          SizedBox(height: 347.h),
-          OutlinedButton(
-            onPressed: state.status == ForgotPasswordStatus.loading
-                ? null
-                : () {
-                    if (ref
-                        .read(forgotPasswordFormKeyStateProvider.notifier)
-                        .state
-                        .currentState!
-                        .validate()) {
-                      notifier.forgotPasswordSubmit();
-                    }
-                  },
-            child: state.status == ForgotPasswordStatus.loading
-                ? Transform.scale(
-                    scale: 0.75,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  )
-                : const Text(
-                    TextConstants.submit,
-                  ),
+          Form(
+            child: TextFormField(
+              controller: emailController,
+              validator: InputValidators.email,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                labelText: TextConstants.yourEmail,
+              ),
+            ),
           ),
+          SizedBox(height: 347.h),
+          StatefulBuilder(builder: (context, reload) {
+            emailController.addListener(() {
+              if (emailController.text.isNotEmpty ||
+                  emailController.text.isEmpty) {
+                reload(() {});
+              }
+            });
+            return FilledButton(
+              onPressed: state.status.isLoading || emailController.text.isEmpty
+                  ? null
+                  : () {
+                      if (formKey.currentState!.validate()) {
+                        notifier.forgotPasswordSubmit(
+                          emailController.text,
+                        );
+                      }
+                    },
+              child: state.status.isLoading
+                  ? Transform.scale(
+                      scale: 0.75,
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    )
+                  : const Text(
+                      TextConstants.submit,
+                    ),
+            );
+          }),
           SizedBox(height: 16.h),
           const _SignInNavigationBuilder(),
         ],

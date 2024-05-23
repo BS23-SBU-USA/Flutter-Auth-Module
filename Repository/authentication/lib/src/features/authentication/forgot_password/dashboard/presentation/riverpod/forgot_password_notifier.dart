@@ -1,3 +1,4 @@
+import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
@@ -8,26 +9,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 part 'forgot_password_state.dart';
 
 final forgotPasswordProvider =
-    AutoDisposeNotifierProvider<ForgotPasswordNotifier, ForgotPasswordState>(
+    AutoDisposeNotifierProvider<ForgotPasswordNotifier, BaseState>(
   ForgotPasswordNotifier.new,
   name: 'forgotPasswordProvider',
 );
 
-class ForgotPasswordNotifier extends AutoDisposeNotifier<ForgotPasswordState> {
+class ForgotPasswordNotifier extends AutoDisposeNotifier<BaseState> {
   late ForgotPasswordUseCase useCase;
 
   @override
-  ForgotPasswordState build() {
+  BaseState build() {
     useCase = ref.read(forgotPasswordUseCaseProvider);
-    return const ForgotPasswordState();
+    return const BaseState();
   }
 
-  Future<void> forgotPasswordSubmit() async {
+  Future<void> forgotPasswordSubmit(
+    String email,
+  ) async {
     try {
-      state = state.copyWith(status: ForgotPasswordStatus.loading);
+      state = state.copyWith(status: BaseStatus.loading);
 
       final requestBody = <String, dynamic>{
-        'email': ref.read(forgotPasswordEmailStateProvider.notifier).state.text,
+        'email': email,
       };
 
       final response = await useCase.call(
@@ -37,19 +40,19 @@ class ForgotPasswordNotifier extends AutoDisposeNotifier<ForgotPasswordState> {
 
       if (response.$1.isEmpty) {
         state = state.copyWith(
-          status: ForgotPasswordStatus.success,
+          status: BaseStatus.success,
         );
       } else {
         state = state.copyWith(
-          status: ForgotPasswordStatus.failure,
-          errorMessage: response.$1,
+          status: BaseStatus.failure,
+          error: response.$1,
         );
       }
     } catch (e, stackTrace) {
       Log.debug(stackTrace.toString());
       state = state.copyWith(
-        status: ForgotPasswordStatus.failure,
-        errorMessage: e.toString(),
+        status: BaseStatus.failure,
+        error: e.toString(),
       );
     }
   }

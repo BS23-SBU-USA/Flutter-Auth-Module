@@ -70,7 +70,7 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
             const SizedBox(height: 15),
             const UpdateProfileFormBuilder(),
             const Spacer(),
-            OutlinedButton(
+            FilledButton(
               onPressed: state.status.isLoading
                   ? null
                   : notifier.onUpdateProfileSubmit,

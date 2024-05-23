@@ -22,10 +22,10 @@ class _ResetPasswordFormBuilder extends ConsumerWidget {
             password: EnabledPassword(),
             bottomMargin: 0,
           ),
-          if (ref.watch(passwordValidityProvider).isValid)
-            Container(height: 20.h)
-          else
-            const PasswordValidationBuilder(),
+          // if (ref.watch(passwordValidityProvider).isValid)
+          //   Container(height: 20.h)
+          // else
+          //   const PasswordValidationBuilder(),
           CustomInputField(
             textEditingController:
                 ref.read(setConfirmPasswordStateProvider.notifier).state,

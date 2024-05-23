@@ -59,7 +59,7 @@ class _SuccessPageState extends State<SuccessPage> {
                   style: text.bodyMedium,
                 ),
                 SizedBox(height: 30.h),
-                OutlinedButton(
+                FilledButton(
                     onPressed: _navigateToSignInPage,
                     child: const Text(TextConstants.login)),
               ],

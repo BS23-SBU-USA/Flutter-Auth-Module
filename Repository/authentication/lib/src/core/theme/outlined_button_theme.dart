@@ -1,12 +1,11 @@
 part of 'theme.dart';
 
-class CustomOutlinedButtonStyle extends ButtonStyle {
+class CustomFilledButtonStyle extends ButtonStyle {
   final ColorScheme scheme;
 
-  CustomOutlinedButtonStyle({required this.scheme})
+  CustomFilledButtonStyle({required this.scheme})
       : super(
-          side: const MaterialStatePropertyAll(
-              BorderSide(color: UIColors.transparent)),
+          
           backgroundColor: MaterialStateProperty.resolveWith(
             (states) {
               if (states.contains(MaterialState.disabled) ||

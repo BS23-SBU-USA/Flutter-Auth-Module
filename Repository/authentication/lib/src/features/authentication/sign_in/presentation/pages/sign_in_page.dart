@@ -9,6 +9,7 @@ import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/widgets/password_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
@@ -84,20 +85,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    //final buttonState = ref.watch(buttonStateProvider);
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
-
-    // if (state.status == BaseStatus.loading) {
-    //   _signInButtonStateController.update(MaterialState.selected, true);
-    // } else {
-    //   _signInButtonStateController.update(MaterialState.selected, false);
-    // }
-    // if (buttonState) {
-    //   _signInButtonStateController.update(MaterialState.disabled, false);
-    // } else {
-    //   _signInButtonStateController.update(MaterialState.disabled, true);
-    // }
     ref
       ..listen(isUserLoggedInProvider, (_, next) {
         if (next) {
@@ -105,15 +94,16 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         }
       })
       ..listen(signInProvider, (previous, next) {
-        if (next.status == BaseStatus.failure) {
+        if (next.status.isFailure) {
           ShowSnackBarMessage.showErrorSnackBar(
             message: next.error!,
             context: context,
           );
-        } else if (next.status == BaseStatus.success) {
+        } else if (next.status.isSuccess) {
           navigateToDashboardPage();
         }
       });
+
     _textEditingControllersListenable.addListener(() {
       _signInButtonState.value = !_textEditingControllersListenable.areEmpty;
     });
@@ -147,7 +137,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           ValueListenableBuilder(
               valueListenable: _signInButtonState,
               builder: (context, buttonState, child) {
-                return OutlinedButton(
+                return FilledButton(
                   onPressed: (state.status.isLoading || buttonState == false)
                       ? null
                       : () {

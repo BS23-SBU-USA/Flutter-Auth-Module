@@ -82,7 +82,7 @@ class _IdentityVerificationPageState
 
     final theme = Theme.of(context);
     final color = theme.colorScheme;
-    // !!: Do we really need this 
+    // !!: Do we really need this
     return WillPopScope(
       onWillPop: () async {
         _onPressed();
@@ -105,7 +105,7 @@ class _IdentityVerificationPageState
             SizedBox(height: 70.h),
             const _OtpField(),
             SizedBox(height: 347.h),
-            OutlinedButton(
+            FilledButton(
               onPressed: state.status == IdentityVerificationStatus.loading
                   ? null
                   : () {
@@ -142,7 +142,6 @@ class _IdentityVerificationPageState
         .read(identityVerificationProvider.notifier)
         .identityVerificationSubmit();
   }
-
 
   // !!: Do we really need this?
   void _onPressed() {

@@ -1,11 +1,12 @@
+import 'dart:developer';
+
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
+import 'package:auth_module/src/core/utils/formatter/first_letter_upper_case.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/widgets/password_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_back_button.dart';
@@ -15,10 +16,9 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:auth_module/src/features/authentication/sign_up/presentation/riverpod/sign_up_providers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../core/widgets/cutom_input_field.dart';
 
 part '../widgets/sign_in_navigation_builder.dart';
 
@@ -34,21 +34,30 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpState extends ConsumerState<SignUpPage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     final signUpFormState = ref.watch(signUpFormValidationProvider);
     final signUpState = ref.watch(signUpProvider);
     final signUpNotifier = ref.read(signUpProvider.notifier);
 
+    log('signUpFormState: $signUpFormState');
+
     ref.listen(
       signUpProvider,
       (previous, next) {
-        if (next.status == BaseStatus.failure) {
+        if (next.status.isFailure) {
           ShowSnackBarMessage.showErrorSnackBar(
             message: next.error!,
             context: context,
           );
-        } else if (next.status == BaseStatus.success) {
+        } else if (next.status.isSuccess) {
           _navigateToIdentityVerificationPage();
         }
       },
@@ -67,25 +76,30 @@ class _SignUpState extends ConsumerState<SignUpPage> {
             subtitleLastPart: TextConstants.signUpSubtitleLastPart,
           ),
           SizedBox(height: 60.h),
-          const SignUpFormBuilder(),
+          Form(
+            key: formKey,
+            child: SignUpFormBuilder(
+              firstNameController: _firstNameController,
+              lastNameController: _lastNameController,
+              emailController: _emailController,
+              passwordController: _passwordController,
+              confirmPasswordController: _confirmPasswordController,
+            ),
+          ),
           SizedBox(height: 10.h),
           const TermsAndConditionCheckerBuilder(),
           SizedBox(height: 34.h),
-          OutlinedButton(
-            onPressed: signUpState.status == BaseStatus.loading
+          FilledButton(
+            onPressed: signUpState.status.isLoading
                 ? null
                 : signUpFormState
                     ? () {
-                        if (ref
-                            .read(signUpFormKeyStateProvider.notifier)
-                            .state
-                            .currentState!
-                            .validate()) {
+                        if (formKey.currentState!.validate()) {
                           signUpNotifier.signUp();
                         }
                       }
                     : null,
-            child: signUpState.status == BaseStatus.loading
+            child: signUpState.status.isLoading
                 ? Transform.scale(
                     scale: 0.75,
                     child: CircularProgressIndicator(
@@ -96,23 +110,6 @@ class _SignUpState extends ConsumerState<SignUpPage> {
                     TextConstants.createAnAccount,
                   ),
           ),
-          // Button(
-          //   onPressed: () {
-          //     if (ref
-          //         .read(signUpFormKeyStateProvider.notifier)
-          //         .state
-          //         .currentState!
-          //         .validate()) {
-          //       signUpNotifier.signUp();
-          //     }
-          //   },
-          //   isLoading: signUpState.status == BaseStatus.loading,
-          //   label: TextConstants.createAnAccount,
-          //   textStyle: !signUpFormState
-          //       ? AppTypography.semiBold16Caros(color: UIColors.gray)
-          //       : AppTypography.semiBold16Caros(color: UIColors.white),
-          //   disable: !signUpFormState,
-          // ),
           SizedBox(height: 16.h),
           const _SignInNavigationBuilder(),
           SizedBox(height: 37.h),

@@ -52,10 +52,10 @@ class _ChangePasswordFormBuilderState
                 password: EnabledPassword(),
                 bottomMargin: 0,
               ),
-              if (ref.watch(passwordValidityProvider).isValid)
-                Container(height: 20.h)
-              else
-                const PasswordValidationBuilder(),
+              // if (ref.watch(passwordValidityProvider).isValid)
+              //   Container(height: 20.h)
+              // else
+              //   const PasswordValidationBuilder(),
               CustomInputField(
                 textEditingController: confirmPasswordState,
                 labelText: TextConstants.confirmPassword,
@@ -70,7 +70,7 @@ class _ChangePasswordFormBuilderState
                 bottomMargin: 30.h,
               ),
               const Spacer(),
-              OutlinedButton(
+              FilledButton(
                 onPressed: state.status == ChangePasswordStatus.loading
                     ? null
                     : () {
