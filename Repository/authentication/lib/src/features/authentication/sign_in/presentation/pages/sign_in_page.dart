@@ -13,8 +13,10 @@ import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
+import 'package:auth_module/src/core/notifiers/text_edtitting_controller_listener.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,15 +41,20 @@ class SignInPage extends ConsumerStatefulWidget {
 }
 
 class _SignInPageState extends ConsumerState<SignInPage> {
-  late MaterialStatesController _signInButtonStateController;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late TextEditingControllersListenable _textEditingControllersListenable;
+  final ValueNotifier<bool> _signInButtonState = ValueNotifier(false);
   bool _rememberMe = false;
   @override
   void initState() {
     super.initState();
-    _signInButtonStateController = MaterialStatesController();
+    _textEditingControllersListenable =
+        TextEditingControllersListenable(controllers: [
+      _emailController,
+      _passwordController,
+    ]);
     getData();
     Future(() {
       ref.read(signInProvider.notifier).decideNextRoute();
@@ -68,8 +75,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    _signInButtonStateController.dispose();
+    _textEditingControllersListenable.dispose();
+    _signInButtonState.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -79,11 +88,11 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     final state = ref.watch(signInProvider);
     final notifier = ref.read(signInProvider.notifier);
 
-    if (state.status == BaseStatus.loading) {
-      _signInButtonStateController.update(MaterialState.selected, true);
-    } else {
-      _signInButtonStateController.update(MaterialState.selected, false);
-    }
+    // if (state.status == BaseStatus.loading) {
+    //   _signInButtonStateController.update(MaterialState.selected, true);
+    // } else {
+    //   _signInButtonStateController.update(MaterialState.selected, false);
+    // }
     // if (buttonState) {
     //   _signInButtonStateController.update(MaterialState.disabled, false);
     // } else {
@@ -105,20 +114,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           navigateToDashboardPage();
         }
       });
-    // ..listen(
-    //   signInProvider,
-    //   (previous, next) {
-    //     if (next.status == BaseStatus.failure) {
-    //       ShowSnackBarMessage.showErrorSnackBar(
-    //         message: next.error!,
-    //         context: context,
-    //       );
-    //     } else if (next.status == BaseStatus.success) {
-    //       navigateToDashboardPage();
-    //     }
-    //   },
-    // )
-  
+    _textEditingControllersListenable.addListener(() {
+      _signInButtonState.value = _textEditingControllersListenable.areEmpty;
+    });
+
     return ScrollableWrapper(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -129,7 +128,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BuildTitleAndSubtitle(
+            const BuildTitleAndSubtitle(
             titleFirstPart: TextConstants.signInTitleFirstPart,
             titleLastPart: TextConstants.signInTitleLastPart,
             subtitleFirstPart: TextConstants.signInSubtitleFirstPart,
@@ -145,50 +144,32 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           ),
           const _RememberMeAndForgetPassBuilder(),
           SizedBox(height: 177.h),
-          OutlinedButton(
-            statesController: _signInButtonStateController,
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-
-                notifier.signIn(
-                  email: _emailController.text,
-                  password: _passwordController.text,
+          ValueListenableBuilder(
+              valueListenable: _signInButtonState,
+              builder: (context, buttonState, child) {
+                return OutlinedButton(
+                  onPressed: (state.status == BaseStatus.loading ||
+                          buttonState == false)
+                      ? null
+                      : () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            notifier.signIn(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
+                          }
+                        },
+                  child: (state.status == BaseStatus.loading)
+                      ? Transform.scale(
+                          scale: 0.75,
+                          child: const CircularProgressIndicator(),
+                        )
+                      : const Text(
+                          TextConstants.login,
+                        ),
                 );
-              }
-            },
-            child: (state.status == BaseStatus.loading)
-                ? Transform.scale(
-                    scale: 0.75,
-                    child: const CircularProgressIndicator(),
-                  )
-                : const Text(
-                    TextConstants.login,
-                  ),
-          ),
-          // SizedBox(
-          //   height: 20,
-          // ),
-          // Button(
-          //   onPressed: () {
-          //     if (formKey.currentState!.validate()) {
-          //       formKey.currentState!.save();
-          //       final email = _email;
-          //       final password = _password;
-          //       log(email + " " + password);
-          //       notifier.signIn(
-          //         email: email,
-          //         password: password,
-          //       );
-          //     }
-          //   },
-          //   isLoading: state.status == BaseStatus.loading,
-          //   label: TextConstants.login,
-          //   textStyle: !buttonState
-          //       ? AppTypography.semiBold16Caros(color: UIColors.gray)
-          //       : AppTypography.semiBold16Caros(color: UIColors.white),
-          //   disable: !buttonState,
-          // ),
+              }),
           SizedBox(height: 16.h),
           const _SignUpNavigationBuilder(),
         ],
