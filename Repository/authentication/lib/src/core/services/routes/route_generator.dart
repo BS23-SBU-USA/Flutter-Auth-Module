@@ -47,8 +47,11 @@ class RouteGenerator {
         );
 
       case Routes.resetPassword:
+
         return MaterialPageRoute(
-          builder: (_) => const SetNewPasswordPage(),
+          builder: (_) => SetNewPasswordPage(
+            email: routeSettings.arguments! as String,
+          ),
         );
 
       case Routes.changePassword:
@@ -65,6 +68,7 @@ class RouteGenerator {
         final arguments = routeSettings.arguments! as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => IdentityVerificationPage(
+            email: arguments['email'] as String,
             isFromSignUp: arguments['isFromSignUp'] as bool,
           ),
         );

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
@@ -17,6 +18,7 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:auth_module/src/features/authentication/sign_in/presentation/model/user_model.dart';
 import 'package:auth_module/src/features/authentication/sign_up/presentation/riverpod/sign_up_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,10 +28,10 @@ class IdentityVerificationPage extends ConsumerStatefulWidget {
   const IdentityVerificationPage({
     required this.isFromSignUp,
     super.key,
-    this.user,
+    required this.email,
   });
 
-  final UserModel? user;
+  final String email;
   final bool isFromSignUp;
 
   @override
@@ -40,20 +42,11 @@ class IdentityVerificationPage extends ConsumerStatefulWidget {
 class _IdentityVerificationPageState
     extends ConsumerState<IdentityVerificationPage> {
   bool isButtonEnabled = false;
-
+  final TextEditingController _otpController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    var email = ref.read(forgotPasswordEmailStateProvider.notifier).state.text;
-
-    if (email.isEmpty) {
-      email = ref.read(signUpEmailStateProvider.notifier).state.text;
-    }
-
     ref.read(otpStateProvider.notifier).state.clear();
-
-    ref
-        .read(identityVerificationProvider.notifier)
-        .identityVerificationInitial(email: email);
 
     super.initState();
   }
@@ -103,31 +96,47 @@ class _IdentityVerificationPageState
                   TextConstants.identityVerificationSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
-            const _OtpField(),
-            SizedBox(height: 347.h),
-            FilledButton(
-              onPressed: state.status == IdentityVerificationStatus.loading
-                  ? null
-                  : () {
-                      if (ref
-                          .read(otpFormKeyStateProvider.notifier)
-                          .state
-                          .currentState!
-                          .validate()) {
-                        onButtonPressed(state, context);
-                      }
-                    },
-              child: state.status == IdentityVerificationStatus.loading
-                  ? Transform.scale(
-                      scale: 0.75,
-                      child: CircularProgressIndicator(
-                        color: color.primary,
-                      ),
-                    )
-                  : const Text(
-                      TextConstants.submit,
-                    ),
+            Form(
+              key: _formKey,
+              child: TextFormField(
+                controller: _otpController,
+                keyboardType: TextInputType.number,
+                validator: InputValidators.otp,
+                decoration: const InputDecoration(
+                  labelText: TextConstants.yourCode,
+                ),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(6),
+                ],
+              ),
             ),
+            SizedBox(height: 347.h),
+            StatefulBuilder(builder: (context, reload) {
+              _otpController.addListener(() {
+                if (_otpController.text.length > 4) {
+                  reload(() {});
+                }
+              });
+              return FilledButton(
+                onPressed: state.isLoading || _otpController.text.length < 6
+                    ? null
+                    : () {
+                        if (_formKey.currentState!.validate()) {
+                          onButtonPressed(state, context);
+                        }
+                      },
+                child: state.isLoading
+                    ? Transform.scale(
+                        scale: 0.75,
+                        child: CircularProgressIndicator(
+                          color: color.primary,
+                        ),
+                      )
+                    : const Text(
+                        TextConstants.submit,
+                      ),
+              );
+            }),
             SizedBox(height: 16.h),
             const CountdownTimer(),
           ],
@@ -137,10 +146,12 @@ class _IdentityVerificationPageState
   }
 
   void onButtonPressed(IdentityVerificationState state, BuildContext context) {
+    log("email: ${widget.email}");
     FocusScope.of(context).unfocus();
-    ref
-        .read(identityVerificationProvider.notifier)
-        .identityVerificationSubmit();
+    ref.read(identityVerificationProvider.notifier).identityVerificationSubmit(
+          email: widget.email,
+          otp: _otpController.text,
+        );
   }
 
   // !!: Do we really need this?
@@ -189,6 +200,7 @@ class _IdentityVerificationPageState
     Navigator.pushNamed(
       context,
       Routes.resetPassword,
+      arguments: widget.email,
     );
   }
 }

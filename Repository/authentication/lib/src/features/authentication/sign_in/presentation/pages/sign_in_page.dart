@@ -105,7 +105,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       });
 
     _textEditingControllersListenable.addListener(() {
-      _signInButtonState.value = !_textEditingControllersListenable.areEmpty;
+      _signInButtonState.value = !_textEditingControllersListenable.areNotEmpty;
     });
 
     return ScrollableWrapper(

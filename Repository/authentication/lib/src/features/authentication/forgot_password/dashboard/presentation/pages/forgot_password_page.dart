@@ -67,6 +67,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           ),
           SizedBox(height: 70.h),
           Form(
+            key: formKey,
             child: TextFormField(
               controller: emailController,
               validator: InputValidators.email,
@@ -117,8 +118,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (_) => const IdentityVerificationPage(
+        builder: (_) =>  IdentityVerificationPage(
           isFromSignUp: false,
+          email: emailController.text,
         ),
       ),
     );

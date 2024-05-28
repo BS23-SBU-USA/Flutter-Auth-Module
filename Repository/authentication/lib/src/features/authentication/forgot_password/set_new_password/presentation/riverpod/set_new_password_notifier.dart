@@ -26,14 +26,17 @@ class SetNewPasswordNotifier extends AutoDisposeNotifier<SetNewPasswordState> {
     return const SetNewPasswordState();
   }
 
-  Future<void> newPasswordSubmit() async {
+  Future<void> newPasswordSubmit({
+    required String email,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
     state = state.copyWith(status: SetNewPasswordStatus.loading);
 
     final requestBody = <String, dynamic>{
-      'email': ref.read(forgotPasswordEmailStateProvider.notifier).state.text,
-      'password': ref.read(setNewPasswordStateProvider.notifier).state.text,
-      'confirmPassword':
-          ref.read(setConfirmPasswordStateProvider.notifier).state.text,
+      'email': email,
+      'password': newPassword,
+      'confirmPassword': confirmPassword,
     };
 
     final response = await useCase.call(

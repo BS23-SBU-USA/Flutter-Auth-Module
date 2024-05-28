@@ -28,19 +28,16 @@ class IdentityVerificationNotifier extends Notifier<IdentityVerificationState> {
     return const IdentityVerificationState();
   }
 
-  Future<void> identityVerificationInitial({required String email}) async {
-    state = state.copyWith(
-      status: IdentityVerificationStatus.initial,
-      email: email,
-    );
-  }
 
-  Future<void> identityVerificationSubmit() async {
+  Future<void> identityVerificationSubmit({
+    required String email,
+    required String otp,
+  }) async {
     state = state.copyWith(status: IdentityVerificationStatus.loading);
     try {
       final requestBody = <String, dynamic>{
-        'email': state.email,
-        'otp': ref.read(otpStateProvider.notifier).state.text,
+        'email': email,
+        'otp': otp,
       };
 
       final response = await identityVerificationUseCase.call(

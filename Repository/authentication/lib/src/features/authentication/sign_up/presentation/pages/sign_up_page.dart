@@ -124,7 +124,7 @@ class _SignUpState extends ConsumerState<SignUpPage> {
       Routes.identityVerification,
       arguments: {
         'isFromSignUp': true,
-        'email': ref.read(signUpEmailStateProvider.notifier).state.text,
+        'email': _emailController.text,
       },
     );
   }

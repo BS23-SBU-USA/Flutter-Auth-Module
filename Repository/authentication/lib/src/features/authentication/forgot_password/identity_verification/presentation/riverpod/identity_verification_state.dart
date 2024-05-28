@@ -10,6 +10,15 @@ class IdentityVerificationState extends Equatable {
     this.errorMessage = '',
   });
 
+
+  get isInitial => status == IdentityVerificationStatus.initial;
+
+  get isLoading => status == IdentityVerificationStatus.loading;
+
+  get isSuccess => status == IdentityVerificationStatus.success;
+
+  get isFailure => status == IdentityVerificationStatus.failure;
+
   final IdentityVerificationStatus status;
   final String email;
   final String otp;
@@ -28,6 +37,8 @@ class IdentityVerificationState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
+
+
 
   @override
   List<Object?> get props => [

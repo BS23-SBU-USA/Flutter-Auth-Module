@@ -11,7 +11,8 @@ class TextEditingControllersListenable extends ChangeNotifier {
     }
   }
 
-  bool get areEmpty => controllers.any((controller) => controller.text.isEmpty);
+  bool get areNotEmpty =>
+      controllers.any((controller) => controller.text.isEmpty);
 
   void _onControllerChanged() {
     notifyListeners();
