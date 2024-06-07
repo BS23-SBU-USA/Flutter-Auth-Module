@@ -9,17 +9,18 @@ class ChangePasswordNotifier extends AutoDisposeNotifier<ChangePasswordState> {
     return const ChangePasswordState();
   }
 
-  Future<void> changePassword() async {
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
     try {
       state = state.copyWith(status: ChangePasswordStatus.loading);
 
       final requestBody = <String, dynamic>{
-        'oldPassword':
-            ref.read(changedOldPasswordStateProvider.notifier).state.text,
-        'newPassword':
-            ref.read(changedNewPasswordStateProvider.notifier).state.text,
-        'confirmNewPassword':
-            ref.read(changedConfirmPasswordStateProvider.notifier).state.text,
+        'oldPassword': oldPassword,
+        'newPassword': newPassword,
+        'confirmNewPassword': confirmPassword,
       };
 
       final response = await useCase.call(

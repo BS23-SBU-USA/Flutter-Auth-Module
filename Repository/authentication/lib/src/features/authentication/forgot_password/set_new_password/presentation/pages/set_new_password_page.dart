@@ -85,7 +85,7 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
               child: Column(
                 children: [
                   PasswordField(controller: _passwordController),
-                  if (!isValid) PasswordValidationBuilder(_passwordController),
+                  if (!isValid) const PasswordValidationBuilder(),
                   PasswordField.confirm(
                       controller: _confirmPasswordController,
                       passwordController: _passwordController),

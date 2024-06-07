@@ -118,17 +118,15 @@ class _SignUpState extends ConsumerState<SignUpPage> {
           SizedBox(height: 34.h),
           ValueListenableBuilder(
               valueListenable: _signUpButtonState,
-              builder: (context, buttonState, child) {
+              builder: (context, disable, child) {
                 return FilledButton(
-                  onPressed: signUpState.status.isLoading || buttonState
+                  onPressed: signUpState.status.isLoading || disable
                       ? null
-                      : signUpFormState
-                          ? () {
-                              if (formKey.currentState!.validate()) {
-                                signUpNotifier.signUp();
-                              }
-                            }
-                          : null,
+                      : () {
+                          if (formKey.currentState!.validate()) {
+                            signUpNotifier.signUp();
+                          }
+                        },
                   child: signUpState.status.isLoading
                       ? Transform.scale(
                           scale: 0.75,

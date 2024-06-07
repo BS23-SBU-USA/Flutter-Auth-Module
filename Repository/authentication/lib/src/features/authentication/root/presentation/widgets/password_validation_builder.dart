@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PasswordValidationBuilder extends ConsumerWidget {
-  const PasswordValidationBuilder(this.controller, {super.key});
-  final TextEditingController controller;
+  const PasswordValidationBuilder({super.key});
+
 
 
   @override

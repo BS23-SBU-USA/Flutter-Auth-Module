@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PasswordField extends ConsumerWidget {
   PasswordField({
     super.key,
+    this.labelText = TextConstants.password,
     required this.controller,
   })  : passwordController = null,
         isConfirmField = false;
@@ -14,22 +15,18 @@ class PasswordField extends ConsumerWidget {
   PasswordField.confirm({
     super.key,
     required this.controller,
+    this.labelText = TextConstants.confirmPassword,
     required this.passwordController,
   }) : isConfirmField = true;
 
   final bool isConfirmField;
+  final String labelText;
   final TextEditingController? passwordController;
   final TextEditingController controller;
   final ValueNotifier<bool> visibility = ValueNotifier<bool>(true);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (!isConfirmField) {
-      controller.addListener(() {
-        ref
-            .read(passwordValidityProvider.notifier)
-            .updateValidationVariables(controller.text);
-      });
-    }
+    _updatePasswordValidity(ref);
     return ValueListenableBuilder<bool>(
       valueListenable: visibility,
       builder: (context, value, child) {
@@ -44,9 +41,7 @@ class PasswordField extends ConsumerWidget {
           keyboardType: TextInputType.visiblePassword,
           obscureText: value,
           decoration: InputDecoration(
-            labelText: isConfirmField
-                ? TextConstants.confirmPassword
-                : TextConstants.password,
+            labelText: labelText,
             suffixIcon: IconButton(
               onPressed: () {
                 visibility.value = !value;
@@ -66,5 +61,15 @@ class PasswordField extends ConsumerWidget {
         );
       },
     );
+  }
+
+  void _updatePasswordValidity(WidgetRef ref) {
+    if (!isConfirmField) {
+      controller.addListener(() {
+        ref
+            .read(passwordValidityProvider.notifier)
+            .updateValidationVariables(controller.text);
+      });
+    }
   }
 }

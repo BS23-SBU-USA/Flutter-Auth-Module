@@ -6,6 +6,7 @@ import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
+import 'package:auth_module/src/core/widgets/password_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/change_password/presentation/riverpod/change_password_provider.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
@@ -15,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../../core/notifiers/text_edtitting_controller_listener.dart';
 
 part '../widgets/change_password_form_builder.dart';
 
@@ -26,8 +29,40 @@ class ChangePasswordPage extends ConsumerStatefulWidget {
 }
 
 class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
+  late TextEditingControllersListenable _textEditingControllersListenable;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController currentPasswordController =
+      TextEditingController();
+
+  final TextEditingController newPasswordController = TextEditingController();
+
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  final ValueNotifier<bool> _buttonState = ValueNotifier(true);
+
+  @override
+  void initState() {
+    _textEditingControllersListenable = TextEditingControllersListenable(
+      controllers: [
+        currentPasswordController,
+        newPasswordController,
+        confirmPasswordController,
+      ],
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textEditingControllersListenable.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(changePasswordProvider);
     ref.listen(changePasswordProvider, (_, next) {
       if (next.status == ChangePasswordStatus.success) {
         _onSuccess(context);
@@ -35,6 +70,10 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
         _onError(next, context);
       }
     });
+
+    _textEditingControllersListenable.addListener(
+      () => _buttonState.value = _textEditingControllersListenable.areNotEmpty,
+    );
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -69,19 +108,66 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
           ),
           automaticallyImplyLeading: false,
         ),
-        body: Column(
-          children: [
-            SizedBox(height: 60.sp),
-            const BuildTitleAndSubtitle(
-              titleFirstPart: TextConstants.changePasswordTitleFirstPart,
-              titleLastPart: TextConstants.changePasswordTitleLastPart,
-              subtitleFirstPart: TextConstants.changePasswordSubtitleFirstPart,
-              subtitleLastPart: TextConstants.changePasswordSubtitleLastPart,
-            ),
-            SizedBox(height: 70.sp),
-            const ChangePasswordFormBuilder(),
-            SizedBox(height: 40.sp),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          child: Column(
+            children: [
+              SizedBox(height: 60.sp),
+              const BuildTitleAndSubtitle(
+                titleFirstPart: TextConstants.changePasswordTitleFirstPart,
+                titleLastPart: TextConstants.changePasswordTitleLastPart,
+                subtitleFirstPart:
+                    TextConstants.changePasswordSubtitleFirstPart,
+                subtitleLastPart: TextConstants.changePasswordSubtitleLastPart,
+              ),
+              SizedBox(height: 70.sp),
+              Form(
+                key: _formKey,
+                child: ChangePasswordFormBuilder(
+                  oldPasswordController: currentPasswordController,
+                  newPasswordController: newPasswordController,
+                  confirmPasswordController: confirmPasswordController,
+                ),
+              ),
+              ValueListenableBuilder(
+                  valueListenable: _buttonState,
+                  builder: (context, disable, child) {
+                    return FilledButton(
+                      onPressed: state.status == ChangePasswordStatus.loading ||
+                              disable
+                          ? null
+                          : () {
+                              if (_formKey.currentState!.validate()) {
+                                ref
+                                    .read(changePasswordProvider.notifier)
+                                    .changePassword(
+                                      oldPassword:
+                                          currentPasswordController.text.trim(),
+                                      newPassword:
+                                          newPasswordController.text.trim(),
+                                      confirmPassword:
+                                          confirmPasswordController.text.trim(),
+                                    );
+                              } else {
+                                ShowSnackBarMessage.showErrorSnackBar(
+                                  message:
+                                      TextConstants.passwordFieldsNotMatched,
+                                  context: context,
+                                );
+                              }
+                            },
+                      child: state.status == ChangePasswordStatus.loading
+                          ? Transform.scale(
+                              scale: 0.75,
+                              child: const CircularProgressIndicator(),
+                            )
+                          : const Text(
+                              TextConstants.changePassword,
+                            ),
+                    );
+                  }),
+            ],
+          ),
         ),
       ),
     );
