@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auth_module/src/core/base/state.dart';
+import 'package:auth_module/src/core/notifiers/text_edtitting_controller_listener.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/utils/formatter/first_letter_upper_case.dart';
@@ -34,6 +35,7 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpState extends ConsumerState<SignUpPage> {
+  late TextEditingControllersListenable _textEditingControllersListenable;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -41,13 +43,33 @@ class _SignUpState extends ConsumerState<SignUpPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final ValueNotifier<bool> _signUpButtonState = ValueNotifier(false);
+
+  @override
+  void initState() {
+    _textEditingControllersListenable = TextEditingControllersListenable(
+      controllers: [
+        _firstNameController,
+        _lastNameController,
+        _emailController,
+        _passwordController,
+        _confirmPasswordController,
+      ],
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textEditingControllersListenable.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final signUpFormState = ref.watch(signUpFormValidationProvider);
     final signUpState = ref.watch(signUpProvider);
     final signUpNotifier = ref.read(signUpProvider.notifier);
-
-    log('signUpFormState: $signUpFormState');
 
     ref.listen(
       signUpProvider,
@@ -61,6 +83,11 @@ class _SignUpState extends ConsumerState<SignUpPage> {
           _navigateToIdentityVerificationPage();
         }
       },
+    );
+
+    _textEditingControllersListenable.addListener(
+      () => _signUpButtonState.value =
+          _textEditingControllersListenable.areNotEmpty,
     );
 
     return ScrollableWrapper(
@@ -89,27 +116,31 @@ class _SignUpState extends ConsumerState<SignUpPage> {
           SizedBox(height: 10.h),
           const TermsAndConditionCheckerBuilder(),
           SizedBox(height: 34.h),
-          FilledButton(
-            onPressed: signUpState.status.isLoading
-                ? null
-                : signUpFormState
-                    ? () {
-                        if (formKey.currentState!.validate()) {
-                          signUpNotifier.signUp();
-                        }
-                      }
-                    : null,
-            child: signUpState.status.isLoading
-                ? Transform.scale(
-                    scale: 0.75,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  )
-                : const Text(
-                    TextConstants.createAnAccount,
-                  ),
-          ),
+          ValueListenableBuilder(
+              valueListenable: _signUpButtonState,
+              builder: (context, buttonState, child) {
+                return FilledButton(
+                  onPressed: signUpState.status.isLoading || buttonState
+                      ? null
+                      : signUpFormState
+                          ? () {
+                              if (formKey.currentState!.validate()) {
+                                signUpNotifier.signUp();
+                              }
+                            }
+                          : null,
+                  child: signUpState.status.isLoading
+                      ? Transform.scale(
+                          scale: 0.75,
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        )
+                      : const Text(
+                          TextConstants.createAnAccount,
+                        ),
+                );
+              }),
           SizedBox(height: 16.h),
           const _SignInNavigationBuilder(),
           SizedBox(height: 37.h),
