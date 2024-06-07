@@ -67,16 +67,16 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                     color: color.onPrimary,
                   ),
                 )
-              else
+              else if (profileState.status.isSuccess)
                 ListTile(
                   leading: const Icon(Icons.person),
                   title: Text(
                     TextConstants.updateProfile,
                     style: text.labelLarge,
                   ),
-                  onTap: _navigateToUpdateProfile,
+                  onTap: _navigateToUpdateProfile, 
                 ),
-          if (!ssoNotifier.state)
+          if (!ssoNotifier.state && profileState.status.isSuccess)
             ListTile(
               leading: const Icon(Icons.lock),
               title: Text(

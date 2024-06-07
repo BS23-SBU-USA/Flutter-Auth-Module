@@ -7,7 +7,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileState = ref.watch(userProfileInfoProvider);
+    final profileState = ref.watch (userProfileInfoProvider);
     final updateState = ref.watch(updateProfileInfoProvider);
     final offlineState = ref.read(offlineStateProvider.notifier).state;
     final ssoNotifier = ref.read(ssoSignInProvider.notifier).state;
@@ -39,6 +39,8 @@ class DrawerHeaderWidget extends ConsumerWidget {
             backgroundColor: color.primary,
             radius: 30,
           )
+        else if (profileState.status.isFailure)
+          const SizedBox()
         else
           (offlineState || profileState.data!.avatar == null)
               ? Avatar.circleWithFullName(
@@ -60,7 +62,9 @@ class DrawerHeaderWidget extends ConsumerWidget {
               ? user!.displayName ?? 'User Name'
               : offlineState
                   ? mockUser.fullName
-                  : profileState.data!.fullName,
+                  : profileState.status.isSuccess
+                      ? profileState.data!.fullName
+                      : TextConstants.userNotFound,
           style: text.titleMedium!.copyWith(color: color.onPrimary),
           overflow: TextOverflow.ellipsis,
         ),
@@ -70,7 +74,9 @@ class DrawerHeaderWidget extends ConsumerWidget {
               ? user!.email
               : offlineState
                   ? mockUser.email
-                  : profileState.data?.email ?? 'userEmail',
+                  : profileState.status.isSuccess
+                      ? profileState.data?.email ?? 'userEmail'
+                      : "",
           style: text.titleSmall!.copyWith(color: color.onPrimary),
           overflow: TextOverflow.ellipsis,
         ),

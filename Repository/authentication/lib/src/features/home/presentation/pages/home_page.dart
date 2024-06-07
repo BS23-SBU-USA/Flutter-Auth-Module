@@ -95,7 +95,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 ),
                               )
                             : profileState.status.isFailure
-                                ? const Text(TextConstants.somethingWentWrong)
+                                ? const CircleAvatar()
                                 : profileState.data?.avatar != null
                                     ? Avatar.circle(
                                         url: profileState.data!.avatar!,
@@ -122,8 +122,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                   : (profileState.status.isLoading ||
                           updateState.status.isLoading)
                       ? TextConstants.connecting
-                      : '${profileState.data?.firstname} '
-                          '${profileState.data?.lastname}',
+                      : profileState.status.isFailure
+                          ? TextConstants.userNotFound
+                          : '${profileState.data?.firstname} '
+                              '${profileState.data?.lastname}',
           style: text.titleMedium!.copyWith(
             fontWeight: FontWeightManager.semiBold,
             color: color.onPrimary,
@@ -131,7 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
         centerTitle: false,
       ),
-      drawer: const DrawerBuilder(),
+      drawer: profileState.status.isLoading ? null : const DrawerBuilder(),
       body: Center(
         child: Text(
           offlineState
@@ -141,7 +143,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                   : (profileState.status.isLoading ||
                           updateState.status.isLoading)
                       ? ''
-                      : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!',
+                      : profileState.status.isFailure
+                          ? "Couldn't fetch profile data.\n Please logout and try again"
+                          : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!',
           style: text.headlineSmall!.copyWith(
             fontWeight: FontWeightManager.bold,
             color: color.primary,
