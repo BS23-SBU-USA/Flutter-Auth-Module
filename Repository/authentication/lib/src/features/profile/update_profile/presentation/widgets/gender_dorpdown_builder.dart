@@ -9,58 +9,52 @@ import 'package:auth_module/src/features/profile/update_profile/presentation/riv
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GenderDropdownFormField extends ConsumerStatefulWidget {
+class GenderDropdownFormField extends StatelessWidget {
   const GenderDropdownFormField({
     super.key,
     this.hintText,
     this.onIconTap,
     this.onChanged,
+    required this.controller,
   });
 
   final String? hintText;
   final void Function()? onIconTap;
   final void Function(String?)? onChanged;
+  final TextEditingController controller;
 
-  @override
-  ConsumerState<GenderDropdownFormField> createState() =>
-      _CustomDropdownInputFormFieldState();
-}
-
-class _CustomDropdownInputFormFieldState
-    extends ConsumerState<GenderDropdownFormField> {
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
-
     return Row(
       children: [
         Expanded(
-          child: CustomInputField(
-            textEditingController: notifier.genderController,
+          child: TextFormField(
+            controller: controller,
             readOnly: true,
-            labelText: TextConstants.gender,
-            bottomMargin: 10,
-            suffix: ModalBottomSheet(
-              
-              title: TextConstants.selectGender,
-              children: [
-                ModalCard(
-                  onTap: () {
-                    notifier.genderController.text = TextConstants.male;
-                    Navigator.of(context).pop();
-                  },
-                  icon: Assets.male,
-                  label: TextConstants.male,
-                ),
-                ModalCard(
-                  onTap: () {
-                    notifier.genderController.text = TextConstants.female;
-                    Navigator.of(context).pop();
-                  },
-                  icon: Assets.female,
-                  label: TextConstants.female,
-                ),
-              ],
+            decoration: InputDecoration(
+              hintText: hintText,
+              labelText: TextConstants.gender,
+              suffix: ModalBottomSheet(
+                title: TextConstants.selectGender,
+                children: [
+                  ModalCard(
+                    onTap: () {
+                      controller.text = TextConstants.male;
+                      Navigator.of(context).pop();
+                    },
+                    icon: Assets.male,
+                    label: TextConstants.male,
+                  ),
+                  ModalCard(
+                    onTap: () {
+                      controller.text = TextConstants.female;
+                      Navigator.of(context).pop();
+                    },
+                    icon: Assets.female,
+                    label: TextConstants.female,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

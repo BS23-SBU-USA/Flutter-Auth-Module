@@ -54,11 +54,10 @@ class SignUpFormBuilder extends StatelessWidget {
         const SizedBox(height: 20),
         PasswordField(controller: passwordController),
         Consumer(
-          builder: (context, ref, child) => ref.watch(passwordValidityProvider).isValid
-              ? const SizedBox()
-              : PasswordValidationBuilder(
-                  passwordController,
-                ),
+          builder: (context, ref, child) =>
+              ref.watch(passwordValidityProvider).isValid
+                  ? const SizedBox()
+                  : const PasswordValidationBuilder(),
         ),
         PasswordField.confirm(
           controller: confirmPasswordController,

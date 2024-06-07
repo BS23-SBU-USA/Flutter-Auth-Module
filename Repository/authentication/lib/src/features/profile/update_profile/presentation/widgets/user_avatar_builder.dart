@@ -1,8 +1,11 @@
 part of '../pages/update_profile_page.dart';
 
 class UserAvatarBuilder extends ConsumerStatefulWidget {
-  const UserAvatarBuilder({super.key});
-
+  const UserAvatarBuilder({
+    required this.avatarController,
+    super.key,
+  });
+  final TextEditingController avatarController;
   @override
   ConsumerState<UserAvatarBuilder> createState() => _UserAvatarBuilderState();
 }

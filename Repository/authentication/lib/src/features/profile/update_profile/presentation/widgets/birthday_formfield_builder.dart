@@ -1,38 +1,34 @@
 part of '../pages/update_profile_page.dart';
 
-class BirthdayFormFieldBuilder extends ConsumerStatefulWidget {
-  const BirthdayFormFieldBuilder({super.key});
+class BirthdayFormFieldBuilder extends StatelessWidget {
+  final TextEditingController controller;
 
-  @override
-  ConsumerState<BirthdayFormFieldBuilder> createState() =>
-      _BirthdayFormFieldBuilderState();
-}
+  const BirthdayFormFieldBuilder({super.key, required this.controller});
 
-class _BirthdayFormFieldBuilderState
-    extends ConsumerState<BirthdayFormFieldBuilder> {
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
     final theme = Theme.of(context);
     final color = theme.colorScheme;
     return Row(
       children: [
         Expanded(
-          child: CustomInputField(
-            onChanged: (value) {
+          child: TextFormField(
+            onTap: () {
               _picKCalender(context);
             },
             readOnly: true,
-            textEditingController: notifier.dateOfBirthController,
-            labelText: TextConstants.dateOfBirth,
-            suffix: GestureDetector(
-              onTap: () {
-                _picKCalender(context);
-              },
-              child: Image.asset(
-                Assets.calenderIcon,
-                color: color.primary,
-                colorBlendMode: BlendMode.srcIn,
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: TextConstants.dateOfBirth,
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  _picKCalender(context);
+                },
+                child: Image.asset(
+                  Assets.calenderIcon,
+                  color: color.primary,
+                  colorBlendMode: BlendMode.srcIn,
+                ),
               ),
             ),
           ),
@@ -42,8 +38,6 @@ class _BirthdayFormFieldBuilderState
   }
 
   Future<void> _picKCalender(BuildContext context) async {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
-
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -52,9 +46,7 @@ class _BirthdayFormFieldBuilderState
     );
     if (pickedDate != null) {
       final formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
-      setState(() {
-        notifier.dateOfBirthController.text = formattedDate;
-      });
+      controller.text = formattedDate;
     }
   }
 }

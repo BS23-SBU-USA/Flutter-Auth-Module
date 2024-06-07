@@ -20,32 +20,9 @@ class UpdateProfileInfoNotifier
     });
     return UpdateProfileState();
   }
-
-  Future<void> onUpdateProfileSubmit() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-
-    final profileRequestModel = ProfileRequestModel(
-      firstname: (profileEntity.firstname != firstNameController.text)
-          ? firstNameController.text
-          : '',
-      lastname: (profileEntity.lastname != lastNameController.text)
-          ? lastNameController.text
-          : '',
-      dateOfBirth: (profileEntity.dateOfBirth != dateOfBirthController.text)
-          ? dateOfBirthController.text
-          : '',
-      gender: (profileEntity.gender != genderController.text)
-          ? genderController.text
-          : '',
-      phone: (profileEntity.phone != onlyPhoneController.text)
-          ? countryCodeController.text + onlyPhoneController.text
-          : '',
-      avatar: (profileEntity.avatar != avatarController.text)
-          ? avatarController.text
-          : '',
-    );
+  Future<void> onUpdateProfileSubmit(
+    ProfileRequestModel profileRequestModel,
+  ) async {
 
     state = state.copyWith(status: UpdateProfileStatus.loading);
 
