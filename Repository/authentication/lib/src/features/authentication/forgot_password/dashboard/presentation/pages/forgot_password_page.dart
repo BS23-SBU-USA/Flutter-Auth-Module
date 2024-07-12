@@ -17,6 +17,10 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../../core/services/routes/route_generator.dart';
+import '../../../../../../core/services/routes/routes.dart';
 
 part '../widgets/forgot_password_email_field_builder.dart';
 
@@ -52,7 +56,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
         }
       },
     );
-    
+
     return ScrollableWrapper(
       floatingActionButton: const BuildBackButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -115,14 +119,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   }
 
   void _navigateToIdentityVerificationPage(String email) {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (_) =>  IdentityVerificationPage(
-          isFromSignUp: false,
-          email: emailController.text,
-        ),
-      ),
-    );
+    router.push(Routes.identityVerification, extra: {
+      'email': email,
+      'isFromSignUp': false,
+    });
   }
 }

@@ -38,9 +38,6 @@ class _SignUpNavigationBuilderState extends State<_SignUpNavigationBuilder> {
   }
 
   void _navigateToSignUpPage() {
-    Navigator.pushNamed(
-      context,
-      Routes.signUp,
-    );
+    router.push(Routes.signUp);
   }
 }

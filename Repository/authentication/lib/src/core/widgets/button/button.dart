@@ -4,6 +4,7 @@ import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class Button extends StatelessWidget {
   const Button({
@@ -104,7 +105,7 @@ class Button extends StatelessWidget {
         ? GestureDetector(
             onTap: () {
               onPressed();
-              Navigator.pop(context);
+              context.pop();
             },
             child: SizedBox(
               width: 24.sp,

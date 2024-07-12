@@ -1,3 +1,4 @@
+import 'package:auth_module/src/core/services/routes/route_generator.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
@@ -71,7 +72,6 @@ class _SuccessPageState extends State<SuccessPage> {
   }
 
   void _navigateToSignInPage() {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(Routes.signIn, (route) => false);
+    router.go(Routes.signIn);
   }
 }

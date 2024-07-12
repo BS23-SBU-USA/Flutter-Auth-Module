@@ -38,6 +38,6 @@ class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
   }
 
   void _navigateToSignInPage() {
-    Navigator.pop(context);
+    context.pop();
   }
 }

@@ -2,6 +2,7 @@ import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class BuildBackButton extends StatelessWidget {
   const BuildBackButton({super.key});
@@ -10,7 +11,7 @@ class BuildBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        context.pop();
       },
       child: Container(
         padding: EdgeInsets.symmetric(

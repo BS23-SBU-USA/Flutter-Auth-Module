@@ -21,6 +21,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../../core/services/routes/route_generator.dart';
 
 part '../widgets/otp_field_builder.dart';
 
@@ -169,7 +172,7 @@ class _IdentityVerificationPageState
                 style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             TextButton(
@@ -178,8 +181,8 @@ class _IdentityVerificationPageState
                 style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.pop(context);
+                context.pop();
+                context.pop();
               },
             ),
           ],
@@ -189,18 +192,12 @@ class _IdentityVerificationPageState
   }
 
   void _navigateToWelcomePage() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      Routes.welcome,
-      (route) => false,
-    );
+    router.go(Routes.welcome);
   }
 
   void _navigateToResetPasswordPage() {
-    Navigator.pushNamed(
-      context,
-      Routes.resetPassword,
-      arguments: widget.email,
-    );
+   router.push(Routes.resetPassword, extra: {
+     'email': widget.email,
+   });
   }
 }

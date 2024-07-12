@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -164,6 +165,6 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
       message: TextConstants.successfullyUpdated,
       context: context,
     );
-    Navigator.pop(context);
+    context.pop();
   }
 }

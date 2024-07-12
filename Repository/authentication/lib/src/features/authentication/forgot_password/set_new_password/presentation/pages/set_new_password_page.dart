@@ -20,6 +20,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../core/services/routes/route_generator.dart';
+
 part '../widgets/reset_password_form_builder.dart';
 
 class SetNewPasswordPage extends ConsumerStatefulWidget {
@@ -127,10 +129,6 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
       context: context,
     );
 
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      Routes.signIn,
-      (Route<dynamic> route) => false,
-    );
+    router.go(Routes.signIn);
   }
 }

@@ -39,11 +39,7 @@ class TermsAndConditionCheckerBuilder extends ConsumerWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.webView,
-                        arguments: 'https://www.flutter.dev',
-                      );
+                      context.push(Routes.webView, extra: "https://flutter.dev");
                     },
                 ),
               ],

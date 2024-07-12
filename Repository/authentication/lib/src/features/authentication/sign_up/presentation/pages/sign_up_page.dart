@@ -20,6 +20,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../core/services/routes/route_generator.dart';
 
 part '../widgets/sign_in_navigation_builder.dart';
 
@@ -148,13 +151,9 @@ class _SignUpState extends ConsumerState<SignUpPage> {
   }
 
   void _navigateToIdentityVerificationPage() {
-    Navigator.pushNamed(
-      context,
-      Routes.identityVerification,
-      arguments: {
-        'isFromSignUp': true,
-        'email': _emailController.text,
-      },
-    );
+    router.push(Routes.identityVerification, extra: {
+      'email': _emailController.text,
+      'isFromSignUp': true,
+    });
   }
 }

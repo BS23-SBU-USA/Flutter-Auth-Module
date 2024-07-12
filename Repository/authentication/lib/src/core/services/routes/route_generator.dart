@@ -12,7 +12,8 @@ import 'package:auth_module/src/features/profile/update_profile/presentation/pag
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-final _router = GoRouter(
+final router = GoRouter(
+  initialLocation: Routes.signIn,
   routes: [
     GoRoute(
       path: Routes.signUp,

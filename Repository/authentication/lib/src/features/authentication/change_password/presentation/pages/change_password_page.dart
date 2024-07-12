@@ -16,8 +16,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/notifiers/text_edtitting_controller_listener.dart';
+import '../../../../../core/services/routes/route_generator.dart';
 
 part '../widgets/change_password_form_builder.dart';
 
@@ -82,7 +84,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
         appBar: AppBar(
           title: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              context.pop();
             },
             child: Row(
               children: [
@@ -189,10 +191,6 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
   }
 
   void _navigateToSignIn() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      Routes.signIn,
-      (Route<dynamic> route) => false,
-    );
+    router.go(Routes.signIn);
   }
 }

@@ -67,7 +67,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
                             child: IconButton(
                               icon: const Icon(Icons.close),
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                context.pop();
                               },
                             ),
                           ),
@@ -112,7 +112,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
     final text = theme.textTheme;
     return GestureDetector(
       onTap: () async {
-        Navigator.of(context).pop();
+        context.pop();
 
         final imageCapture = ImageCapture();
         await imageCapture.getImageFromGallery();
@@ -176,7 +176,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
     final text = theme.textTheme;
     return GestureDetector(
       onTap: () async {
-        Navigator.of(context).pop();
+        context.pop();
         final imageCapture = ImageCapture();
         await imageCapture.getImageFromCamera();
         final avatar = imageCapture.convertedBase64String;
@@ -239,14 +239,14 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
       child: const Text('SETTINGS'),
       onPressed: () {
         openAppSettings();
-        Navigator.pop(context);
+        context.pop();
       },
     );
 
     final Widget cancelButton = ElevatedButton(
       child: const Text('CANCEL'),
       onPressed: () {
-        Navigator.pop(context);
+        context.pop();
       },
     );
 
@@ -283,7 +283,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
     final Widget okButton = ElevatedButton(
       child: const Text('OK'),
       onPressed: () {
-        Navigator.pop(context);
+        context.pop();
       },
     );
 

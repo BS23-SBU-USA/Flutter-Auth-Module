@@ -42,7 +42,7 @@ class _RememberMeAndForgetPassBuilder extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, Routes.forgotPassword);
+            context.push( Routes.forgotPassword);
           },
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,

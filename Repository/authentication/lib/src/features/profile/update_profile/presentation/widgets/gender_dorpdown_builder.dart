@@ -8,6 +8,7 @@ import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/riverpod/update_profile_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class GenderDropdownFormField extends StatelessWidget {
   const GenderDropdownFormField({
@@ -40,7 +41,7 @@ class GenderDropdownFormField extends StatelessWidget {
                   ModalCard(
                     onTap: () {
                       controller.text = TextConstants.male;
-                      Navigator.of(context).pop();
+                      context.pop();
                     },
                     icon: Assets.male,
                     label: TextConstants.male,
@@ -48,7 +49,7 @@ class GenderDropdownFormField extends StatelessWidget {
                   ModalCard(
                     onTap: () {
                       controller.text = TextConstants.female;
-                      Navigator.of(context).pop();
+                      context.pop();
                     },
                     icon: Assets.female,
                     label: TextConstants.female,
