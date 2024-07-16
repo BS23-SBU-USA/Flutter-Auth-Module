@@ -21,17 +21,17 @@ class _SingleSignOnState extends ConsumerState<SingleSignOn> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const _SocialLogo(url: Assets.facebookLogo),
+            _SocialLogo(url: Assets.images.facebookLogo),
             SizedBox(width: 20.h),
             _SocialLogo(
-              url: Assets.googleLogo,
+              url: Assets.images.googleLogo,
               onTap: () {
                 ssoSignInNotifier.state = true;
                 signInNotifier.ssoSignIn();
               },
             ),
             SizedBox(width: 20.h),
-            const _SocialLogo(url: Assets.appleLogo),
+            _SocialLogo(url: Assets.images.appleLogo),
           ],
         ),
         SizedBox(height: 30.h),

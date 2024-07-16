@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';

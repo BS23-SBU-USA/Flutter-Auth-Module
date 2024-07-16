@@ -1,5 +1,4 @@
 import 'package:auth_module/src/core/theme/extension.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/widgets/button/back_button.dart';
 import 'package:flutter/material.dart';

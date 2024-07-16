@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
-import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/utils/validators/input_validators.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../../gen/assets.gen.dart';
 import '../../../../../core/services/routes/route_generator.dart';
 
 part '../widgets/remember_me_and_forget_pass_builder.dart';

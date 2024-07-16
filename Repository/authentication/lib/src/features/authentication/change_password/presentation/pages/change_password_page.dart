@@ -1,4 +1,3 @@
-import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/widgets/password_field.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../../gen/assets.gen.dart';
 import '../../../../../core/notifiers/text_edtitting_controller_listener.dart';
 import '../../../../../core/services/routes/route_generator.dart';
 
@@ -90,7 +90,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: SvgPicture.asset(
-                      Assets.backIcon,
+                      Assets.images.backIcon,
                       width: 8.sp,
                       height: 12.sp,
                       colorFilter: ColorFilter.mode(

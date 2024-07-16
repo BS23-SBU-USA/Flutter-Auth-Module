@@ -145,7 +145,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
             ),
             child: Center(
               child: SvgPicture.asset(
-                Assets.mediaIcon,
+                Assets.images.mediaIcon,
                 colorFilter: ColorFilter.mode(
                   color.onPrimaryContainer,
                   BlendMode.srcIn,
@@ -205,7 +205,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
             ),
             child: Center(
               child: SvgPicture.asset(
-                Assets.cameraIcon,
+                Assets.images.cameraIcon,
                 colorFilter: ColorFilter.mode(
                   color.onPrimaryContainer,
                   BlendMode.srcIn,

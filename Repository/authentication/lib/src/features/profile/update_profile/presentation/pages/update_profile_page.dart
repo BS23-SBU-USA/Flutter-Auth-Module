@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:auth_module/src/features/profile/root/data/models/profile_request_model.dart';
 import 'package:auth_module/src/features/profile/user_profile/presentation/riverpod/user_profile_info_provider.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/image_service/image_capture.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/utils/validators/input_validators.dart';
@@ -19,6 +18,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../../../../../../gen/assets.gen.dart';
 
 part '../widgets/birthday_formfield_builder.dart';
 

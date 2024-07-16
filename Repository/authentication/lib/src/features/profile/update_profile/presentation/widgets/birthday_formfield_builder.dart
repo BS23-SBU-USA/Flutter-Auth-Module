@@ -25,7 +25,7 @@ class BirthdayFormFieldBuilder extends StatelessWidget {
                   _picKCalender(context);
                 },
                 child: Image.asset(
-                  Assets.calenderIcon,
+                  Assets.images.calenderIcon.path,
                   color: color.primary,
                   colorBlendMode: BlendMode.srcIn,
                 ),

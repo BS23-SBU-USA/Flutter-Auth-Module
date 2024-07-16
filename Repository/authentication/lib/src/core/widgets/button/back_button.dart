@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../utils/assets.dart';
+import '../../../../gen/assets.gen.dart';
 
 class AppBackButton extends StatelessWidget {
   const AppBackButton({
@@ -17,7 +17,7 @@ class AppBackButton extends StatelessWidget {
         context.pop();
       },
       icon: SvgPicture.asset(
-        Assets.backIcon,
+        Assets.images.backIcon,
         colorFilter: ColorFilter.mode(
           context.color.onBackground,
           BlendMode.srcIn,

@@ -1,8 +1,8 @@
-import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:auth_module/gen/assets.gen.dart';
 
 class ModalBottomSheet extends StatelessWidget {
   const ModalBottomSheet({
@@ -45,7 +45,7 @@ class ModalBottomSheet extends StatelessWidget {
         );
       },
       child: Image.asset(
-        Assets.expandIcon,
+        Assets.images.expandIcon.path,
         width: 24.sp,
         height: 24.sp,
         color: color.primary,
@@ -156,7 +156,7 @@ class _ModalHeader extends StatelessWidget {
                 context.pop();
               },
               child: SvgPicture.asset(
-                Assets.remove,
+                Assets.images.removeIcon,
                 width: 24.sp,
                 height: 24.sp,
                 colorFilter: ColorFilter.mode(

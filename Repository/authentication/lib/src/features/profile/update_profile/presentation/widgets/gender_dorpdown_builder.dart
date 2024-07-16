@@ -1,8 +1,9 @@
-import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../../gen/assets.gen.dart';
 
 class GenderDropdownFormField extends StatelessWidget {
   const GenderDropdownFormField({
@@ -37,7 +38,7 @@ class GenderDropdownFormField extends StatelessWidget {
                       controller.text = TextConstants.male;
                       context.pop();
                     },
-                    icon: Assets.male,
+                    icon: Assets.images.maleIcon.path,
                     label: TextConstants.male,
                   ),
                   ModalCard(
@@ -45,7 +46,7 @@ class GenderDropdownFormField extends StatelessWidget {
                       controller.text = TextConstants.female;
                       context.pop();
                     },
-                    icon: Assets.female,
+                    icon: Assets.images.femaleIcon.path,
                     label: TextConstants.female,
                   ),
                 ],

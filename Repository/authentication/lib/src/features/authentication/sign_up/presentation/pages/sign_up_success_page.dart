@@ -1,10 +1,11 @@
 import 'package:auth_module/src/core/services/routes/route_generator.dart';
-import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../../../gen/assets.gen.dart';
 
 class SuccessPage extends StatefulWidget {
   const SuccessPage({super.key});
@@ -28,7 +29,7 @@ class _SuccessPageState extends State<SuccessPage> {
             vertical: 8.sp,
           ),
           child: SvgPicture.asset(
-            Assets.backIcon,
+            Assets.images.backIcon,
             colorFilter: ColorFilter.mode(
               color.onPrimary,
               BlendMode.srcIn,
