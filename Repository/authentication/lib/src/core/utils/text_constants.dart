@@ -22,6 +22,8 @@ class TextConstants {
   static const String email = 'Email';
   static const String yourEmail = 'Your email';
   static const String updateProfile = 'Update Profile';
+  static const String updateProfileTitleFirstPart = 'Update';
+  static const String updateProfileTitleLastPart = ' Profile';
   static const String dateOfBirth = 'Date of Birth';
   static const String offline = 'Offline';
   static const String phoneNumber = 'Phone Number *';

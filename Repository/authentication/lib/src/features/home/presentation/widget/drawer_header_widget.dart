@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable, avoid_dynamic_calls
-
 part of '../widget/drawer_builder.dart';
 
 class DrawerHeaderWidget extends ConsumerWidget {

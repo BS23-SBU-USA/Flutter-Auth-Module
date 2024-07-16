@@ -6,7 +6,6 @@ class SignInNotifier extends Notifier<BaseState> {
   @override
   BaseState build() {
     signInUseCase = ref.read(signInUseCaseProvider);
-    // ref.onDispose(_clearFields);
     return const BaseState();
   }
 
@@ -89,18 +88,7 @@ class SignInNotifier extends Notifier<BaseState> {
       return null;
     }
 
-    // if (result != null) {
-    //   ref.read(signInEmailStateProvider.notifier).state.text =
-    //       result['userEmail'];
-    //   ref.read(signInPasswordStateProvider.notifier).state.text =
-    //       result['password'];
-    //   ref.read(rememberMeStateProvider.notifier).state = true;
-    // }
+   
   }
 
-  // void _clearFields() {
-  //   ref.read(signInEmailStateProvider.notifier).state = TextEditingController();
-  //   ref.read(signInPasswordStateProvider.notifier).state =
-  //       TextEditingController();
-  // }
 }

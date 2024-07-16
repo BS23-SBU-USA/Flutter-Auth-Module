@@ -4,7 +4,6 @@ import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_notifier.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_providers.dart';
@@ -20,7 +19,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/services/routes/route_generator.dart';
 
-part '../widgets/otp_field_builder.dart';
 
 class IdentityVerificationPage extends ConsumerStatefulWidget {
   const IdentityVerificationPage({

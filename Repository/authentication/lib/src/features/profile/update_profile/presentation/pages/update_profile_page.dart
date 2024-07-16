@@ -6,10 +6,10 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
 import 'package:auth_module/src/core/services/image_service/image_capture.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/utils/validators/input_validators.dart';
+import 'package:auth_module/src/core/widgets/button/back_button.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
-import 'package:auth_module/src/core/widgets/underlined_text.dart';
+import 'package:auth_module/src/features/profile/update_profile/presentation/widgets/underlined_text.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/riverpod/update_profile_info_provider.dart';
 import 'package:auth_module/src/features/profile/update_profile/presentation/widgets/gender_dorpdown_builder.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-@override
+  @override
   void initState() {
     final profileState = ref.read(userProfileInfoProvider);
     avatarController.text = profileState.data!.avatar!;
@@ -68,8 +68,6 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     final state = ref.watch(updateProfileInfoProvider);
 
     ref.listen(updateProfileInfoProvider, (_, next) {
@@ -83,12 +81,10 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
       }
     });
 
-    
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: Button.back(),
+        leading: const AppBackButton(),
         title: const UnderlinedText(title: TextConstants.updateProfile),
       ),
       body: Padding(
@@ -112,9 +108,7 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
             ),
             const Spacer(),
             FilledButton(
-              onPressed: state.status.isLoading
-                  ? null
-                  : _updateProfile,
+              onPressed: state.status.isLoading ? null : _updateProfile,
               child: state.status.isLoading
                   ? Transform.scale(
                       scale: 0.75,
@@ -132,30 +126,30 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
   //avatar image needs to be send
   void _updateProfile() {
     final profileEntity = ref.read(userProfileInfoProvider).data!;
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       final profileRequestModel = ProfileRequestModel(
-      firstname: (profileEntity.firstname != firstNameController.text)
-          ? firstNameController.text
-          : '',
-      lastname: (profileEntity.lastname != lastNameController.text)
-          ? lastNameController.text
-          : '',
-      dateOfBirth: (profileEntity.dateOfBirth != dateOfBirthController.text)
-          ? dateOfBirthController.text
-          : '',
-      gender: (profileEntity.gender != genderController.text)
-          ? genderController.text
-          : '',
-      phone: (profileEntity.phone != onlyPhoneController.text)
-          ? countryCodeController.text + onlyPhoneController.text
-          : '',
-      avatar: (profileEntity.avatar != avatarController.text)
-          ? avatarController.text
-          : '',
-    );
-      ref.read(updateProfileInfoProvider.notifier).onUpdateProfileSubmit(
-        profileRequestModel,
+        firstname: (profileEntity.firstname != firstNameController.text)
+            ? firstNameController.text
+            : '',
+        lastname: (profileEntity.lastname != lastNameController.text)
+            ? lastNameController.text
+            : '',
+        dateOfBirth: (profileEntity.dateOfBirth != dateOfBirthController.text)
+            ? dateOfBirthController.text
+            : '',
+        gender: (profileEntity.gender != genderController.text)
+            ? genderController.text
+            : '',
+        phone: (profileEntity.phone != onlyPhoneController.text)
+            ? countryCodeController.text + onlyPhoneController.text
+            : '',
+        avatar: (profileEntity.avatar != avatarController.text)
+            ? avatarController.text
+            : '',
       );
+      ref.read(updateProfileInfoProvider.notifier).onUpdateProfileSubmit(
+            profileRequestModel,
+          );
     }
   }
 
@@ -167,3 +161,5 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
     context.pop();
   }
 }
+
+

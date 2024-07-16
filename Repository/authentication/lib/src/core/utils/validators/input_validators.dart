@@ -19,7 +19,7 @@ class InputValidators {
   }
 
   static String? phone(String? value) {
-    // if (value!.isEmpty) return "Field can't be empty";
+    
     if (value!.isNotEmpty) {
       return value.length != 10 ? 'Must be 10 digits long' : null;
     } else {

@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 

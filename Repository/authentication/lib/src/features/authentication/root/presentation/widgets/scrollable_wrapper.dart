@@ -44,9 +44,7 @@ class ScrollableWrapper extends StatelessWidget {
                           topPadding +
                           bottomPadding,
                     ),
-                    child: IntrinsicHeight(
-                      child: child,
-                    ),
+                    child: child,
                   ),
                 ),
               );

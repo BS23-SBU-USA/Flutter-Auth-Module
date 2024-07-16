@@ -1,6 +1,6 @@
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/widgets/button/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -53,7 +53,7 @@ class _WebViewPageState extends State<WebViewPage> {
           style: AppTypography.semiBold18Caros(),
         ),
         centerTitle: true,
-        leading: Button.back(),
+        leading: const AppBackButton(),
       ),
       body: SafeArea(
         child: Stack(

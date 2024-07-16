@@ -13,8 +13,6 @@ class UserAvatarBuilder extends ConsumerStatefulWidget {
 class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
-
     final theme = Theme.of(context);
     final color = theme.colorScheme;
     final text = theme.textTheme;
@@ -22,18 +20,18 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
     return Stack(
       children: [
         CircleAvatar(
-          backgroundImage: notifier.avatarController.text.isNotEmpty
+          backgroundImage: widget.avatarController.text.isNotEmpty
               ? MemoryImage(
                   base64Decode(
-                    notifier.avatarController.text,
+                    widget.avatarController.text,
                   ),
                 )
               : null,
-          backgroundColor: notifier.avatarController.text.isEmpty
+          backgroundColor: widget.avatarController.text.isEmpty
               ? color.primaryContainer
               : color.primary,
           radius: 41,
-          child: notifier.avatarController.text.isEmpty
+          child: widget.avatarController.text.isEmpty
               ? Icon(
                   Icons.photo,
                   size: 30,
@@ -106,7 +104,6 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   }
 
   Widget _buildMediaButton() {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
     final theme = Theme.of(context);
     final color = theme.colorScheme;
     final text = theme.textTheme;
@@ -133,7 +130,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           );
         } else {
           setState(() {
-            notifier.avatarController.text = avatar;
+            widget.avatarController.text = avatar;
           });
         }
       },
@@ -169,7 +166,6 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
   }
 
   Widget _buildCameraButton() {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
 
     final theme = Theme.of(context);
     final color = theme.colorScheme;
@@ -194,7 +190,7 @@ class _UserAvatarBuilderState extends ConsumerState<UserAvatarBuilder> {
           );
         } else {
           setState(() {
-            notifier.avatarController.text = avatar;
+            widget.avatarController.text = avatar;
           });
         }
       },

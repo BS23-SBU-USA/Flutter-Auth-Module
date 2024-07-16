@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/features/authentication/root/data/model/mock_user_model.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/mock_user/mock_user_provider.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';

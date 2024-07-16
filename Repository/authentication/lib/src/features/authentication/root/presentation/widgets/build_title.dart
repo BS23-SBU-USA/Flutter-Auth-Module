@@ -6,15 +6,15 @@ class BuildTitleAndSubtitle extends StatelessWidget {
   const BuildTitleAndSubtitle({
     required this.titleFirstPart,
     required this.titleLastPart,
-    required this.subtitleFirstPart,
-    required this.subtitleLastPart,
+     this.subtitleFirstPart,
+     this.subtitleLastPart,
     super.key,
   });
 
   final String titleFirstPart;
   final String titleLastPart;
-  final String subtitleFirstPart;
-  final String subtitleLastPart;
+  final String? subtitleFirstPart;
+  final String? subtitleLastPart;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,21 @@ class BuildTitleAndSubtitle extends StatelessWidget {
     final color = theme.colorScheme;
     final textStyle = theme.textTheme;
     return Column(
+      
       children: [
         TitleHeading(
             titleFirstPart: titleFirstPart, titleLastPart: titleLastPart),
-        SizedBox(height: 16.h),
-        Text(
-          '$subtitleFirstPart\n$subtitleLastPart',
-          style: textStyle.titleSmall!.copyWith(
-            fontFamily: FontConstants.fontFamilyCaros,
-            color: color.secondary,
+        
+        if(subtitleFirstPart != null && subtitleLastPart != null )Padding(
+          padding: EdgeInsets.only(top: 15.h),
+          child: Text(
+            '$subtitleFirstPart\n$subtitleLastPart',
+            style: textStyle.titleSmall!.copyWith(
+              fontFamily: FontConstants.fontFamilyCaros,
+              color: color.secondary,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -75,6 +79,7 @@ class TitleHeading extends StatelessWidget {
             ),
           ],
         ),
+        
         Text(
           titleLastPart,
           style: textStyle.titleMedium,

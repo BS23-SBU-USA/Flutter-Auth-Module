@@ -107,47 +107,6 @@ class UpdateProfileFormBuilder extends StatelessWidget {
               hintText: TextConstants.phoneNumberHint,
             ),
           ),
-          // CustomInputField(
-          //   textEditingController: notifier.onlyPhoneController,
-          //   labelText: TextConstants.phoneNumber,
-          //   maxLength: 10,
-          //   bottomMargin: 10,
-          //   prefix: IntrinsicHeight(
-          //     child: Row(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         CountryCodePicker(
-          //           initialSelection: notifier.countryCodeController.text,
-          //           padding: EdgeInsets.zero, // Set zero padding to the left
-          //           countryFilter: const ['+880', 'US'],
-          //           textStyle: text.labelMedium?.copyWith(
-          //             fontSize: 16,
-          //           ),
-      
-          //           barrierColor: color.background.withOpacity(0.75),
-          //           dialogBackgroundColor: color.surface.withAlpha(10),
-          //           onChanged: (country) {
-          //             notifier.countryCodeController.text = country.dialCode!;
-          //           },
-          //         ),
-          //         Container(
-          //           padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-          //           child: VerticalDivider(
-          //             color: color.outline,
-          //             width: 1,
-          //             thickness: 1,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          //   validator: InputValidators.phone,
-          //   onChanged: (value) {
-          //     ref
-          //         .watch(updateProfileValidationProvider.notifier)
-          //         .isAbleToUpdate(value);
-          //   },
-          // ),
           GenderDropdownFormField(
             controller: genderController,
           ),

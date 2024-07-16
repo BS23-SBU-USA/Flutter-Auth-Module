@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/features/authentication/change_password/data/change_password_data_source/change_password_local_data_source.dart';
 import 'package:auth_module/src/features/authentication/change_password/data/change_password_data_source/change_password_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/change_password/data/repositories/chnage_password_repositories_impl.dart';

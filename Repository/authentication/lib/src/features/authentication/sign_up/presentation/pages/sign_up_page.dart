@@ -4,7 +4,7 @@ import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/utils/formatter/first_letter_upper_case.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/utils/validators//input_validators.dart';
+import 'package:auth_module/src/core/utils/validators/input_validators.dart';
 import 'package:auth_module/src/core/widgets/password_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
@@ -15,7 +15,6 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:auth_module/src/features/authentication/sign_up/presentation/riverpod/sign_up_providers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';

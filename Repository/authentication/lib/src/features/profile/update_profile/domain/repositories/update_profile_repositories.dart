@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/features/profile/root/data/data_sources/profile_data_source.dart';
 import 'package:auth_module/src/features/profile/root/domain/entities/profile_entity.dart';
 import 'package:auth_module/src/features/profile/update_profile/data/repositories/update_profile_repository_impl.dart';
