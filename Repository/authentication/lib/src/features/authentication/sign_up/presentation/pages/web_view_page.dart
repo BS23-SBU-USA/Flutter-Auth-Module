@@ -46,11 +46,13 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.color.onPrimary,
+        backgroundColor: context.color.primaryContainer,
         elevation: 0,
         title: Text(
           'Terms & Conditions',
-          style: AppTypography.semiBold18Caros(),
+          style: AppTypography.semiBold18Caros(
+            color: context.color.onPrimaryContainer
+          ),
         ),
         centerTitle: true,
         leading: const AppBackButton(),

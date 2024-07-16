@@ -13,7 +13,7 @@ class ShowSnackBarMessage {
         content: Center(
           child: Text(
             message,
-            style:  TextStyle(color: context.color.onPrimaryContainer, fontSize: 16),
+            style:  TextStyle(color: context.color.onPrimary, fontSize: 16),
           ),
         ),
         backgroundColor: context.color.primary,
@@ -31,7 +31,7 @@ class ShowSnackBarMessage {
         content: Center(
           child: Text(
             message,
-            style: TextStyle(color: context.color.onPrimaryContainer, fontSize: 16),
+            style: TextStyle(color: context.color.onError, fontSize: 16),
           ),
         ),
         backgroundColor: context.color.error,
@@ -51,7 +51,7 @@ class ShowSnackBarMessage {
             Center(
               child: Text(
                 message,
-                style: TextStyle(color: context.color.onPrimaryContainer , fontSize: 16),
+                style: TextStyle(color: context.color.onPrimary , fontSize: 16),
               ),
             ),
           ],
