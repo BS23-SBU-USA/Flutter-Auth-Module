@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:auth_module/src/core/services/routes/routes.dart';
+import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
@@ -162,7 +163,7 @@ class _IdentityVerificationPageState
             TextButton(
               child: Text(
                 'No',
-                style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
+                style: AppTypography.semiBold16Caros(color:  context.color.primary),
               ),
               onPressed: () {
                 context.pop();
@@ -171,7 +172,7 @@ class _IdentityVerificationPageState
             TextButton(
               child: Text(
                 'Yes',
-                style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
+                style: AppTypography.semiBold16Caros(color: context.color.primary),
               ),
               onPressed: () {
                 context.pop();

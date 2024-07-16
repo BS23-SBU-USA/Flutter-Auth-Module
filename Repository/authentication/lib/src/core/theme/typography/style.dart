@@ -1,4 +1,3 @@
-import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +22,7 @@ class AppTypography {
       FontSize.s12.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.regular,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -32,7 +31,7 @@ class AppTypography {
       FontSize.s12.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.bold,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -41,7 +40,7 @@ class AppTypography {
       FontSize.s14.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.regular,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -50,7 +49,7 @@ class AppTypography {
       FontSize.s14.sp,
       FontConstants.fontFamilyCircular,
       FontWeightManager.semiBold,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -59,7 +58,7 @@ class AppTypography {
       FontSize.s14.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.bold,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -68,7 +67,7 @@ class AppTypography {
       FontSize.s16.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.regular,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -77,7 +76,7 @@ class AppTypography {
       FontSize.s16.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.semiBold,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -86,7 +85,7 @@ class AppTypography {
       FontSize.s18.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.semiBold,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -95,7 +94,7 @@ class AppTypography {
       FontSize.s24.sp,
       FontConstants.fontFamilyCaros,
       FontWeightManager.bold,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -104,7 +103,7 @@ class AppTypography {
       FontSize.s14.sp,
       FontConstants.fontFamilyCircular,
       FontWeightManager.regular,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 
@@ -113,7 +112,7 @@ class AppTypography {
       FontSize.s14.sp,
       FontConstants.fontFamilyCircular,
       FontWeightManager.medium,
-      color ?? UIColors.black,
+      color ?? Colors.black,
     );
   }
 }

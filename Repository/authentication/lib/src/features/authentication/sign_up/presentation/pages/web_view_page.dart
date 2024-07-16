@@ -1,3 +1,4 @@
+import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/widgets/button/back_button.dart';
@@ -46,7 +47,7 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.white,
+        backgroundColor: context.color.onPrimary,
         elevation: 0,
         title: Text(
           'Terms & Conditions',
@@ -63,8 +64,8 @@ class _WebViewPageState extends State<WebViewPage> {
               controller: controller,
             ),
             if (loading)
-              const CircularProgressIndicator(
-                color: UIColors.pineGreen,
+              CircularProgressIndicator(
+                color: context.color.primary,
               ),
           ],
         ),

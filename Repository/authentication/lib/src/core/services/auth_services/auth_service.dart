@@ -1,4 +1,3 @@
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -47,10 +46,10 @@ class Authentication {
       content: Center(
         child: Text(
           content,
-          style: const TextStyle(color: UIColors.white, fontSize: 16),
+          style:  const TextStyle(color: Colors.white, fontSize: 16),
         ),
       ),
-      backgroundColor: UIColors.red,
+      backgroundColor: Colors.red,
     );
   }
 }

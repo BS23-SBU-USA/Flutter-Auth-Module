@@ -9,8 +9,8 @@ class Avatar extends StatelessWidget {
   const Avatar.circle({
     required this.url,
     super.key,
-    this.backgroundColor = UIColors.pineGreen,
-    this.borderColor = UIColors.white,
+    this.backgroundColor,
+    this.borderColor,
     this.activityStatus,
     this.onTap,
     this.height = 128,

@@ -1,5 +1,5 @@
+import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
 import 'package:flutter/material.dart';
@@ -22,26 +22,31 @@ class PasswordValidationBuilder extends ConsumerWidget {
           text: TextConstants.passwordMustBe,
           children: [
             _buildValidationTextSpan(
+              context,
               state.isLengthValid,
               TextConstants.eightCharacter,
             ),
             const TextSpan(text: TextConstants.lengthCombination),
             _buildValidationTextSpan(
+              context,
               state.hasUpper,
               TextConstants.uppercase,
             ),
             const TextSpan(text: TextConstants.letter),
             _buildValidationTextSpan(
+              context,
               state.hasLower,
               TextConstants.lowercase,
             ),
             const TextSpan(text: TextConstants.letter),
             _buildValidationTextSpan(
+              context,
               state.hasNumber,
               TextConstants.number,
             ),
             const TextSpan(text: TextConstants.and),
             _buildValidationTextSpan(
+              context,
               state.hasSpecialCharacter,
               TextConstants.specialCharacter,
             ),
@@ -54,12 +59,12 @@ class PasswordValidationBuilder extends ConsumerWidget {
     );
   }
 
-  TextSpan _buildValidationTextSpan(bool isValid, String text) {
+  TextSpan _buildValidationTextSpan(BuildContext context, bool isValid, String text) {
     
     return TextSpan(
       text: text,
       style: AppTypography.bold12Caros(
-        color: isValid ? UIColors.pineGreen : UIColors.red,
+        color: isValid ? context.color.primary : context.color.error,
       ),
     );
   }

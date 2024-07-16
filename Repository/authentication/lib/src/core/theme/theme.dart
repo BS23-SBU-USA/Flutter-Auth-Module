@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'typography/fonts.dart';
 
-export 'colors.dart';
-
 part 'color_scheme.dart';
 
 part 'app_bar_theme.dart';
