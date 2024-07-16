@@ -1,4 +1,3 @@
-import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ScrollableWrapper extends StatelessWidget {

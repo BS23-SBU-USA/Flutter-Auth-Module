@@ -1,12 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_dynamic_calls
-// ignore_for_file: prefer_typing_uninitialized_variables
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/widgets/avatar.dart';
 import 'package:auth_module/src/core/widgets/name_with_letter.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/mock_user/mock_user_provider.dart';
@@ -22,10 +16,10 @@ class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();

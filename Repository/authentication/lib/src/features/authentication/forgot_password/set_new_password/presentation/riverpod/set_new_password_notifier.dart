@@ -2,8 +2,6 @@
 
 import 'dart:async';
 
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_provider.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/domain/use_case/set_new_password_use_case.dart';

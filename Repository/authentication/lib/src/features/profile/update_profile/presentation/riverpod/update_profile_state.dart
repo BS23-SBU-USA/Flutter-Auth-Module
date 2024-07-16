@@ -13,14 +13,14 @@ enum UpdateProfileStatus {
 }
 
 class UpdateProfileState extends Equatable {
-  UpdateProfileState({
+   UpdateProfileState({
     this.status = UpdateProfileStatus.initial,
     this.data,
     this.error,
   });
 
   final UpdateProfileStatus status;
-  ProfileEntity? data;
+   ProfileEntity? data;
   final String? error;
 
   UpdateProfileState copyWith({

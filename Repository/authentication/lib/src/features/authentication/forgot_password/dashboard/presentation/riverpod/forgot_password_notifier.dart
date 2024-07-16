@@ -1,5 +1,4 @@
 import 'package:auth_module/src/core/base/state.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';

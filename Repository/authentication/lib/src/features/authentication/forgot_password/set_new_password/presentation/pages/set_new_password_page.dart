@@ -1,11 +1,5 @@
-import 'package:auth_module/src/core/notifiers/text_edtitting_controller_listener.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/colors.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
-import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
-import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
 import 'package:auth_module/src/core/widgets/password_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_notifier.dart';
@@ -16,7 +10,6 @@ import 'package:auth_module/src/features/authentication/root/presentation/widget
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/password_validation_builder.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,7 +34,6 @@ class _SetNewPasswordPageState extends ConsumerState<SetNewPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final ValueNotifier<bool> _isButtonEnabled = ValueNotifier<bool>(false);
 
   @override
   void dispose() {

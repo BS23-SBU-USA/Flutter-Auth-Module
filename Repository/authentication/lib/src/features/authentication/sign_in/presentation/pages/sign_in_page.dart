@@ -2,13 +2,9 @@ import 'dart:developer';
 
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/utils/assets.dart';
-import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/password_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
@@ -17,14 +13,12 @@ import 'package:auth_module/src/features/authentication/sign_in/presentation/riv
 import 'package:auth_module/src/core/notifiers/text_edtitting_controller_listener.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/services/routes/route_generator.dart';
-import '../../../../../core/widgets/cutom_input_field.dart';
 
 part '../widgets/remember_me_and_forget_pass_builder.dart';
 

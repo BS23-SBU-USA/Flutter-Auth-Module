@@ -71,7 +71,6 @@ class _UpdateProfilePageState extends ConsumerState<UpdateProfilePage> {
     
 
     final state = ref.watch(updateProfileInfoProvider);
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
 
     ref.listen(updateProfileInfoProvider, (_, next) {
       if (next.status.isSuccess) {

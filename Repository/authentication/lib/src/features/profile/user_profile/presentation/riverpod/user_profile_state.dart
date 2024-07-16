@@ -13,7 +13,7 @@ enum UserProfileStatus {
 }
 
 class UserProfileState extends Equatable {
-  UserProfileState({
+   UserProfileState({
     this.status = UserProfileStatus.initial,
     this.data,
     this.error,

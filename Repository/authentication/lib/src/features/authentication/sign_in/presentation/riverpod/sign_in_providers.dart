@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';

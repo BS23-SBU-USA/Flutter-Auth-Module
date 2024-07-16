@@ -8,7 +8,6 @@ import 'package:auth_module/src/features/authentication/sign_in/data/data_source
 import 'package:auth_module/src/features/authentication/sign_in/data/models/sign_in_model.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/entities/sign_in_entity.dart';
 import 'package:auth_module/src/features/authentication/sign_in/domain/repositories/sign_in_repositories.dart';
-import 'package:flutter/material.dart';
 
 class SignInRepositoryImp implements SignInRepository {
   SignInRepositoryImp({

@@ -1,6 +1,4 @@
-import 'dart:developer';
 
-import 'package:auth_module/src/core/base/state.dart';
 import 'package:auth_module/src/core/notifiers/text_edtitting_controller_listener.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
@@ -70,7 +68,6 @@ class _SignUpState extends ConsumerState<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final signUpFormState = ref.watch(signUpFormValidationProvider);
     final signUpState = ref.watch(signUpProvider);
     final signUpNotifier = ref.read(signUpProvider.notifier);
 

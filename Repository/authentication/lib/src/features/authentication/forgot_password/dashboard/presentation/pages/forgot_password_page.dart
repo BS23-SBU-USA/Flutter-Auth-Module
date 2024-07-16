@@ -1,16 +1,10 @@
-import 'dart:developer';
 
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/colors.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:auth_module/src/core/widgets/cutom_input_field.dart';
-import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_notifier.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/pages/identity_verification_page.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_back_button.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';

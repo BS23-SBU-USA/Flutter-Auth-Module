@@ -1,7 +1,6 @@
 // ignore_for_file: one_member_abstracts
 
 import 'package:auth_module/src/core/services/auth_services/auth_service.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';
 
