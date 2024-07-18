@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:auth_module/src/core/services/routes/routes.dart';
-import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
@@ -160,18 +159,18 @@ class _IdentityVerificationPageState
           content: const Text(TextConstants.wantToGoBack),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'No',
-                style: AppTypography.semiBold16Caros(color:  context.color.primary),
+                style: AppTypography.semiBold16Caros,
               ),
               onPressed: () {
                 context.pop();
               },
             ),
             TextButton(
-              child: Text(
+              child: const Text(
                 'Yes',
-                style: AppTypography.semiBold16Caros(color: context.color.primary),
+                style: AppTypography.semiBold16Caros,
               ),
               onPressed: () {
                 context.pop();

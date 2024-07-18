@@ -14,6 +14,8 @@ const TextStyle _titleLarge = TextStyle(
 class CustomTextTheme extends TextTheme {
   const CustomTextTheme()
       : super(
+        
           titleMedium: _titleMedium,
+          
         );
 }

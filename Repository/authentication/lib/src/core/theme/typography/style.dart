@@ -1,118 +1,70 @@
 import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTypography {
-  static TextStyle _getTextStyle(
-    double fontSize,
-    String fontFamily,
-    FontWeight fontWeight,
-    Color color,
-  ) {
-    return TextStyle(
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      fontWeight: fontWeight,
-      color: color,
-    );
-  }
+  static const TextStyle regular12Caros = TextStyle(
+    fontSize: 12,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.regular,
+  );
 
-  static TextStyle regular12Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s12.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.regular,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle bold12Caros = TextStyle(
+    fontSize: 12,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.bold,
+  );
 
-  static TextStyle bold12Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s12.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.bold,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle regular14Caros = TextStyle(
+    fontSize: 14,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.regular,
+  );
 
-  static TextStyle regular14Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.regular,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle semiBold14Circular = TextStyle(
+    fontSize: 14,
+    fontFamily: FontConstants.fontFamilyCircular,
+    fontWeight: FontWeightManager.semiBold,
+  );
 
-  static TextStyle semiBold14Circular({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamilyCircular,
-      FontWeightManager.semiBold,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle bold14Caros = TextStyle(
+    fontSize: 14,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.bold,
+  );
 
-  static TextStyle bold14Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.bold,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle regular16Caros = TextStyle(
+    fontSize: 16,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.regular,
+  );
 
-  static TextStyle regular16Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s16.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.regular,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle semiBold16Caros = TextStyle(
+    fontSize: 16,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.semiBold,
+  );
 
-  static TextStyle semiBold16Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s16.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.semiBold,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle semiBold18Caros = TextStyle(
+    fontSize: 18,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.semiBold,
+  );
 
-  static TextStyle semiBold18Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s18.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.semiBold,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle bold24Caros = TextStyle(
+    fontSize: 24,
+    fontFamily: FontConstants.fontFamilyCaros,
+    fontWeight: FontWeightManager.bold,
+  );
 
-  static TextStyle bold24Caros({Color? color}) {
-    return _getTextStyle(
-      FontSize.s24.sp,
-      FontConstants.fontFamilyCaros,
-      FontWeightManager.bold,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle regular14Circular = TextStyle(
+    fontSize: 14,
+    fontFamily: FontConstants.fontFamilyCircular,
+    fontWeight: FontWeightManager.regular,
+  );
 
-  static TextStyle regular14Circular({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamilyCircular,
-      FontWeightManager.regular,
-      color ?? Colors.black,
-    );
-  }
-
-  static TextStyle medium14Circular({Color? color}) {
-    return _getTextStyle(
-      FontSize.s14.sp,
-      FontConstants.fontFamilyCircular,
-      FontWeightManager.medium,
-      color ?? Colors.black,
-    );
-  }
+  static const TextStyle medium14Circular = TextStyle(
+    fontSize: 14,
+    fontFamily: FontConstants.fontFamilyCircular,
+    fontWeight: FontWeightManager.medium,
+  );
 }

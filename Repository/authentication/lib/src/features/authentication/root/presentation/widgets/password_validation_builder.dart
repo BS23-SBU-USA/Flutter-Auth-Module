@@ -1,4 +1,3 @@
-import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/password_validity/password_validity_provider.dart';
@@ -63,9 +62,7 @@ class PasswordValidationBuilder extends ConsumerWidget {
     
     return TextSpan(
       text: text,
-      style: AppTypography.bold12Caros(
-        color: isValid ? context.color.primary : context.color.error,
-      ),
+      style: AppTypography.bold12Caros,
     );
   }
 

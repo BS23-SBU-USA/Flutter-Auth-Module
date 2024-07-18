@@ -48,11 +48,9 @@ class _WebViewPageState extends State<WebViewPage> {
       appBar: AppBar(
         backgroundColor: context.color.primaryContainer,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Terms & Conditions',
-          style: AppTypography.semiBold18Caros(
-            color: context.color.onPrimaryContainer
-          ),
+          style: AppTypography.semiBold18Caros,
         ),
         centerTitle: true,
         leading: const AppBackButton(),

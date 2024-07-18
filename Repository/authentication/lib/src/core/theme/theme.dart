@@ -12,6 +12,7 @@ part 'typography/text_theme.dart';
 
 class GlobalThemeData {
   static final ThemeData _lightTheme = ThemeData(
+    
     useMaterial3: true,
     colorScheme: lightColorScheme,
     textSelectionTheme:
@@ -25,7 +26,10 @@ class GlobalThemeData {
     focusColor: lightColorScheme.primary,
     brightness: Brightness.light,
     scaffoldBackgroundColor: lightColorScheme.background,
-    textTheme: const CustomTextTheme(),
+    textTheme: const CustomTextTheme().apply(
+      displayColor: lightColorScheme.onBackground,
+      bodyColor: lightColorScheme.onBackground,
+    ),
     dividerTheme: DividerThemeData(
       color: lightColorScheme.surfaceVariant,
       thickness: 1,
@@ -46,7 +50,10 @@ class GlobalThemeData {
     focusColor: darkColorScheme.primary,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: darkColorScheme.background,
-    textTheme: const CustomTextTheme(),
+    textTheme: const CustomTextTheme().apply(
+      displayColor: darkColorScheme.onBackground,
+      bodyColor: darkColorScheme.onBackground,
+    ),
     dividerTheme: DividerThemeData(
       color: darkColorScheme.onSurfaceVariant,
       thickness: 1,
