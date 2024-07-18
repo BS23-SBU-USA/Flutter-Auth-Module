@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:auth_module/gen/assets.gen.dart';
+
+import '../gen/assets.gen.dart';
 
 class ModalBottomSheet extends StatelessWidget {
   const ModalBottomSheet({

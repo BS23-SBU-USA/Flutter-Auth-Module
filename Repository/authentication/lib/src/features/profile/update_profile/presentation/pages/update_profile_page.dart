@@ -19,7 +19,8 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../../../../gen/assets.gen.dart';
+import '../../../../../core/gen/assets.gen.dart';
+
 
 part '../widgets/birthday_formfield_builder.dart';
 

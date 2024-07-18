@@ -17,7 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../gen/assets.gen.dart';
+import '../../../../../core/gen/assets.gen.dart';
 import '../../../../../core/services/routes/route_generator.dart';
 
 part '../widgets/remember_me_and_forget_pass_builder.dart';

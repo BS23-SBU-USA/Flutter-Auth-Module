@@ -3,7 +3,8 @@ import 'package:auth_module/src/core/widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../gen/assets.gen.dart';
+import '../../../../../core/gen/assets.gen.dart';
+
 
 class GenderDropdownFormField extends StatelessWidget {
   const GenderDropdownFormField({

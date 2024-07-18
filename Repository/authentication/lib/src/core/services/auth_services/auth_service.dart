@@ -1,5 +1,4 @@
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
@@ -34,22 +33,9 @@ class Authentication {
     try {
       await GoogleSignIn().signOut();
     } catch (e) {
-      snackBar(
-        content: 'Error signing out. Try again.',
-      );
+      rethrow;
     }
   }
 
-  static SnackBar snackBar({required String content}) {
-    return SnackBar(
-      duration: const Duration(seconds: 3),
-      content: Center(
-        child: Text(
-          content,
-          style:  const TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      ),
-      backgroundColor: Colors.red,
-    );
-  }
+  
 }
