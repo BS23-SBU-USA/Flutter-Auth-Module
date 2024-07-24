@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PasswordValidityNotifier extends StateNotifier<PasswordValidationState> {
   PasswordValidityNotifier() : super(const PasswordValidationState());
 
-  bool updateValidationVariables(String value) {
+  updateValidationVariables(String value) {
     final isLengthValid = value.length > 7;
-    final hasUpper = value.contains(RegExp('[A-Z]'));
-    final hasLower = value.contains(RegExp('[a-z]'));
-    final hasNumber = value.contains(RegExp('[0-9]'));
+    final hasUpper = value.contains(RegExp(r'[A-Z]'));
+    final hasLower = value.contains(RegExp(r'[a-z]'));
+    final hasNumber = value.contains(RegExp(r'[0-9]'));
     final hasSpecialCharacter =
         value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 
@@ -27,6 +27,5 @@ class PasswordValidityNotifier extends StateNotifier<PasswordValidationState> {
       isValid: isValid,
     );
 
-    return isValid;
   }
 }

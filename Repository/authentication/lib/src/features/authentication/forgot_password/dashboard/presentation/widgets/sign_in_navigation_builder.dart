@@ -11,27 +11,29 @@ class _SignInNavigationBuilder extends StatefulWidget {
 class _SignInNavigationBuilderState extends State<_SignInNavigationBuilder> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           TextConstants.rememberYourPassword,
-          style: AppTypography.semiBold14Circular(color: UIColors.pineGreen),
+          style: textTheme.labelLarge,
         ),
         GestureDetector(
           onTap: _navigateToSignInPage,
-          child: Text(
-            ' ${TextConstants.login}',
-            style: AppTypography.semiBold14Circular(
-              color: UIColors.pineGreen,
-            ),
-          ),
+          child: Text(' ${TextConstants.login}',
+              style: textTheme.labelLarge?.copyWith(
+                color: colorScheme.primary,
+              )),
         ),
       ],
     );
   }
 
   void _navigateToSignInPage() {
-    Navigator.pop(context);
+    context.pop();
   }
 }

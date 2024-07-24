@@ -1,118 +1,120 @@
 part of '../pages/update_profile_page.dart';
 
-class UpdateProfileFormBuilder extends ConsumerStatefulWidget {
-  const UpdateProfileFormBuilder({super.key});
+class UpdateProfileFormBuilder extends StatelessWidget {
+  const UpdateProfileFormBuilder({
+    required this.firstNameController,
+    required this.lastNameController,
+    required this.countryCodeController,
+    required this.onlyPhoneController,
+    required this.genderController,
+    required this.dateOfBirthController,
+    super.key,
+  });
 
-  @override
-  ConsumerState<UpdateProfileFormBuilder> createState() {
-    return _UpdateProfileFormBuilderState();
-  }
-}
+  final TextEditingController firstNameController;
 
-class _UpdateProfileFormBuilderState
-    extends ConsumerState<UpdateProfileFormBuilder> {
+  final TextEditingController lastNameController;
+
+  final TextEditingController countryCodeController;
+
+  final TextEditingController onlyPhoneController;
+
+  final TextEditingController genderController;
+  final TextEditingController dateOfBirthController;
+
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(updateProfileInfoProvider.notifier);
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
 
     return SingleChildScrollView(
-      child: Form(
-        key: notifier.formKey,
-        child: Column(
-          children: [
-            InputFormField(
-              onChanged: (value) {
-                _capitalizeFirstLetter(notifier.firstNameController);
-              },
-              borderColor: UIColors.timberWolf,
-              textEditingController: notifier.firstNameController,
-              labelText: TextConstants.firstName,
-              style: AppTypography.regular16Caros(),
-              labelTextStyle: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
-              autocorrect: false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            TextConstants.firstName,
+            style: text.labelLarge!.copyWith(
+              color: color.primary,
             ),
-            InputFormField(
-              onChanged: (value) {
-                _capitalizeFirstLetter(notifier.lastNameController);
-              },
-              borderColor: UIColors.timberWolf,
-              textEditingController: notifier.lastNameController,
-              labelText: TextConstants.lastName,
-              style: AppTypography.regular16Caros(),
-              labelTextStyle: AppTypography.medium14Circular(
-                color: UIColors.pineGreen,
-              ),
-              autocorrect: false,
-              keyboardType: TextInputType.name,
+          ),
+          TextFormField(
+            controller: firstNameController,
+            keyboardType: TextInputType.name,
+            validator: InputValidators.name,
+            decoration: const InputDecoration(
+              hintText: TextConstants.firstNameHint,
             ),
-            InputFormField(
-              textEditingController: notifier.onlyPhoneController,
-              style: AppTypography.regular16Caros(),
-              label: Text(
-                TextConstants.phoneNumber,
-                style: AppTypography.medium14Circular(
-                  color: UIColors.pineGreen,
-                ),
-              ),
-              borderColor: UIColors.timberWolf,
-              maxLength: 10,
-              prefix: IntrinsicHeight(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CountryCodePicker(
-                      initialSelection: notifier.countryCodeController.text,
-                      padding: EdgeInsets.zero, // Set zero padding to the left
-                      countryFilter: const ['+880', 'US'],
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        color: UIColors.black,
-                      ),
-                      onChanged: (country) {
-                        notifier.countryCodeController.text = country.dialCode!;
-                      },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            TextConstants.lastName,
+            style: text.labelLarge!.copyWith(
+              color: color.primary,
+            ),
+          ),
+          TextFormField(
+            controller: lastNameController,
+            keyboardType: TextInputType.name,
+            validator: InputValidators.name,
+            decoration: const InputDecoration(
+              hintText: TextConstants.lastNameHint,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            TextConstants.phoneNumber,
+            style: text.labelLarge!.copyWith(
+              color: color.primary,
+            ),
+          ),
+          TextFormField(
+            controller: onlyPhoneController,
+            keyboardType: TextInputType.phone,
+            validator: InputValidators.phone,
+            decoration: InputDecoration(
+              prefixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CountryCodePicker(
+                    initialSelection: onlyPhoneController.text.split(" ")[0],
+                    padding: EdgeInsets.zero, // Set zero padding to the left
+                    countryFilter: const ['+880', 'US'],
+                    textStyle: text.labelMedium?.copyWith(
+                      fontSize: 16,
                     ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                      child: const VerticalDivider(
-                        color: UIColors.black,
-                        width: 1,
-                        thickness: 1,
-                      ),
+                    barrierColor: color.surface.withOpacity(0.75),
+                    dialogBackgroundColor: color.surface.withAlpha(10),
+                    onChanged: (country) {
+                      countryCodeController.text = country.dialCode!;
+                    },
+                  ),
+                  Container(
+                    height: 20,
+                    padding: const EdgeInsets.only(right: 5),
+                    child: VerticalDivider(
+                      color: color.outline,
+                      width: 1,
+                      thickness: 1,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              validator: InputValidators.phone,
-              onChanged: (value) {
-                ref
-                    .watch(updateProfileValidationProvider.notifier)
-                    .isAbleToUpdate(value);
-              },
+              hintText: TextConstants.phoneNumberHint,
             ),
-            const GenderDropdownFormField(),
-            const BirthdayFormFieldBuilder(),
-          ],
-        ),
+          ),
+          GenderDropdownFormField(
+            controller: genderController,
+          ),
+          BirthdayFormFieldBuilder(
+            controller: dateOfBirthController,
+          ),
+        ],
       ),
     );
-  }
-
-  void _capitalizeFirstLetter(TextEditingController controller) {
-    final text = controller.text;
-    final newText = text.replaceAllMapped(
-      RegExp(r'\b\w'),
-      (match) => match.group(0)!.toUpperCase(),
-    );
-
-    if (newText != text) {
-      final newSelectionOffset = newText.length;
-      controller.value = controller.value.copyWith(
-        text: newText,
-        selection: TextSelection.collapsed(offset: newSelectionOffset),
-      );
-    }
   }
 }

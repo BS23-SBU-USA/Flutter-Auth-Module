@@ -1,9 +1,5 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:async';
 
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/presentation/riverpod/set_new_password_provider.dart';
 import 'package:auth_module/src/features/authentication/sign_in/presentation/riverpod/sign_in_providers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/domain/use_case/set_new_password_use_case.dart';
@@ -26,14 +22,17 @@ class SetNewPasswordNotifier extends AutoDisposeNotifier<SetNewPasswordState> {
     return const SetNewPasswordState();
   }
 
-  Future<void> newPasswordSubmit() async {
+  Future<void> newPasswordSubmit({
+    required String email,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
     state = state.copyWith(status: SetNewPasswordStatus.loading);
 
     final requestBody = <String, dynamic>{
-      'email': ref.read(forgotPasswordEmailStateProvider.notifier).state.text,
-      'password': ref.read(setNewPasswordStateProvider.notifier).state.text,
-      'confirmPassword':
-          ref.read(setConfirmPasswordStateProvider.notifier).state.text,
+      'email': email,
+      'password': newPassword,
+      'confirmPassword': confirmPassword,
     };
 
     final response = await useCase.call(

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/colors.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,6 +32,10 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
 
     final state = ref.watch(identityVerificationProvider);
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textStyle = theme.textTheme;
+
     ref.listen(
       identityVerificationProvider,
       (_, next) {
@@ -64,8 +66,8 @@ class CountdownTimerState extends ConsumerState<CountdownTimer> {
         showResendButton
             ? TextConstants.resendEmail
             : '${TextConstants.resendEmail} in ${seconds}s',
-        style: AppTypography.semiBold14Circular(
-          color: UIColors.pineGreen,
+        style: textStyle.labelLarge?.copyWith(
+          color: colorScheme.primary,
         ),
       ),
     );

@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/data/data_sources/set_new_password_local_data_source.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/data/data_sources/set_new_password_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/set_new_password/data/repositories/set_new_password_repository_impl.dart';

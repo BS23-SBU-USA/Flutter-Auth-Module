@@ -1,9 +1,9 @@
-import 'package:auth_module/src/core/utils/assets.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+
+import '../gen/assets.gen.dart';
 
 class ModalBottomSheet extends StatelessWidget {
   const ModalBottomSheet({
@@ -17,6 +17,8 @@ class ModalBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
     return GestureDetector(
       onTap: () async {
         await showModalBottomSheet<void>(
@@ -44,9 +46,10 @@ class ModalBottomSheet extends StatelessWidget {
         );
       },
       child: Image.asset(
-        Assets.expandIcon,
+        Assets.images.expandIcon.path,
         width: 24.sp,
         height: 24.sp,
+        color: color.primary,
       ),
     );
   }
@@ -66,6 +69,9 @@ class ModalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return Padding(
       padding: EdgeInsets.only(bottom: 20.h),
       child: GestureDetector(
@@ -77,8 +83,11 @@ class ModalCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                backgroundColor: UIColors.antiFlashWhite,
-                child: Image.asset(icon),
+                backgroundColor: color.primaryContainer,
+                child: Image.asset(
+                  icon,
+                  color: color.onPrimaryContainer,
+                ),
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -86,10 +95,10 @@ class ModalCard extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: 49,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Color(0xFFF5F6F6),
+                          color: color.outline,
                           width: 1,
                         ),
                       ),
@@ -99,8 +108,8 @@ class ModalCard extends StatelessWidget {
                       children: [
                         Text(
                           label,
-                          style: AppTypography.bold14Caros(
-                            color: UIColors.black,
+                          style: text.labelLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -125,33 +134,37 @@ class _ModalHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return Padding(
-      padding: EdgeInsets.only(bottom: 20.h),
+      padding: EdgeInsets.only(bottom: 20.h, right: 24.w, left: 24.w),
       child: Stack(
-        alignment: Alignment.centerLeft,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: SvgPicture.asset(
-              Assets.remove,
-              width: 24.sp,
-              height: 24.sp,
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: text.titleMedium,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: AppTypography.bold14Caros(
-                    color: UIColors.black,
-                  ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: GestureDetector(
+              onTap: () {
+                context.pop();
+              },
+              child: SvgPicture.asset(
+                Assets.images.removeIcon,
+                width: 24.sp,
+                height: 24.sp,
+                colorFilter: ColorFilter.mode(
+                  color.onSurface,
+                  BlendMode.srcIn,
                 ),
-              ],
+              ),
             ),
           ),
         ],

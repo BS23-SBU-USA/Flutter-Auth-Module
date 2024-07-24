@@ -1,12 +1,12 @@
-import 'package:auth_module/src/core/utils/assets.dart';
+import 'package:auth_module/src/core/services/routes/route_generator.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../../core/gen/assets.gen.dart';
+
 
 class SuccessPage extends StatefulWidget {
   const SuccessPage({super.key});
@@ -18,6 +18,9 @@ class SuccessPage extends StatefulWidget {
 class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
     return Scaffold(
       floatingActionButton: GestureDetector(
         onTap: _navigateToSignInPage,
@@ -27,12 +30,16 @@ class _SuccessPageState extends State<SuccessPage> {
             vertical: 8.sp,
           ),
           child: SvgPicture.asset(
-            Assets.backIcon,
+            Assets.images.backIcon,
+            colorFilter: ColorFilter.mode(
+              color.onPrimary,
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      backgroundColor: UIColors.white,
+      backgroundColor: color.background,
       body: Center(
         child: SizedBox(
           width: 400.w,
@@ -42,24 +49,19 @@ class _SuccessPageState extends State<SuccessPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  TextConstants.congratulations,
-                  style: AppTypography.bold24Caros(
-                    color: UIColors.pineGreen,
-                  ),
-                ),
+                Text(TextConstants.congratulations,
+                    style: text.titleLarge!.copyWith(
+                      color: color.primary,
+                    )),
                 SizedBox(height: 20.h),
                 Text(
                   TextConstants.accountCreatedSuccess,
-                  style: AppTypography.regular14Caros(),
+                  style: text.bodyMedium,
                 ),
                 SizedBox(height: 30.h),
-                Button(
-                  onPressed: _navigateToSignInPage,
-                  label: TextConstants.login,
-                  textStyle:
-                      AppTypography.semiBold16Caros(color: UIColors.white),
-                ),
+                FilledButton(
+                    onPressed: _navigateToSignInPage,
+                    child: const Text(TextConstants.login)),
               ],
             ),
           ),
@@ -69,7 +71,6 @@ class _SuccessPageState extends State<SuccessPage> {
   }
 
   void _navigateToSignInPage() {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(Routes.signIn, (route) => false);
+    router.go(Routes.signIn);
   }
 }

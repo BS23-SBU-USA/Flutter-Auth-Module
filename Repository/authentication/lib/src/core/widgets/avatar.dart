@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,8 +7,8 @@ class Avatar extends StatelessWidget {
   const Avatar.circle({
     required this.url,
     super.key,
-    this.backgroundColor = UIColors.pineGreen,
-    this.borderColor = UIColors.white,
+    this.backgroundColor,
+    this.borderColor,
     this.activityStatus,
     this.onTap,
     this.height = 128,
@@ -106,7 +104,7 @@ class Avatar extends StatelessWidget {
                 child: Text(
                   nameWithLetter,
                   style: TextStyle(
-                    color: UIColors.pineGreen,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: fontSize,
                   ),
                 ),

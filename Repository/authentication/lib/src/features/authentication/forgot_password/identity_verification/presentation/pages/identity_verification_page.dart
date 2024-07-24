@@ -1,34 +1,32 @@
+import 'dart:developer';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/validators//input_validators.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
-import 'package:auth_module/src/core/widgets/primary_input_form_field.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
-import 'package:auth_module/src/features/authentication/forgot_password/dashboard/presentation/riverpod/forgot_password_provider.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_notifier.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/riverpod/identity_verification_providers.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/presentation/widgets/countdown_timer.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_back_button.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/build_title.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/widgets/scrollable_wrapper.dart';
-import 'package:auth_module/src/features/authentication/sign_in/presentation/model/user_model.dart';
-import 'package:auth_module/src/features/authentication/sign_up/presentation/riverpod/sign_up_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
-part '../widgets/otp_field_builder.dart';
+import '../../../../../../core/services/routes/route_generator.dart';
+
 
 class IdentityVerificationPage extends ConsumerStatefulWidget {
   const IdentityVerificationPage({
     required this.isFromSignUp,
     super.key,
-    this.user,
+    required this.email,
   });
 
-  final UserModel? user;
+  final String email;
   final bool isFromSignUp;
 
   @override
@@ -39,20 +37,11 @@ class IdentityVerificationPage extends ConsumerStatefulWidget {
 class _IdentityVerificationPageState
     extends ConsumerState<IdentityVerificationPage> {
   bool isButtonEnabled = false;
-
+  final TextEditingController _otpController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    var email = ref.read(forgotPasswordEmailStateProvider.notifier).state.text;
-
-    if (email.isEmpty) {
-      email = ref.read(signUpEmailStateProvider.notifier).state.text;
-    }
-
     ref.read(otpStateProvider.notifier).state.clear();
-
-    ref
-        .read(identityVerificationProvider.notifier)
-        .identityVerificationInitial(email: email);
 
     super.initState();
   }
@@ -78,6 +67,10 @@ class _IdentityVerificationPageState
         }
       },
     );
+
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    // !!: Do we really need this
     return WillPopScope(
       onWillPop: () async {
         _onPressed();
@@ -98,25 +91,47 @@ class _IdentityVerificationPageState
                   TextConstants.identityVerificationSubtitleLastPart,
             ),
             SizedBox(height: 70.h),
-            const _OtpField(),
-            SizedBox(height: 347.h),
-            Button(
-              onPressed: () {
-                if (ref
-                    .read(otpFormKeyStateProvider.notifier)
-                    .state
-                    .currentState!
-                    .validate()) {
-                  onButtonPressed(state, context);
-                }
-              },
-              isLoading: state.status == IdentityVerificationStatus.loading,
-              label: TextConstants.submit,
-              textStyle: !ref.watch(otpButtonStateProvider)
-                  ? AppTypography.semiBold16Caros(color: UIColors.gray)
-                  : AppTypography.semiBold16Caros(color: UIColors.white),
-              disable: !ref.watch(otpButtonStateProvider),
+            Form(
+              key: _formKey,
+              child: TextFormField(
+                controller: _otpController,
+                keyboardType: TextInputType.number,
+                validator: InputValidators.otp,
+                decoration: const InputDecoration(
+                  labelText: TextConstants.yourCode,
+                ),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(6),
+                ],
+              ),
             ),
+            SizedBox(height: 347.h),
+            StatefulBuilder(builder: (context, reload) {
+              _otpController.addListener(() {
+                if (_otpController.text.length > 4) {
+                  reload(() {});
+                }
+              });
+              return FilledButton(
+                onPressed: state.isLoading || _otpController.text.length < 6
+                    ? null
+                    : () {
+                        if (_formKey.currentState!.validate()) {
+                          onButtonPressed(state, context);
+                        }
+                      },
+                child: state.isLoading
+                    ? Transform.scale(
+                        scale: 0.75,
+                        child: CircularProgressIndicator(
+                          color: color.primary,
+                        ),
+                      )
+                    : const Text(
+                        TextConstants.submit,
+                      ),
+              );
+            }),
             SizedBox(height: 16.h),
             const CountdownTimer(),
           ],
@@ -126,12 +141,15 @@ class _IdentityVerificationPageState
   }
 
   void onButtonPressed(IdentityVerificationState state, BuildContext context) {
+    log("email: ${widget.email}");
     FocusScope.of(context).unfocus();
-    ref
-        .read(identityVerificationProvider.notifier)
-        .identityVerificationSubmit();
+    ref.read(identityVerificationProvider.notifier).identityVerificationSubmit(
+          email: widget.email,
+          otp: _otpController.text,
+        );
   }
 
+  // !!: Do we really need this?
   void _onPressed() {
     showDialog<void>(
       context: context,
@@ -141,22 +159,22 @@ class _IdentityVerificationPageState
           content: const Text(TextConstants.wantToGoBack),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'No',
-                style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
+                style: AppTypography.semiBold16Caros,
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             TextButton(
-              child: Text(
+              child: const Text(
                 'Yes',
-                style: AppTypography.semiBold16Caros(color: UIColors.pineGreen),
+                style: AppTypography.semiBold16Caros,
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.pop(context);
+                context.pop();
+                context.pop();
               },
             ),
           ],
@@ -166,17 +184,12 @@ class _IdentityVerificationPageState
   }
 
   void _navigateToWelcomePage() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      Routes.welcome,
-      (route) => false,
-    );
+    router.go(Routes.welcome);
   }
 
   void _navigateToResetPasswordPage() {
-    Navigator.pushNamed(
-      context,
-      Routes.resetPassword,
-    );
+   router.push(Routes.resetPassword, extra: {
+     'email': widget.email,
+   });
   }
 }

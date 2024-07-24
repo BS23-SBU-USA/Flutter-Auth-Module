@@ -1,4 +1,3 @@
-// ignore_for_file: one_member_abstracts
 
 import 'package:auth_module/src/core/services/network/api_end_points.dart';
 import 'package:auth_module/src/core/services/network/network_provider.dart';

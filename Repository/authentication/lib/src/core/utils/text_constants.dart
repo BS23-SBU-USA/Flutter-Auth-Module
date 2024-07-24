@@ -11,7 +11,9 @@ class TextConstants {
   static const String submit = 'Submit';
   static const String createAnAccount = 'Create an account';
   static const String firstName = 'Your first name';
+  static const String firstNameHint = 'Enter your first name';
   static const String lastName = 'Your last name';
+  static const String lastNameHint = 'Enter your last name';
   static const String alreadyHaveAnAccount = 'Already have an account? ';
   static const String iAgreeWith = 'I agree with ';
   static const String termsAndConditions = 'Terms & Conditions';
@@ -20,10 +22,14 @@ class TextConstants {
   static const String email = 'Email';
   static const String yourEmail = 'Your email';
   static const String updateProfile = 'Update Profile';
+  static const String updateProfileTitleFirstPart = 'Update';
+  static const String updateProfileTitleLastPart = ' Profile';
   static const String dateOfBirth = 'Date of Birth';
   static const String offline = 'Offline';
   static const String phoneNumber = 'Phone Number *';
+  static const String phoneNumberHint = 'Enter your phone number';
   static const String connecting = 'Connecting...';
+  static const String userNotFound = 'User not found';
 
   /// Login Screen
   static const String password = 'Password';

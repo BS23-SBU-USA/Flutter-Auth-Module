@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/data/data_sources/identity_verification_local_data_source.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/data/data_sources/identity_verification_remote_data_source.dart';
 import 'package:auth_module/src/features/authentication/forgot_password/identity_verification/data/repositories/identity_verification_repository_impl.dart';

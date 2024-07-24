@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:auth_module/src/features/authentication/sign_up/domain/entities/sign_up_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:network/network.dart';

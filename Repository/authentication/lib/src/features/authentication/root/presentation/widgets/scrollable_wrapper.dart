@@ -1,4 +1,3 @@
-import 'package:auth_module/src/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ScrollableWrapper extends StatelessWidget {
@@ -21,10 +20,11 @@ class ScrollableWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: UIColors.white,
+        backgroundColor: theme.colorScheme.background,
         appBar: appBar,
         body: SafeArea(
           child: LayoutBuilder(
@@ -44,9 +44,7 @@ class ScrollableWrapper extends StatelessWidget {
                           topPadding +
                           bottomPadding,
                     ),
-                    child: IntrinsicHeight(
-                      child: child,
-                    ),
+                    child: child,
                   ),
                 ),
               );

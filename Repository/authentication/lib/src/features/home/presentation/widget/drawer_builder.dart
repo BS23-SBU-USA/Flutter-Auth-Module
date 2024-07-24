@@ -1,10 +1,9 @@
 import 'dart:convert';
 
+import 'package:auth_module/src/core/services/routes/route_generator.dart';
 import 'package:auth_module/src/core/services/routes/routes.dart';
 import 'package:auth_module/src/core/services/local_storage/cache_service.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
 import 'package:auth_module/src/core/widgets/avatar.dart';
 import 'package:auth_module/src/core/widgets/name_with_letter.dart';
 import 'package:auth_module/src/core/widgets/primary_snackbar.dart';
@@ -18,6 +17,7 @@ import 'package:auth_module/src/features/profile/user_profile/presentation/river
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 part '../widget/drawer_header_widget.dart';
 
@@ -44,41 +44,44 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
       }
     });
 
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: UIColors.pineGreen,
+              color: color.primary,
             ),
-            child: DrawerHeaderWidget(),
+            child: const DrawerHeaderWidget(),
           ),
           if (!ssoNotifier.state)
             if (!offlineState.state)
               if (profileState.status == UserProfileStatus.loading ||
                   updateState.status == UpdateProfileStatus.loading)
-                const Center(
+                Center(
                   child: CircularProgressIndicator(
-                    color: UIColors.pineGreen,
+                    color: color.onPrimary,
                   ),
                 )
-              else
+              else if (profileState.status.isSuccess)
                 ListTile(
                   leading: const Icon(Icons.person),
                   title: Text(
                     TextConstants.updateProfile,
-                    style:
-                        AppTypography.regular14Circular(color: UIColors.black),
+                    style: text.labelLarge,
                   ),
-                  onTap: _navigateToUpdateProfile,
+                  onTap: _navigateToUpdateProfile, 
                 ),
-          if (!ssoNotifier.state)
+          if (!ssoNotifier.state && profileState.status.isSuccess)
             ListTile(
               leading: const Icon(Icons.lock),
               title: Text(
                 TextConstants.changePassword,
-                style: AppTypography.regular14Circular(color: UIColors.black),
+                style: text.labelLarge,
               ),
               onTap: _navigateToChangePassword,
             ),
@@ -90,14 +93,14 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
                     child: Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2.sp,
-                        color: UIColors.gray,
+                        color: color.onPrimary,
                       ),
                     ),
                   )
                 : const Icon(Icons.logout),
             title: Text(
               TextConstants.logOut,
-              style: AppTypography.regular14Circular(color: UIColors.black),
+              style: text.labelLarge,
             ),
             onTap: () {
               if (logOutState.status != LogOutStatus.loading) {
@@ -124,29 +127,22 @@ class _DrawerBuilderState extends ConsumerState<DrawerBuilder> {
 
       logOutNotifier.removeStates();
 
-      await Navigator.of(context).pushNamedAndRemoveUntil(
-        Routes.signIn,
-        (Route<dynamic> route) => false,
-      );
+      router.go(Routes.signIn);
     }
   }
 
   void _navigateToChangePassword() {
-    Navigator.pop(context);
-    Navigator.pushNamed(context, Routes.changePassword);
+    context.pop();
+    router.push( Routes.changePassword);
   }
 
   void _navigateToUpdateProfile() {
-    Navigator.pop(context);
+    context.pop();
 
-    Navigator.pushNamed(context, Routes.updateProfile);
+    router.push( Routes.updateProfile);
   }
 
   void navigateToSignInPage() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      Routes.signIn,
-      (route) => false,
-    );
+    router.go(Routes.signIn);
   }
 }

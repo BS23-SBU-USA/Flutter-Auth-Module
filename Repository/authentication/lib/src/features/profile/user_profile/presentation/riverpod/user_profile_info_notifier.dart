@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_dynamic_calls
 
 part of 'user_profile_info_provider.dart';
 

@@ -6,17 +6,16 @@ class SignInNotifier extends Notifier<BaseState> {
   @override
   BaseState build() {
     signInUseCase = ref.read(signInUseCaseProvider);
-    ref.onDispose(_clearFields);
     return const BaseState();
   }
 
-  Future<void> signIn() async {
+  Future<void> signIn({required String email, required String password}) async {
     try {
       state = state.copyWith(status: BaseStatus.loading);
 
       final signInCredential = SignInCredential(
-        email: ref.read(signInEmailStateProvider.notifier).state.text,
-        password: ref.read(signInPasswordStateProvider.notifier).state.text,
+        email: email,
+        password: password,
       );
 
       final result = await signInUseCase.call(
@@ -77,21 +76,19 @@ class SignInNotifier extends Notifier<BaseState> {
     }
   }
 
-  Future<void> getStoredCredentials() async {
+  Future<Map<String, String>?> getStoredCredentials() async {
     final result = await signInUseCase.getStoredCredentials();
-
+    
     if (result != null) {
-      ref.read(signInEmailStateProvider.notifier).state.text =
-          result['userEmail'];
-      ref.read(signInPasswordStateProvider.notifier).state.text =
-          result['password'];
-      ref.read(rememberMeStateProvider.notifier).state = true;
+      return {
+        'email': result['userEmail'],
+        'password': result['password'],
+      };
+    } else {
+      return null;
     }
+
+   
   }
 
-  void _clearFields() {
-    ref.read(signInEmailStateProvider.notifier).state = TextEditingController();
-    ref.read(signInPasswordStateProvider.notifier).state =
-        TextEditingController();
-  }
 }

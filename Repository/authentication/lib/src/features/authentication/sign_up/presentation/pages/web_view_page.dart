@@ -1,6 +1,6 @@
-import 'package:auth_module/src/core/theme/theme.dart';
+import 'package:auth_module/src/core/theme/extension.dart';
 import 'package:auth_module/src/core/theme/typography/style.dart';
-import 'package:auth_module/src/core/widgets/button/button.dart';
+import 'package:auth_module/src/core/widgets/button/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -46,14 +46,14 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.white,
+        backgroundColor: context.color.primaryContainer,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Terms & Conditions',
-          style: AppTypography.semiBold18Caros(),
+          style: AppTypography.semiBold18Caros,
         ),
         centerTitle: true,
-        leading: Button.back(),
+        leading: const AppBackButton(),
       ),
       body: SafeArea(
         child: Stack(
@@ -63,8 +63,8 @@ class _WebViewPageState extends State<WebViewPage> {
               controller: controller,
             ),
             if (loading)
-              const CircularProgressIndicator(
-                color: UIColors.pineGreen,
+              CircularProgressIndicator(
+                color: context.color.primary,
               ),
           ],
         ),

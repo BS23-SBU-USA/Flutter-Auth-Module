@@ -18,7 +18,7 @@ class _SocialLogo extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: UIColors.black,
+            color: Theme.of(context).colorScheme.outline,
           ),
         ),
         child: SvgPicture.asset(url),

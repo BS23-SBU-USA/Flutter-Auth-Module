@@ -11,41 +11,11 @@ class UpdateProfileInfoNotifier
   @override
   UpdateProfileState build() {
     _updateProfileUseCase = ref.read(updateProfileUseCaseProvider);
-
-    ref.listen(userProfileInfoProvider, (previous, next) {
-      if (next.status.isSuccess) {
-        profileEntity = next.data!;
-        _resetProfile();
-      }
-    });
     return UpdateProfileState();
   }
-
-  Future<void> onUpdateProfileSubmit() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-
-    final profileRequestModel = ProfileRequestModel(
-      firstname: (profileEntity.firstname != firstNameController.text)
-          ? firstNameController.text
-          : '',
-      lastname: (profileEntity.lastname != lastNameController.text)
-          ? lastNameController.text
-          : '',
-      dateOfBirth: (profileEntity.dateOfBirth != dateOfBirthController.text)
-          ? dateOfBirthController.text
-          : '',
-      gender: (profileEntity.gender != genderController.text)
-          ? genderController.text
-          : '',
-      phone: (profileEntity.phone != onlyPhoneController.text)
-          ? countryCodeController.text + onlyPhoneController.text
-          : '',
-      avatar: (profileEntity.avatar != avatarController.text)
-          ? avatarController.text
-          : '',
-    );
+  Future<void> onUpdateProfileSubmit(
+    ProfileRequestModel profileRequestModel,
+  ) async {
 
     state = state.copyWith(status: UpdateProfileStatus.loading);
 
@@ -66,14 +36,12 @@ class UpdateProfileInfoNotifier
         );
         ref.read(userProfileInfoProvider).data = profileEntity;
       } else {
-        _resetProfile();
         state = state.copyWith(
           status: UpdateProfileStatus.failure,
           error: response.$1,
         );
       }
     } catch (e, stackTrace) {
-      _resetProfile();
       Log.debug(stackTrace.toString());
       state.copyWith(
         status: UpdateProfileStatus.failure,
@@ -82,34 +50,8 @@ class UpdateProfileInfoNotifier
     }
   }
 
-  void _resetProfile() {
-    firstNameController.text = profileEntity.firstname!;
-    lastNameController.text = profileEntity.lastname!;
-    avatarController.text = profileEntity.avatar ?? '';
-    onlyPhoneController.text = profileEntity.phone != null
-        ? profileEntity.phone!.substring(
-            profileEntity.phone!.length - 10,
-            profileEntity.phone!.length,
-          )
-        : '';
-    genderController.text = profileEntity.gender ?? '';
-    countryCodeController.text = profileEntity.phone != null
-        ? profileEntity.phone!.substring(0, profileEntity.phone!.length - 10)
-        : '+880';
-    dateOfBirthController.text = profileEntity.dateOfBirth ?? '';
-    isNotificationEnabled = profileEntity.notificationPreference ?? false;
 
-    profileEntity.phone != null
-        ? hasPhoneNumber = true
-        : hasPhoneNumber = false;
-  }
 
-  /// Text fields controllers
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController onlyPhoneController = TextEditingController();
-  final TextEditingController dateOfBirthController = TextEditingController();
-  final TextEditingController avatarController = TextEditingController();
-  final TextEditingController countryCodeController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
+
+
 }

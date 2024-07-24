@@ -1,11 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_dynamic_calls
-// ignore_for_file: prefer_typing_uninitialized_variables
-// ignore_for_file: use_build_context_synchronously
-
+import 'package:auth_module/src/core/theme/typography/fonts.dart';
 import 'package:auth_module/src/core/utils/loggers/logger.dart';
 import 'package:auth_module/src/core/utils/text_constants.dart';
-import 'package:auth_module/src/core/theme/theme.dart';
-import 'package:auth_module/src/core/theme/typography/style.dart';
 import 'package:auth_module/src/core/widgets/avatar.dart';
 import 'package:auth_module/src/core/widgets/name_with_letter.dart';
 import 'package:auth_module/src/features/authentication/root/presentation/riverpod/mock_user/mock_user_provider.dart';
@@ -21,10 +16,10 @@ class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
@@ -51,11 +46,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     Log.debug('user');
     Log.debug(ssoUser.toString());
 
+    final theme = Theme.of(context);
+    final color = theme.colorScheme;
+    final text = theme.textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: UIColors.pineGreen,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: UIColors.white),
+        backgroundColor: color.primary,
         leading: Builder(
           builder: (context) {
             return GestureDetector(
@@ -68,8 +65,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ? Avatar.circleWithFullName(
                         height: 30.r,
                         width: 30.r,
-                        borderColor: UIColors.pineGreen,
-                        backgroundColor: UIColors.celeste,
+                        borderColor:color.primary,
+                        backgroundColor: color.primaryContainer,
                         nameWithLetter: name,
                       )
                     : ssoState
@@ -77,7 +74,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             url: ssoUser?.photoUrl ?? '',
                             height: 30.r,
                             width: 30.r,
-                            borderColor: UIColors.pineGreen,
+                            borderColor: color.outline,
                           )
                         : (profileState.status.isLoading ||
                                 updateState.status.isLoading)
@@ -86,25 +83,25 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   height: 20.sp,
                                   width: 20.sp,
                                   child: CircularProgressIndicator(
-                                    color: UIColors.white,
+                                    color: color.onPrimary,
                                     strokeWidth: 2.sp,
                                   ),
                                 ),
                               )
                             : profileState.status.isFailure
-                                ? const Text(TextConstants.somethingWentWrong)
+                                ? const CircleAvatar()
                                 : profileState.data?.avatar != null
                                     ? Avatar.circle(
                                         url: profileState.data!.avatar!,
                                         height: 30.r,
                                         width: 30.r,
-                                        borderColor: UIColors.pineGreen,
+                                        borderColor: color.outline,
                                       )
                                     : Avatar.circleWithFullName(
                                         height: 30.r,
                                         width: 30.r,
-                                        borderColor: UIColors.pineGreen,
-                                        backgroundColor: UIColors.celeste,
+                                        borderColor: color.outline,
+                                        backgroundColor: color.primaryContainer,
                                         nameWithLetter: name,
                                       ),
               ),
@@ -119,13 +116,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                   : (profileState.status.isLoading ||
                           updateState.status.isLoading)
                       ? TextConstants.connecting
-                      : '${profileState.data?.firstname} '
-                          '${profileState.data?.lastname}',
-          style: AppTypography.semiBold18Caros(color: UIColors.white),
+                      : profileState.status.isFailure
+                          ? TextConstants.userNotFound
+                          : '${profileState.data?.firstname} '
+                              '${profileState.data?.lastname}',
+          style: text.titleMedium!.copyWith(
+            fontWeight: FontWeightManager.semiBold,
+            color: color.onPrimary,
+          ),
         ),
         centerTitle: false,
       ),
-      drawer: const DrawerBuilder(),
+      drawer: profileState.status.isLoading ? null : const DrawerBuilder(),
       body: Center(
         child: Text(
           offlineState
@@ -135,8 +137,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                   : (profileState.status.isLoading ||
                           updateState.status.isLoading)
                       ? ''
-                      : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!',
-          style: AppTypography.bold24Caros(color: UIColors.pineGreen),
+                      : profileState.status.isFailure
+                          ? "Couldn't fetch profile data.\n Please logout and try again"
+                          : 'Hello\n${profileState.data?.firstname} ${profileState.data?.lastname}!',
+          style: text.headlineSmall!.copyWith(
+            fontWeight: FontWeightManager.bold,
+            color: color.primary,
+          ),
           textAlign: TextAlign.center,
         ),
       ),
